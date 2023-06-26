@@ -1,0 +1,227 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Service</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.PSP45.utils</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Service (it.polimi.ingsw.PSP45.utils)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Service</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 21)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 60)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.PSP45.utils;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.PSP45.model.Coordinate;
+<i>4</i>&nbsp;import it.polimi.ingsw.PSP45.model.LightBlock;
+<i>5</i>&nbsp;import it.polimi.ingsw.PSP45.model.LightBoard;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import java.io.Serializable;
+<i>8</i>&nbsp;import java.util.ArrayList;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;/**
+<i>11</i>&nbsp; * @author Lorenzo Longaretti
+<i>12</i>&nbsp; * @author Andrea Gerosa
+<i>13</i>&nbsp; *
+<i>14</i>&nbsp; *
+<i>15</i>&nbsp; *
+<i>16</i>&nbsp; */
+<i>17</i>&nbsp;public class Service implements Serializable {
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    int type;
+<i>20</i>&nbsp;    String codice;
+<i>21</i>&nbsp;    String whatshouldido;
+<i>22</i>&nbsp;    int intservizio;  //numero di giocatori o worker della mossa
+<i>23</i>&nbsp;    private LightBoard lightBoard;
+<b class="nc"><i>24</i>&nbsp;    private ArrayList&lt;Coordinate&gt; availableCells = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>25</i>&nbsp;    private ArrayList&lt;LightBlock&gt; availableCells2 = new ArrayList&lt;&gt;();</b>
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    //private ArrayList&lt;Object&gt; AvailableCells2 = new ArrayList&lt;&gt;();
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;
+<b class="nc"><i>30</i>&nbsp;    public Service(int type, String codice, String whatshouldido) {</b>
+<b class="nc"><i>31</i>&nbsp;        this.type = type;</b>
+<b class="nc"><i>32</i>&nbsp;        this.codice = codice;</b>
+<b class="nc"><i>33</i>&nbsp;        this.whatshouldido = whatshouldido;</b>
+<b class="nc"><i>34</i>&nbsp;        this.intservizio = 0;</b>
+<i>35</i>&nbsp;
+<b class="nc"><i>36</i>&nbsp;    }</b>
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    public int getType() {
+<b class="nc"><i>39</i>&nbsp;        return type;</b>
+<i>40</i>&nbsp;    }
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    public String getCodice() {
+<b class="nc"><i>43</i>&nbsp;        return codice;</b>
+<i>44</i>&nbsp;    }
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    public String getWhatshouldido() {
+<b class="nc"><i>47</i>&nbsp;        return whatshouldido;</b>
+<i>48</i>&nbsp;    }
+<i>49</i>&nbsp;    public int getIntservizio() {
+<b class="nc"><i>50</i>&nbsp;        return intservizio;</b>
+<i>51</i>&nbsp;    }
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    public LightBoard getLightBoard() {
+<b class="nc"><i>54</i>&nbsp;        return lightBoard;</b>
+<i>55</i>&nbsp;    }
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    public void setType(int type) {
+<b class="nc"><i>58</i>&nbsp;        this.type = type;</b>
+<b class="nc"><i>59</i>&nbsp;    }</b>
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;    public void setCodice(String codice) {
+<b class="nc"><i>62</i>&nbsp;        this.codice = codice;</b>
+<b class="nc"><i>63</i>&nbsp;    }</b>
+<i>64</i>&nbsp;
+<i>65</i>&nbsp;    public void setIntservizio(int intservizio) {
+<b class="nc"><i>66</i>&nbsp;        this.intservizio = intservizio;</b>
+<b class="nc"><i>67</i>&nbsp;    }</b>
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    public void setWhatshouldido(String whatshouldido) {
+<b class="nc"><i>70</i>&nbsp;        this.whatshouldido = whatshouldido;</b>
+<b class="nc"><i>71</i>&nbsp;    }</b>
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;    public ArrayList&lt;Coordinate&gt; getAvailableCells() {
+<b class="nc"><i>74</i>&nbsp;        return availableCells;</b>
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;        /*return Collections.unmodifiableList(
+<i>77</i>&nbsp;                new ArrayList&lt;&gt;());*/
+<i>78</i>&nbsp;    }
+<i>79</i>&nbsp;
+<i>80</i>&nbsp;    public ArrayList&lt;LightBlock&gt; getAvailableCells2() {
+<b class="nc"><i>81</i>&nbsp;        return availableCells2;</b>
+<i>82</i>&nbsp;    }
+<i>83</i>&nbsp;
+<i>84</i>&nbsp;    public void setForNameAndNumber(){
+<b class="nc"><i>85</i>&nbsp;        setType(77);</b>
+<b class="nc"><i>86</i>&nbsp;        setCodice(cliMessage.nameAndNumberMessage);</b>
+<b class="nc"><i>87</i>&nbsp;        setIntservizio(78);</b>
+<b class="nc"><i>88</i>&nbsp;    }</b>
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;    public void setResponseForName(String name,int number){
+<b class="nc"><i>91</i>&nbsp;        setType(88);</b>
+<b class="nc"><i>92</i>&nbsp;        setWhatshouldido(name);</b>
+<b class="nc"><i>93</i>&nbsp;        setIntservizio(number);</b>
+<b class="nc"><i>94</i>&nbsp;    }</b>
+<i>95</i>&nbsp;
+<i>96</i>&nbsp;    public void sendWaitMessage() {
+<b class="nc"><i>97</i>&nbsp;        setType(99);</b>
+<b class="nc"><i>98</i>&nbsp;        setCodice(cliMessage.waitMessage);</b>
+<i>99</i>&nbsp;        //setWhatshouldido(&quot;WAIT&quot;);
+<b class="nc"><i>100</i>&nbsp;        setIntservizio(1);</b>
+<i>101</i>&nbsp;
+<b class="nc"><i>102</i>&nbsp;    }</b>
+<i>103</i>&nbsp;
+<i>104</i>&nbsp;    public void sendMoveMessage(ArrayList&lt;Coordinate&gt; c, LightBoard b) { //array dove può muoversi
+<b class="nc"><i>105</i>&nbsp;        setType(33);</b>
+<b class="nc"><i>106</i>&nbsp;        setCodice(cliMessage.moveMessage);</b>
+<b class="nc"><i>107</i>&nbsp;        availableCells = c;</b>
+<b class="nc"><i>108</i>&nbsp;        lightBoard = b;</b>
+<i>109</i>&nbsp;
+<i>110</i>&nbsp;
+<b class="nc"><i>111</i>&nbsp;    }</b>
+<i>112</i>&nbsp;
+<i>113</i>&nbsp;    public void sendBuildMessage(ArrayList&lt;LightBlock&gt; l, LightBoard b) {//array dove può muoversi
+<b class="nc"><i>114</i>&nbsp;        setType(22);</b>
+<b class="nc"><i>115</i>&nbsp;        setCodice(cliMessage.buildMessage);</b>
+<b class="nc"><i>116</i>&nbsp;        availableCells2 = l;</b>
+<b class="nc"><i>117</i>&nbsp;        lightBoard = b;</b>
+<i>118</i>&nbsp;
+<b class="nc"><i>119</i>&nbsp;    }</b>
+<i>120</i>&nbsp;
+<i>121</i>&nbsp;    public void receiveMoveMessage(Coordinate c, int k) {
+<b class="nc"><i>122</i>&nbsp;        System.out.println(&quot;entra in receive move message&quot;);</b>
+<b class="nc"><i>123</i>&nbsp;        availableCells.clear();</b>
+<b class="nc"><i>124</i>&nbsp;        availableCells.add(c);</b>
+<b class="nc"><i>125</i>&nbsp;        setType(11);</b>
+<b class="nc"><i>126</i>&nbsp;        setIntservizio(k);</b>
+<b class="nc"><i>127</i>&nbsp;    }</b>
+<i>128</i>&nbsp;
+<i>129</i>&nbsp;    public void receiveBuildMessage(LightBlock lb, int k) {
+<b class="nc"><i>130</i>&nbsp;        availableCells2.clear();</b>
+<b class="nc"><i>131</i>&nbsp;        availableCells2.add(lb);</b>
+<b class="nc"><i>132</i>&nbsp;        setType(44);</b>
+<b class="nc"><i>133</i>&nbsp;        setIntservizio(k);</b>
+<b class="nc"><i>134</i>&nbsp;    }</b>
+<i>135</i>&nbsp;
+<i>136</i>&nbsp;    public void setNexTurn(){
+<b class="nc"><i>137</i>&nbsp;        setType(100);</b>
+<b class="nc"><i>138</i>&nbsp;    }</b>
+<i>139</i>&nbsp;
+<i>140</i>&nbsp;    public void receiveExitMessage() {
+<b class="nc"><i>141</i>&nbsp;        setType(55);</b>
+<b class="nc"><i>142</i>&nbsp;    }</b>
+<i>143</i>&nbsp;
+<i>144</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-05 14:10</div>
+</div>
+</body>
+</html>

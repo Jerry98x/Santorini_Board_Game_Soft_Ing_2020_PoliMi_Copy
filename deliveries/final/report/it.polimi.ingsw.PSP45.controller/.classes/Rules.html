@@ -1,0 +1,569 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Rules</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.PSP45.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Rules (it.polimi.ingsw.PSP45.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Rules</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (36/ 36)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    97,2%
+  </span>
+  <span class="absValue">
+    (176/ 181)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.PSP45.controller;
+<i>2</i>&nbsp;import it.polimi.ingsw.PSP45.model.*;
+<i>3</i>&nbsp;import it.polimi.ingsw.PSP45.utils.*;
+<i>4</i>&nbsp;import java.util.ArrayList;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;/**
+<i>7</i>&nbsp; * @author Filippo Locatelli
+<i>8</i>&nbsp; *
+<i>9</i>&nbsp; * class that represent the rules of a player&#39;s turn
+<i>10</i>&nbsp; */
+<i>11</i>&nbsp;public class Rules extends AbstractRule {
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;    /**
+<i>14</i>&nbsp;     * Class constructor
+<i>15</i>&nbsp;     *
+<i>16</i>&nbsp;     * @param turn  Integer that identifies who is the player in control during this turn
+<i>17</i>&nbsp;     * @param board The board in which the game is being played
+<i>18</i>&nbsp;     */
+<i>19</i>&nbsp;    public Rules(int turn, Board board, Player currentPlayer, Player nextPlayer, Player thirdPlayer) {
+<b class="fc"><i>20</i>&nbsp;        super(turn, board, currentPlayer, nextPlayer, thirdPlayer);</b>
+<b class="fc"><i>21</i>&nbsp;    }</b>
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    /**
+<i>24</i>&nbsp;     * other class constructor without input parameters
+<i>25</i>&nbsp;     */
+<i>26</i>&nbsp;    public Rules() {
+<b class="fc"><i>27</i>&nbsp;        super();</b>
+<b class="fc"><i>28</i>&nbsp;    }</b>
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    /**
+<i>31</i>&nbsp;     * @return rule&#39;s Turn
+<i>32</i>&nbsp;     */
+<i>33</i>&nbsp;    @Override
+<i>34</i>&nbsp;    public int getTurn() {
+<b class="fc"><i>35</i>&nbsp;        return turn;</b>
+<i>36</i>&nbsp;    }
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    /**
+<i>39</i>&nbsp;     * @return rule&#39;s current player
+<i>40</i>&nbsp;     */
+<i>41</i>&nbsp;    @Override
+<i>42</i>&nbsp;    public Player getCurrentPlayer() {
+<b class="fc"><i>43</i>&nbsp;        return this.currentPlayer;</b>
+<i>44</i>&nbsp;    }
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    /**
+<i>47</i>&nbsp;     * @return rule&#39;s next player
+<i>48</i>&nbsp;     */
+<i>49</i>&nbsp;    @Override
+<i>50</i>&nbsp;    public Player getNextPlayer() {
+<b class="fc"><i>51</i>&nbsp;        return this.nextPlayer;</b>
+<i>52</i>&nbsp;    }
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    /**
+<i>55</i>&nbsp;     * @return rule&#39;s third player
+<i>56</i>&nbsp;     */
+<i>57</i>&nbsp;    @Override
+<i>58</i>&nbsp;    public Player getThirdPlayer() {
+<b class="fc"><i>59</i>&nbsp;        return this.thirdPlayer;</b>
+<i>60</i>&nbsp;    }
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    /**
+<i>63</i>&nbsp;     * @return rule&#39;s state
+<i>64</i>&nbsp;     */
+<i>65</i>&nbsp;    @Override
+<i>66</i>&nbsp;    public StateNumber getState() {
+<b class="fc"><i>67</i>&nbsp;        return state;</b>
+<i>68</i>&nbsp;    }
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;    @Override
+<i>71</i>&nbsp;    public ArrayList&lt;LightBlock&gt; getWorkerToSend() {
+<b class="fc"><i>72</i>&nbsp;        return workerToSend;</b>
+<i>73</i>&nbsp;    }
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;    /**
+<i>76</i>&nbsp;     * @return rule&#39;s list of possible moves
+<i>77</i>&nbsp;     */
+<i>78</i>&nbsp;    @Override
+<i>79</i>&nbsp;    public ArrayList&lt;LightBlock&gt; getMoveList() {
+<b class="fc"><i>80</i>&nbsp;        return moveList;</b>
+<i>81</i>&nbsp;    }
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;    /**
+<i>84</i>&nbsp;     * @return rule&#39;s list of possible builds
+<i>85</i>&nbsp;     */
+<i>86</i>&nbsp;    @Override
+<i>87</i>&nbsp;    public ArrayList&lt;LightBlock&gt; getBuildList() {
+<b class="fc"><i>88</i>&nbsp;        return buildList;</b>
+<i>89</i>&nbsp;    }
+<i>90</i>&nbsp;
+<i>91</i>&nbsp;    /**
+<i>92</i>&nbsp;     * @return rule&#39;s hasWon attribute
+<i>93</i>&nbsp;     */
+<i>94</i>&nbsp;    @Override
+<i>95</i>&nbsp;    public Boolean getHasWon() {
+<b class="fc"><i>96</i>&nbsp;        return this.HasWon;</b>
+<i>97</i>&nbsp;    }
+<i>98</i>&nbsp;
+<i>99</i>&nbsp;    /**
+<i>100</i>&nbsp;     * @return rule&#39;s worker that moved in this turn
+<i>101</i>&nbsp;     */
+<i>102</i>&nbsp;    @Override
+<i>103</i>&nbsp;    public Worker getMovedWorker() {
+<b class="fc"><i>104</i>&nbsp;        return this.movedWorker;</b>
+<i>105</i>&nbsp;    }
+<i>106</i>&nbsp;
+<i>107</i>&nbsp;    /**
+<i>108</i>&nbsp;     * @return rule&#39;s stringParticular attribute
+<i>109</i>&nbsp;     */
+<i>110</i>&nbsp;    @Override
+<i>111</i>&nbsp;    public String getStringParticular() {
+<b class="fc"><i>112</i>&nbsp;        return stringParticular;</b>
+<i>113</i>&nbsp;    }
+<i>114</i>&nbsp;
+<i>115</i>&nbsp;    @Override
+<i>116</i>&nbsp;    public Boolean getIsalive() {
+<b class="fc"><i>117</i>&nbsp;        return this.isalive;</b>
+<i>118</i>&nbsp;    }
+<i>119</i>&nbsp;
+<i>120</i>&nbsp;    /**
+<i>121</i>&nbsp;     * @return rule&#39;s level of the block occupied by the worker before moving
+<i>122</i>&nbsp;     */
+<i>123</i>&nbsp;    @Override
+<i>124</i>&nbsp;    public int getLevelPrecPosition() {
+<b class="fc"><i>125</i>&nbsp;        return this.levelPrecPosition;</b>
+<i>126</i>&nbsp;    }
+<i>127</i>&nbsp;
+<i>128</i>&nbsp;    /**
+<i>129</i>&nbsp;     * set rule&#39;s state to the given one
+<i>130</i>&nbsp;     * @param state
+<i>131</i>&nbsp;     */
+<i>132</i>&nbsp;    @Override
+<i>133</i>&nbsp;    public void setState(StateNumber state) {
+<b class="fc"><i>134</i>&nbsp;        this.state = state;</b>
+<b class="fc"><i>135</i>&nbsp;    }</b>
+<i>136</i>&nbsp;
+<i>137</i>&nbsp;    /**
+<i>138</i>&nbsp;     * set rule&#39;s moved Worker to the given one
+<i>139</i>&nbsp;     * @param movedWorker
+<i>140</i>&nbsp;     */
+<i>141</i>&nbsp;    @Override
+<i>142</i>&nbsp;    public void setMovedWorker(Worker movedWorker) {
+<b class="fc"><i>143</i>&nbsp;        workerToSend.clear();</b>
+<b class="fc"><i>144</i>&nbsp;        this.movedWorker=movedWorker;</b>
+<b class="fc"><i>145</i>&nbsp;    }</b>
+<i>146</i>&nbsp;
+<i>147</i>&nbsp;    /**
+<i>148</i>&nbsp;     * sets rule&#39;s stringParticular to the given one
+<i>149</i>&nbsp;     * @param stringParticular
+<i>150</i>&nbsp;     */
+<i>151</i>&nbsp;    @Override
+<i>152</i>&nbsp;    public void setStringParticular(String stringParticular) {
+<b class="fc"><i>153</i>&nbsp;        this.stringParticular = stringParticular;</b>
+<b class="fc"><i>154</i>&nbsp;    }</b>
+<i>155</i>&nbsp;
+<i>156</i>&nbsp;    @Override
+<i>157</i>&nbsp;    public void setWorkerToSend(ArrayList&lt;LightBlock&gt; workerToSend) {
+<b class="fc"><i>158</i>&nbsp;        this.workerToSend = workerToSend;</b>
+<b class="fc"><i>159</i>&nbsp;    }</b>
+<i>160</i>&nbsp;
+<i>161</i>&nbsp;    /**
+<i>162</i>&nbsp;     * set rule&#39;s isAlive attribute to the given one
+<i>163</i>&nbsp;     * @param isalive
+<i>164</i>&nbsp;     */
+<i>165</i>&nbsp;    @Override
+<i>166</i>&nbsp;    public void setIsalive(Boolean isalive) {
+<b class="fc"><i>167</i>&nbsp;        this.isalive = isalive;</b>
+<b class="fc"><i>168</i>&nbsp;    }</b>
+<i>169</i>&nbsp;
+<i>170</i>&nbsp;    /**
+<i>171</i>&nbsp;     * set rule&#39;s hasWon attribute to the given one
+<i>172</i>&nbsp;     * @param hasWon
+<i>173</i>&nbsp;     */
+<i>174</i>&nbsp;    @Override
+<i>175</i>&nbsp;    public void setHasWon(Boolean hasWon) {
+<b class="fc"><i>176</i>&nbsp;        this.HasWon = hasWon;</b>
+<b class="fc"><i>177</i>&nbsp;    }</b>
+<i>178</i>&nbsp;
+<i>179</i>&nbsp;    /**
+<i>180</i>&nbsp;     * set rule&#39;s level of the block occupied by the worker before moving to the given one
+<i>181</i>&nbsp;     * @param i
+<i>182</i>&nbsp;     */
+<i>183</i>&nbsp;    @Override
+<i>184</i>&nbsp;    public void setLevelPrecPosition(int i) {
+<b class="fc"><i>185</i>&nbsp;        this.levelPrecPosition = i;</b>
+<b class="fc"><i>186</i>&nbsp;    }</b>
+<i>187</i>&nbsp;
+<i>188</i>&nbsp;    /**
+<i>189</i>&nbsp;     * Method that manages the sequences of moves in a turn based on a player&#39;s divinity
+<i>190</i>&nbsp;     *
+<i>191</i>&nbsp;     * @param s service
+<i>192</i>&nbsp;     */
+<i>193</i>&nbsp;    @Override
+<i>194</i>&nbsp;    public void turnHandler(Service s) {
+<b class="fc"><i>195</i>&nbsp;        super.turnHandler(s);</b>
+<b class="fc"><i>196</i>&nbsp;    }</b>
+<i>197</i>&nbsp;
+<i>198</i>&nbsp;    /**
+<i>199</i>&nbsp;     * Method that manages the sequences of moves in a turn based on a player&#39;s divinity
+<i>200</i>&nbsp;     *
+<i>201</i>&nbsp;     * @param s service
+<i>202</i>&nbsp;     */
+<i>203</i>&nbsp;    @Override
+<i>204</i>&nbsp;    public void turnHandler_real(Service s) {
+<b class="fc"><i>205</i>&nbsp;        AbstractRule abstractRule1 = currentPlayer.getAbstractRule();</b>
+<b class="fc"><i>206</i>&nbsp;        Coordinate coordinate = new Coordinate(0, 0);</b>
+<b class="fc"><i>207</i>&nbsp;        if (state == StateNumber.settingMovement) {</b>
+<i>208</i>&nbsp;
+<b class="fc"><i>209</i>&nbsp;            abstractRule1.setMoves();</b>
+<b class="fc"><i>210</i>&nbsp;            setState(abstractRule1.getState());</b>
+<i>211</i>&nbsp;
+<i>212</i>&nbsp;        }
+<b class="fc"><i>213</i>&nbsp;        if (state == StateNumber.moving &amp;&amp; s.getType() == StateNumber.readyToMove) {</b>
+<b class="fc"><i>214</i>&nbsp;            Worker worker = currentPlayer.getSpecificWorker(s.getIntservizio());</b>
+<b class="fc"><i>215</i>&nbsp;            coordinate = s.getAvailableCells().get(0).getC();</b>
+<b class="fc"><i>216</i>&nbsp;            abstractRule1.performMove(worker, coordinate, s.getIntservizio());</b>
+<b class="fc"><i>217</i>&nbsp;            abstractRule1.CheckIfWin();</b>
+<b class="fc"><i>218</i>&nbsp;            setHasWon(abstractRule1.getHasWon());</b>
+<b class="fc"><i>219</i>&nbsp;            if (!abstractRule1.getHasWon()) {</b>
+<b class="fc"><i>220</i>&nbsp;                abstractRule1.setBuild();</b>
+<i>221</i>&nbsp;            }
+<i>222</i>&nbsp;        }
+<b class="fc"><i>223</i>&nbsp;        if (state == StateNumber.settingBuilding) {</b>
+<b class="fc"><i>224</i>&nbsp;            abstractRule1.setBuild();</b>
+<i>225</i>&nbsp;        }
+<b class="fc"><i>226</i>&nbsp;        if (state == StateNumber.building &amp;&amp; s.getType() == StateNumber.readyToBuild) {</b>
+<b class="fc"><i>227</i>&nbsp;            coordinate = s.getAvailableCells2().get(0).getC();</b>
+<b class="fc"><i>228</i>&nbsp;            abstractRule1.performBuild(coordinate);</b>
+<b class="fc"><i>229</i>&nbsp;            abstractRule1.nextTurn();</b>
+<i>230</i>&nbsp;        }
+<i>231</i>&nbsp;
+<b class="fc"><i>232</i>&nbsp;        if (state== StateNumber.onlymoving  &amp;&amp; s.getType() == StateNumber.readyToMove) {</b>
+<b class="fc"><i>233</i>&nbsp;            Worker worker = currentPlayer.getSpecificWorker(s.getIntservizio());</b>
+<b class="fc"><i>234</i>&nbsp;            coordinate = s.getAvailableCells().get(0).getC();</b>
+<b class="fc"><i>235</i>&nbsp;            currentPlayer.getAbstractRule().performMove(worker, coordinate, s.getIntservizio());</b>
+<b class="fc"><i>236</i>&nbsp;            setState(currentPlayer.getAbstractRule().getState());</b>
+<i>237</i>&nbsp;        }
+<i>238</i>&nbsp;
+<b class="fc"><i>239</i>&nbsp;        if (state== StateNumber.onlybuilding &amp;&amp; s.getType() == StateNumber.readyToBuild){</b>
+<b class="fc"><i>240</i>&nbsp;            coordinate = s.getAvailableCells2().get(0).getC();</b>
+<b class="fc"><i>241</i>&nbsp;            abstractRule1.performBuild(coordinate);</b>
+<i>242</i>&nbsp;        }
+<i>243</i>&nbsp;
+<b class="fc"><i>244</i>&nbsp;        if (state== StateNumber.onlynextturn ){</b>
+<b class="fc"><i>245</i>&nbsp;            currentPlayer.getAbstractRule().nextTurn();</b>
+<b class="fc"><i>246</i>&nbsp;            setState(currentPlayer.getAbstractRule().getState());</b>
+<i>247</i>&nbsp;        }
+<b class="fc"><i>248</i>&nbsp;    }</b>
+<i>249</i>&nbsp;
+<i>250</i>&nbsp;
+<i>251</i>&nbsp;    /**
+<i>252</i>&nbsp;     * Method that sets the movement in this turn
+<i>253</i>&nbsp;     */
+<i>254</i>&nbsp;    @Override
+<i>255</i>&nbsp;    public void setMoves() {
+<b class="fc"><i>256</i>&nbsp;        workerToSend.clear();</b>
+<b class="fc"><i>257</i>&nbsp;        AbstractRule abstractRule1 = currentPlayer.getAbstractRule();</b>
+<b class="fc"><i>258</i>&nbsp;        ArrayList&lt;LightBlock&gt; worker = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>259</i>&nbsp;        for (int i = 0; i &lt; currentPlayer.getWorkers().size(); i++) {</b>
+<b class="fc"><i>260</i>&nbsp;            abstractRule1.showMoves(currentPlayer.getWorkers().get(i));</b>
+<i>261</i>&nbsp;
+<i>262</i>&nbsp;        }
+<b class="fc"><i>263</i>&nbsp;        abstractRule1.CheckList(moveList);</b>
+<b class="fc"><i>264</i>&nbsp;        setIsalive(abstractRule1.getIsalive());</b>
+<b class="fc"><i>265</i>&nbsp;        if(isalive){</b>
+<b class="fc"><i>266</i>&nbsp;            LightBoard lightBoard = new LightBoard();</b>
+<b class="fc"><i>267</i>&nbsp;            lightBoard.update(board);</b>
+<b class="fc"><i>268</i>&nbsp;            service.sendMoveMessage(moveList, lightBoard, workerToSend, stringParticular);</b>
+<b class="fc"><i>269</i>&nbsp;            abstractRule1.setState(StateNumber.moving);</b>
+<b class="fc"><i>270</i>&nbsp;            setState(abstractRule1.getState());</b>
+<b class="fc"><i>271</i>&nbsp;            frommodeltoview help = new frommodeltoview(currentPlayer, service);</b>
+<b class="fc"><i>272</i>&nbsp;            notify(help);</b>
+<i>273</i>&nbsp;        }
+<i>274</i>&nbsp;
+<b class="fc"><i>275</i>&nbsp;    }</b>
+<i>276</i>&nbsp;
+<i>277</i>&nbsp;    /**
+<i>278</i>&nbsp;     * Method that shows the player in which blocks his/hers workers can be moved
+<i>279</i>&nbsp;     *
+<i>280</i>&nbsp;     * @param worker worker of which we want to kw where it can be moved
+<i>281</i>&nbsp;     */
+<i>282</i>&nbsp;    @Override
+<i>283</i>&nbsp;    public void showMoves(Worker worker) {
+<i>284</i>&nbsp;
+<b class="fc"><i>285</i>&nbsp;        Coordinate coordinate = worker.getCoordinate();</b>
+<i>286</i>&nbsp;
+<i>287</i>&nbsp;        try {
+<b class="fc"><i>288</i>&nbsp;            ArrayList&lt;LightBlock&gt; help1 = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>289</i>&nbsp;            ArrayList&lt;LightBlock&gt; help = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>290</i>&nbsp;            help1 = board.freeSpacesBuild(coordinate);</b>
+<b class="fc"><i>291</i>&nbsp;            help = board.whereIsRightLevel(coordinate,help1);</b>
+<i>292</i>&nbsp;
+<b class="fc"><i>293</i>&nbsp;           if(help.size() == 7){</b>
+<i>294</i>&nbsp;           }
+<b class="fc"><i>295</i>&nbsp;            for (int i = 0; i &lt; help.size(); i++) {</b>
+<b class="fc"><i>296</i>&nbsp;                if(help.get(i)== null){</b>
+<i>297</i>&nbsp;                }
+<b class="fc"><i>298</i>&nbsp;                System.out.println(worker.getIdWorker());</b>
+<b class="fc"><i>299</i>&nbsp;                System.out.println(help.get(i));</b>
+<b class="fc"><i>300</i>&nbsp;                help.get(i).setIdWorker(worker.getIdWorker());</b>
+<b class="fc"><i>301</i>&nbsp;                moveList.add(help.get(i));</b>
+<i>302</i>&nbsp;            }
+<b class="fc"><i>303</i>&nbsp;            if(help.size()!=0){</b>
+<b class="fc"><i>304</i>&nbsp;                LightBlock lb = new LightBlock(worker.getCoordinate());</b>
+<b class="fc"><i>305</i>&nbsp;                lb.setIdWorker(worker.getIdWorker());</b>
+<b class="fc"><i>306</i>&nbsp;                workerToSend.add(lb);</b>
+<i>307</i>&nbsp;            }
+<i>308</i>&nbsp;
+<b class="nc"><i>309</i>&nbsp;        } catch (Exception e) {</b>
+<b class="nc"><i>310</i>&nbsp;            System.out.println(e);</b>
+<b class="fc"><i>311</i>&nbsp;        }</b>
+<i>312</i>&nbsp;
+<b class="fc"><i>313</i>&nbsp;    }</b>
+<i>314</i>&nbsp;
+<i>315</i>&nbsp;    /**
+<i>316</i>&nbsp;     * Method that moves a worker
+<i>317</i>&nbsp;     *
+<i>318</i>&nbsp;     * @param worker worker that is being moved
+<i>319</i>&nbsp;     * @param coordinate final coordinates of the movement
+<i>320</i>&nbsp;     * @param idWorker id number of the worker that is being moved
+<i>321</i>&nbsp;     */
+<i>322</i>&nbsp;    @Override
+<i>323</i>&nbsp;    public void performMove(Worker worker, Coordinate coordinate, int idWorker) {
+<b class="fc"><i>324</i>&nbsp;        setLevelPrecPosition(board.getBlock(worker.getCoordinate()).getLevel());</b>
+<b class="fc"><i>325</i>&nbsp;        Coordinate startingBlock = worker.getCoordinate();</b>
+<b class="fc"><i>326</i>&nbsp;        board.removeWorker(startingBlock);</b>
+<b class="fc"><i>327</i>&nbsp;        board.addWorker(coordinate, idWorker, currentPlayer.getColor()); //con apollo cambierà   //passerò player in handle player</b>
+<b class="fc"><i>328</i>&nbsp;        if (currentPlayer.getWorkers().get(0).getIdWorker() == idWorker) {</b>
+<b class="fc"><i>329</i>&nbsp;            currentPlayer.getWorkers().get(0).setCoordinate(coordinate);</b>
+<i>330</i>&nbsp;        } else {
+<b class="nc"><i>331</i>&nbsp;            currentPlayer.getWorkers().get(1).setCoordinate(coordinate);</b>
+<i>332</i>&nbsp;
+<i>333</i>&nbsp;        }
+<b class="fc"><i>334</i>&nbsp;        movedWorker = worker;</b>
+<b class="fc"><i>335</i>&nbsp;    }</b>
+<i>336</i>&nbsp;
+<i>337</i>&nbsp;    /**
+<i>338</i>&nbsp;     * Method that sets the construction of a block in this turn
+<i>339</i>&nbsp;     */
+<i>340</i>&nbsp;    @Override
+<i>341</i>&nbsp;    public void setBuild() {
+<b class="fc"><i>342</i>&nbsp;        AbstractRule abstractRule1 = currentPlayer.getAbstractRule();</b>
+<i>343</i>&nbsp;
+<b class="fc"><i>344</i>&nbsp;        abstractRule1.showBuild(movedWorker);</b>
+<b class="fc"><i>345</i>&nbsp;        abstractRule1.CheckList(buildList);</b>
+<b class="fc"><i>346</i>&nbsp;        setIsalive(abstractRule1.getIsalive());</b>
+<b class="fc"><i>347</i>&nbsp;        if(isalive){</b>
+<b class="fc"><i>348</i>&nbsp;            LightBoard lightBoard = new LightBoard();</b>
+<b class="fc"><i>349</i>&nbsp;            lightBoard.update(board);</b>
+<b class="fc"><i>350</i>&nbsp;            service.sendBuildMessage(buildList, lightBoard, movedWorker.getIdWorker(), stringParticular);</b>
+<b class="fc"><i>351</i>&nbsp;            abstractRule1.setState(StateNumber.building);</b>
+<b class="fc"><i>352</i>&nbsp;            setState(abstractRule1.getState());</b>
+<b class="fc"><i>353</i>&nbsp;            frommodeltoview help = new frommodeltoview(currentPlayer, service);</b>
+<b class="fc"><i>354</i>&nbsp;            notify(help);</b>
+<i>355</i>&nbsp;        }
+<i>356</i>&nbsp;        else{
+<i>357</i>&nbsp;        }
+<i>358</i>&nbsp;
+<b class="fc"><i>359</i>&nbsp;    }</b>
+<i>360</i>&nbsp;
+<i>361</i>&nbsp;    /**
+<i>362</i>&nbsp;     * Method that shows the player where it&#39;s possible to build
+<i>363</i>&nbsp;     *
+<i>364</i>&nbsp;     * @param worker worker that got moved in this turn
+<i>365</i>&nbsp;     */
+<i>366</i>&nbsp;    @Override
+<i>367</i>&nbsp;    public void showBuild(Worker worker) {
+<b class="fc"><i>368</i>&nbsp;        Coordinate workersCoordinate = worker.getCoordinate();</b>
+<b class="fc"><i>369</i>&nbsp;        ArrayList&lt;LightBlock&gt; help2 = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>370</i>&nbsp;        help2 = board.freeSpacesBuild(workersCoordinate);</b>
+<b class="fc"><i>371</i>&nbsp;        for (int i = 0; i &lt; help2.size(); i++) {</b>
+<b class="fc"><i>372</i>&nbsp;            buildList.add(help2.get(i));</b>
+<i>373</i>&nbsp;        }
+<i>374</i>&nbsp;
+<b class="fc"><i>375</i>&nbsp;    }</b>
+<i>376</i>&nbsp;
+<i>377</i>&nbsp;    /**
+<i>378</i>&nbsp;     * Method used to build a block
+<i>379</i>&nbsp;     *
+<i>380</i>&nbsp;     * @param coordinate coordinates where the block will be added
+<i>381</i>&nbsp;     */
+<i>382</i>&nbsp;    @Override
+<i>383</i>&nbsp;    public void performBuild(Coordinate coordinate) {
+<b class="fc"><i>384</i>&nbsp;        board.getBlock(coordinate).levelUp();</b>
+<b class="fc"><i>385</i>&nbsp;    }</b>
+<i>386</i>&nbsp;
+<i>387</i>&nbsp;    /**
+<i>388</i>&nbsp;     * Method that sets the state for the player to 0, meaning his/her turn is over
+<i>389</i>&nbsp;     */
+<i>390</i>&nbsp;    @Override
+<i>391</i>&nbsp;    public void nextTurn() {
+<b class="fc"><i>392</i>&nbsp;        setState(StateNumber.settingMovement);</b>
+<b class="fc"><i>393</i>&nbsp;        service.setNexTurn();</b>
+<b class="fc"><i>394</i>&nbsp;        frommodeltoview help = new frommodeltoview(nextPlayer, service);</b>
+<b class="fc"><i>395</i>&nbsp;        if(thirdPlayer != null ){</b>
+<b class="fc"><i>396</i>&nbsp;            if(!nextPlayer.getAbstractRule().getIsalive()){</b>
+<b class="nc"><i>397</i>&nbsp;                help = new frommodeltoview(nextPlayer.getAbstractRule().nextPlayer, service);</b>
+<i>398</i>&nbsp;            }
+<i>399</i>&nbsp;        }
+<b class="fc"><i>400</i>&nbsp;        service.getAvailableCells().clear();</b>
+<b class="fc"><i>401</i>&nbsp;        service.getAvailableCells2().clear();</b>
+<b class="fc"><i>402</i>&nbsp;        notify(help);</b>
+<b class="fc"><i>403</i>&nbsp;    }</b>
+<i>404</i>&nbsp;
+<i>405</i>&nbsp;    /**
+<i>406</i>&nbsp;     * method that checks if the player has won in this turn
+<i>407</i>&nbsp;     */
+<i>408</i>&nbsp;    @Override
+<i>409</i>&nbsp;    public void CheckIfWin() {
+<b class="fc"><i>410</i>&nbsp;        if (levelPrecPosition == 2 &amp;&amp; board.getBlock(movedWorker.getCoordinate()).getLevel() == 3) {</b>
+<b class="fc"><i>411</i>&nbsp;            setState(StateNumber.haswon);</b>
+<b class="fc"><i>412</i>&nbsp;            setHasWon(true);</b>
+<b class="fc"><i>413</i>&nbsp;            service.setHasWon();</b>
+<b class="fc"><i>414</i>&nbsp;            frommodeltoview help = new frommodeltoview(currentPlayer, service);</b>
+<b class="fc"><i>415</i>&nbsp;            service.getAvailableCells().clear();</b>
+<b class="fc"><i>416</i>&nbsp;            service.getAvailableCells2().clear();</b>
+<b class="fc"><i>417</i>&nbsp;            notify(help);</b>
+<i>418</i>&nbsp;        }
+<b class="fc"><i>419</i>&nbsp;    }</b>
+<i>420</i>&nbsp;
+<i>421</i>&nbsp;    /**
+<i>422</i>&nbsp;     * method that manages what happens when a player loses the game
+<i>423</i>&nbsp;     */
+<i>424</i>&nbsp;    @Override
+<i>425</i>&nbsp;    public void lose() {
+<b class="fc"><i>426</i>&nbsp;        setState(StateNumber.sendhaslose);</b>
+<b class="fc"><i>427</i>&nbsp;        service.sendHasLose();</b>
+<b class="fc"><i>428</i>&nbsp;        frommodeltoview help = new frommodeltoview(nextPlayer, service);</b>
+<b class="fc"><i>429</i>&nbsp;        if(thirdPlayer != null ){</b>
+<b class="fc"><i>430</i>&nbsp;            if(!nextPlayer.getAbstractRule().getIsalive()){</b>
+<b class="nc"><i>431</i>&nbsp;                help = new frommodeltoview(nextPlayer.getAbstractRule().nextPlayer, service);</b>
+<i>432</i>&nbsp;            }
+<i>433</i>&nbsp;        }
+<b class="fc"><i>434</i>&nbsp;        service.getAvailableCells().clear();</b>
+<b class="fc"><i>435</i>&nbsp;        service.getAvailableCells2().clear();</b>
+<b class="fc"><i>436</i>&nbsp;        notify(help);</b>
+<b class="fc"><i>437</i>&nbsp;    }</b>
+<i>438</i>&nbsp;
+<i>439</i>&nbsp;    /**
+<i>440</i>&nbsp;     * method that reorganize the order of players
+<i>441</i>&nbsp;     */
+<i>442</i>&nbsp;    @Override
+<i>443</i>&nbsp;    public void invertPlayer() {
+<b class="fc"><i>444</i>&nbsp;        Player help = new Player(&quot;def&quot;, 1, GodName.hephaestus, Color.ANSI_WHITE);</b>
+<b class="fc"><i>445</i>&nbsp;        help = nextPlayer;</b>
+<b class="fc"><i>446</i>&nbsp;        nextPlayer = thirdPlayer;</b>
+<b class="fc"><i>447</i>&nbsp;        thirdPlayer = help;</b>
+<b class="fc"><i>448</i>&nbsp;    }</b>
+<i>449</i>&nbsp;
+<i>450</i>&nbsp;    /**
+<i>451</i>&nbsp;     * method that checks if a player can move or build in his turn
+<i>452</i>&nbsp;     * @param list list of blocks in which the player can move
+<i>453</i>&nbsp;     */
+<i>454</i>&nbsp;    @Override
+<i>455</i>&nbsp;    public void CheckList(ArrayList&lt;LightBlock&gt; list) {
+<b class="fc"><i>456</i>&nbsp;        if(list.size()==0){</b>
+<b class="fc"><i>457</i>&nbsp;            setIsalive(false);</b>
+<b class="fc"><i>458</i>&nbsp;            if(thirdPlayer != null){</b>
+<b class="fc"><i>459</i>&nbsp;                if(nextPlayer.getAbstractRule().getIsalive() &amp;&amp; thirdPlayer.getAbstractRule().getIsalive()){</b>
+<b class="fc"><i>460</i>&nbsp;                    nextTurn();</b>
+<i>461</i>&nbsp;                }
+<i>462</i>&nbsp;                else{
+<b class="fc"><i>463</i>&nbsp;                    lose();</b>
+<i>464</i>&nbsp;                }
+<i>465</i>&nbsp;            }
+<i>466</i>&nbsp;            else{
+<b class="fc"><i>467</i>&nbsp;                lose();</b>
+<i>468</i>&nbsp;            }
+<i>469</i>&nbsp;        }
+<b class="fc"><i>470</i>&nbsp;    }</b>
+<i>471</i>&nbsp;
+<i>472</i>&nbsp;    /**
+<i>473</i>&nbsp;     * method that manages what happens when a player wins the game
+<i>474</i>&nbsp;     */
+<i>475</i>&nbsp;    @Override
+<i>476</i>&nbsp;    public void Win() {
+<b class="fc"><i>477</i>&nbsp;        setState(StateNumber.haswon);</b>
+<b class="fc"><i>478</i>&nbsp;        setHasWon(true);</b>
+<b class="fc"><i>479</i>&nbsp;        service.setHasWon();</b>
+<b class="fc"><i>480</i>&nbsp;        frommodeltoview help = new frommodeltoview(currentPlayer, service);</b>
+<b class="fc"><i>481</i>&nbsp;        service.getAvailableCells().clear();</b>
+<b class="fc"><i>482</i>&nbsp;        service.getAvailableCells2().clear();</b>
+<b class="fc"><i>483</i>&nbsp;        notify(help);</b>
+<b class="fc"><i>484</i>&nbsp;    }</b>
+<i>485</i>&nbsp;
+<i>486</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-07-03 18:11</div>
+</div>
+</body>
+</html>

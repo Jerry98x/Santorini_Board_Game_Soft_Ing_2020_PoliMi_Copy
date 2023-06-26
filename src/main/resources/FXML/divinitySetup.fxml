@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="godsPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.PSP45.gui.divinitySetupController">
+   <children>
+      <ImageView fitHeight="490.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.204071044921875" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../graphicResources/Sant.jpg" />
+         </image>
+      </ImageView>
+      <VBox fx:id="vb" prefHeight="490.0" prefWidth="800.0">
+         <children>
+            <Label fx:id="topText" text="Choose your divinity:" textFill="#0d0000">
+               <font>
+                  <Font name="Cooper Black" size="30.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="-10.0" left="200.0" />
+               </VBox.margin>
+            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ImageView fx:id="apollo" fitHeight="135.0" fitWidth="180.0" onMouseClicked="#chosenApollo" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../graphicResources/godCards/apollo.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="-2.0" right="2.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="artemis" fitHeight="135.0" fitWidth="180.0" onMouseClicked="#chosenArtemis" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../graphicResources/godCards/artemis.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="athena" fitHeight="135.0" fitWidth="180.0" onMouseClicked="#chosenAthena" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../graphicResources/godCards/athena.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="atlas" fitHeight="135.0" fitWidth="180.0" onMouseClicked="#chosenAtlas" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../graphicResources/godCards/atlas.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="demeter" fitHeight="135.0" fitWidth="180.0" onMouseClicked="#chosenDemeter" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../graphicResources/godCards/demeter.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="hephaestus" fitHeight="135.0" fitWidth="180.0" onMouseClicked="#chosenHephaestus" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../graphicResources/godCards/hephaestus.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="minotaur" fitHeight="135.0" fitWidth="180.0" onMouseClicked="#chosenMinotaur" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../graphicResources/godCards/minotaur.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="pan" fitHeight="135.0" fitWidth="180.0" onMouseClicked="#chosenPan" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../graphicResources/godCards/pan.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="prometheus" fitHeight="135.0" fitWidth="180.0" onMouseClicked="#chosenPrometheus" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../graphicResources/godCards/prometheus.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <padding>
+                  <Insets top="40.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="descriptionBox" prefHeight="800.0" prefWidth="200.0">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               <children>
+                  <ImageView fx:id="selectedGod" fitHeight="210.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin></ImageView>
+                  <TextArea fx:id="description" editable="false" prefHeight="200.0" prefWidth="250.0" stylesheets="@../CSS/transparentTextArea.css" visible="false" wrapText="true">
+                     <font>
+                        <Font name="Cooper Black" size="18.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets left="70.0" />
+                     </HBox.margin>
+                  </TextArea>
+                  <Button fx:id="confirm" mnemonicParsing="false" onMouseClicked="#sendDivinity" text="CONFIRM" textFill="#751653" visible="false">
+                     <font>
+                        <Font name="Cooper Black" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="70.0" top="80.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="40.0" />
+         </padding>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets></VBox>
+   </children>
+</AnchorPane>

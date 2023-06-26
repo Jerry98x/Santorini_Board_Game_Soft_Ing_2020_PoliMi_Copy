@@ -1,0 +1,143 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Rules</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.PSP45.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Rules (it.polimi.ingsw.PSP45.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Rules</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 12)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.PSP45.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;/**
+<i>4</i>&nbsp; * @author Filippo Locatelli
+<i>5</i>&nbsp; *
+<i>6</i>&nbsp; * class that represent the rules of a player&#39;s turn
+<i>7</i>&nbsp; */
+<i>8</i>&nbsp;public class Rules {
+<i>9</i>&nbsp;    Board board;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;    /**
+<i>13</i>&nbsp;     * class constructor
+<i>14</i>&nbsp;     *
+<i>15</i>&nbsp;     * @param board the game&#39;s board
+<i>16</i>&nbsp;     */
+<b class="nc"><i>17</i>&nbsp;    public Rules(Board board){</b>
+<i>18</i>&nbsp;        //costruttore
+<b class="nc"><i>19</i>&nbsp;        this.board=board;</b>
+<b class="nc"><i>20</i>&nbsp;    }</b>
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    /**
+<i>23</i>&nbsp;     *represent a turn
+<i>24</i>&nbsp;     *
+<i>25</i>&nbsp;     * @param player player who is playing this turn
+<i>26</i>&nbsp;     * @param idWorker id of the worker chosen to move and build
+<i>27</i>&nbsp;     * @param moveCoordinate coordinates in which the worker will be after the movement
+<i>28</i>&nbsp;     * @param buildCoordinate coordinates i which the player wants to build a block
+<i>29</i>&nbsp;     */
+<i>30</i>&nbsp;    public void turn(Player player, int idWorker, Coordinate moveCoordinate, Coordinate buildCoordinate){
+<i>31</i>&nbsp;        //chiedere al giocatore le coordinate in cui spostarsi
+<b class="nc"><i>32</i>&nbsp;        move(player,idWorker, moveCoordinate);</b>
+<i>33</i>&nbsp;        //chiedere al giocatore le coordinate in cui costruire
+<b class="nc"><i>34</i>&nbsp;        build(player,idWorker, buildCoordinate);</b>
+<b class="nc"><i>35</i>&nbsp;    }</b>
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    /**
+<i>38</i>&nbsp;     * movement of a worker
+<i>39</i>&nbsp;     *
+<i>40</i>&nbsp;     * @param player player who is playing this turn
+<i>41</i>&nbsp;     * @param idWorker id of the worker chosen to move
+<i>42</i>&nbsp;     * @param coordinate coordinates in which the worker will be after the movement
+<i>43</i>&nbsp;     */
+<i>44</i>&nbsp;    public void move(Player player,int idWorker,Coordinate coordinate){
+<b class="nc"><i>45</i>&nbsp;        Coordinate c = player.getWorkers().get(idWorker).getCoordinate();</b>
+<b class="nc"><i>46</i>&nbsp;        Boolean[][] SpacesList = board.showAroundSpaces(c);</b>
+<b class="nc"><i>47</i>&nbsp;        player.getWorkers().get(idWorker).setCoordinate(coordinate);</b>
+<b class="nc"><i>48</i>&nbsp;    }</b>
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    /**
+<i>51</i>&nbsp;     * construction of a block
+<i>52</i>&nbsp;     *
+<i>53</i>&nbsp;     * @param player player who is playing this turn
+<i>54</i>&nbsp;     * @param idWorker id of the worker chosen to build
+<i>55</i>&nbsp;     * @param coordinate coordinates i which the player wants to build a block
+<i>56</i>&nbsp;     */
+<i>57</i>&nbsp;    public void build(Player player, int idWorker, Coordinate coordinate){
+<b class="nc"><i>58</i>&nbsp;        board.getBlock(coordinate).levelUp();</b>
+<b class="nc"><i>59</i>&nbsp;    }</b>
+<i>60</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-04-07 14:42</div>
+</div>
+</body>
+</html>

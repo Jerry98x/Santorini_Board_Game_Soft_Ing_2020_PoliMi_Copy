@@ -1,0 +1,694 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: divinitySetupController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.PSP45.gui</a> ]
+</div>
+
+<h1>Coverage Summary for Class: divinitySetupController (it.polimi.ingsw.PSP45.gui)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">divinitySetupController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 205)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">divinitySetupController$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 7)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">divinitySetupController$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 7)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">divinitySetupController$3</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 25)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 220)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.PSP45.gui;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.PSP45.avviatori.ClientAppGUI;
+<i>4</i>&nbsp;import it.polimi.ingsw.PSP45.client.ClientGUI;
+<i>5</i>&nbsp;import it.polimi.ingsw.PSP45.utils.GodDescription;
+<i>6</i>&nbsp;import it.polimi.ingsw.PSP45.utils.GodName;
+<i>7</i>&nbsp;import javafx.fxml.FXML;
+<i>8</i>&nbsp;import javafx.fxml.FXMLLoader;
+<i>9</i>&nbsp;import javafx.geometry.Insets;
+<i>10</i>&nbsp;import javafx.scene.control.Button;
+<i>11</i>&nbsp;import javafx.scene.control.Label;
+<i>12</i>&nbsp;import javafx.scene.control.TextArea;
+<i>13</i>&nbsp;import javafx.scene.image.ImageView;
+<i>14</i>&nbsp;import javafx.scene.input.MouseEvent;
+<i>15</i>&nbsp;import javafx.scene.layout.AnchorPane;
+<i>16</i>&nbsp;import javafx.scene.layout.Pane;
+<i>17</i>&nbsp;import javafx.scene.layout.VBox;
+<i>18</i>&nbsp;import javafx.stage.Stage;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;import java.io.IOException;
+<i>21</i>&nbsp;import java.util.ArrayList;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;/**
+<i>24</i>&nbsp; * @author Lorenzo Longaretti
+<i>25</i>&nbsp; * @author Andrea Gerosa
+<i>26</i>&nbsp; * Controller class for the divinity setup scene of the gui.
+<i>27</i>&nbsp; * It contains methods that handle mouse events on various nodes and the steps of the divinities selection phase.
+<i>28</i>&nbsp; *
+<i>29</i>&nbsp; *
+<i>30</i>&nbsp; */
+<b class="nc"><i>31</i>&nbsp;public class divinitySetupController {</b>
+<i>32</i>&nbsp;
+<b class="nc"><i>33</i>&nbsp;	ClientGUI client = ClientAppGUI.getClient2();</b>
+<i>34</i>&nbsp;	GodName godName;
+<i>35</i>&nbsp;	String godDescription;
+<b class="nc"><i>36</i>&nbsp;	ArrayList&lt;GodName&gt; godNames = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>37</i>&nbsp;	ArrayList&lt;String&gt; godDescriptions = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>38</i>&nbsp;	int more = 0;</b>
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;	@FXML
+<i>41</i>&nbsp;	Pane godsPane;
+<i>42</i>&nbsp;	@FXML
+<i>43</i>&nbsp;	VBox vb;
+<i>44</i>&nbsp;	@FXML
+<i>45</i>&nbsp;	Label topText;
+<i>46</i>&nbsp;	@FXML
+<i>47</i>&nbsp;	ImageView apollo;
+<i>48</i>&nbsp;	@FXML
+<i>49</i>&nbsp;	ImageView artemis;
+<i>50</i>&nbsp;	@FXML
+<i>51</i>&nbsp;	ImageView athena;
+<i>52</i>&nbsp;	@FXML
+<i>53</i>&nbsp;	ImageView atlas;
+<i>54</i>&nbsp;	@FXML
+<i>55</i>&nbsp;	ImageView demeter;
+<i>56</i>&nbsp;	@FXML
+<i>57</i>&nbsp;	ImageView hephaestus;
+<i>58</i>&nbsp;	@FXML
+<i>59</i>&nbsp;	ImageView minotaur;
+<i>60</i>&nbsp;	@FXML
+<i>61</i>&nbsp;	ImageView pan;
+<i>62</i>&nbsp;	@FXML
+<i>63</i>&nbsp;	ImageView prometheus;
+<i>64</i>&nbsp;	@FXML
+<i>65</i>&nbsp;	ImageView selectedGod;
+<i>66</i>&nbsp;	@FXML
+<i>67</i>&nbsp;	TextArea description;
+<i>68</i>&nbsp;	@FXML
+<i>69</i>&nbsp;	Button confirm;
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;	public void setGodName(GodName godName) {
+<b class="nc"><i>72</i>&nbsp;		this.godName = godName;</b>
+<b class="nc"><i>73</i>&nbsp;	}</b>
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;	/**
+<i>76</i>&nbsp;	 * @author Lorenzo Longaretti
+<i>77</i>&nbsp;	 * Method that sets visible all the chosen gods&#39; ImageView whenever called.
+<i>78</i>&nbsp;	 *
+<i>79</i>&nbsp;	 */
+<i>80</i>&nbsp;	@FXML
+<i>81</i>&nbsp;	private void choose(){
+<b class="nc"><i>82</i>&nbsp;		client = ClientAppGUI.getClient2();</b>
+<b class="nc"><i>83</i>&nbsp;		ArrayList&lt;GodName&gt; listGod = client.getGodName();</b>
+<b class="nc"><i>84</i>&nbsp;		for (GodName god : listGod) {</b>
+<b class="nc"><i>85</i>&nbsp;			switch (god){</b>
+<b class="nc"><i>86</i>&nbsp;				case apollo: apollo.setDisable(false); apollo.setOpacity(1); break;</b>
+<b class="nc"><i>87</i>&nbsp;				case artemis: artemis.setDisable(false); artemis.setOpacity(1); break;</b>
+<b class="nc"><i>88</i>&nbsp;				case athena: athena.setDisable(false); athena.setOpacity(1); break;</b>
+<b class="nc"><i>89</i>&nbsp;				case atlas: atlas.setDisable(false); atlas.setOpacity(1); break;</b>
+<b class="nc"><i>90</i>&nbsp;				case demeter: demeter.setDisable(false);demeter.setOpacity(1); break;</b>
+<b class="nc"><i>91</i>&nbsp;				case hephaestus: hephaestus.setDisable(false); hephaestus.setOpacity(1); break;</b>
+<b class="nc"><i>92</i>&nbsp;				case minotaur: minotaur.setDisable(false); minotaur.setOpacity(1); break;</b>
+<b class="nc"><i>93</i>&nbsp;				case pan: pan.setDisable(false);pan.setOpacity(1); break;</b>
+<b class="nc"><i>94</i>&nbsp;				case prometheus: prometheus.setDisable(false);prometheus.setOpacity(1); break;</b>
+<i>95</i>&nbsp;				default: break;
+<i>96</i>&nbsp;			}
+<b class="nc"><i>97</i>&nbsp;		}</b>
+<b class="nc"><i>98</i>&nbsp;	}</b>
+<i>99</i>&nbsp;
+<i>100</i>&nbsp;
+<i>101</i>&nbsp;	/**
+<i>102</i>&nbsp;	 * @author  Lorenzo Longaretti
+<i>103</i>&nbsp;	 * Shows a bigger Image of the selected god (Apollo) and a description of its power.
+<i>104</i>&nbsp;	 * 
+<i>105</i>&nbsp;	 * @param event mouse click
+<i>106</i>&nbsp;	 */
+<i>107</i>&nbsp;	@FXML
+<i>108</i>&nbsp;	public void chosenApollo(MouseEvent event){
+<i>109</i>&nbsp;
+<b class="nc"><i>110</i>&nbsp;		selectedGod.setImage(apollo.getImage());</b>
+<i>111</i>&nbsp;
+<b class="nc"><i>112</i>&nbsp;		description.setText(GodDescription.apolloDesc);</b>
+<b class="nc"><i>113</i>&nbsp;		description.setVisible(true);</b>
+<i>114</i>&nbsp;
+<b class="nc"><i>115</i>&nbsp;		setGodName(GodName.apollo);</b>
+<b class="nc"><i>116</i>&nbsp;		confirm.setVisible(true);</b>
+<b class="nc"><i>117</i>&nbsp;	}</b>
+<i>118</i>&nbsp;
+<i>119</i>&nbsp;	/**
+<i>120</i>&nbsp;	 * @author  Lorenzo Longaretti
+<i>121</i>&nbsp;	 * Shows a bigger Image of the selected god (Artemis) and a description of its power.
+<i>122</i>&nbsp;	 *
+<i>123</i>&nbsp;	 * @param event mouse click
+<i>124</i>&nbsp;	 */
+<i>125</i>&nbsp;	@FXML
+<i>126</i>&nbsp;	public void chosenArtemis(MouseEvent event){
+<i>127</i>&nbsp;
+<b class="nc"><i>128</i>&nbsp;		selectedGod.setImage(artemis.getImage());</b>
+<i>129</i>&nbsp;
+<b class="nc"><i>130</i>&nbsp;		description.setText(GodDescription.artemisDesc);</b>
+<b class="nc"><i>131</i>&nbsp;		description.setVisible(true);</b>
+<i>132</i>&nbsp;
+<b class="nc"><i>133</i>&nbsp;		setGodName(GodName.artemis);</b>
+<b class="nc"><i>134</i>&nbsp;		confirm.setVisible(true);</b>
+<b class="nc"><i>135</i>&nbsp;	}</b>
+<i>136</i>&nbsp;
+<i>137</i>&nbsp;	/**
+<i>138</i>&nbsp;	 * @author  Lorenzo Longaretti
+<i>139</i>&nbsp;	 * Shows a bigger Image of the selected god (Athena) and a description of its power.
+<i>140</i>&nbsp;	 *
+<i>141</i>&nbsp;	 * @param event mouse click
+<i>142</i>&nbsp;	 */
+<i>143</i>&nbsp;	@FXML
+<i>144</i>&nbsp;	public void chosenAthena(MouseEvent event){
+<i>145</i>&nbsp;
+<b class="nc"><i>146</i>&nbsp;		selectedGod.setImage(athena.getImage());</b>
+<i>147</i>&nbsp;
+<b class="nc"><i>148</i>&nbsp;		description.setText(GodDescription.athenaDesc);</b>
+<b class="nc"><i>149</i>&nbsp;		description.setVisible(true);</b>
+<i>150</i>&nbsp;
+<b class="nc"><i>151</i>&nbsp;		setGodName(GodName.athena);</b>
+<b class="nc"><i>152</i>&nbsp;		confirm.setVisible(true);</b>
+<b class="nc"><i>153</i>&nbsp;	}</b>
+<i>154</i>&nbsp;	
+<i>155</i>&nbsp;	/**
+<i>156</i>&nbsp;	 * @author  Lorenzo Longaretti
+<i>157</i>&nbsp;	 * Shows a bigger Image of the selected god (Atlas) and a description of its power.
+<i>158</i>&nbsp;	 *
+<i>159</i>&nbsp;	 * @param event mouse click
+<i>160</i>&nbsp;	 */
+<i>161</i>&nbsp;	@FXML
+<i>162</i>&nbsp;	public void chosenAtlas(MouseEvent event){
+<i>163</i>&nbsp;
+<b class="nc"><i>164</i>&nbsp;		selectedGod.setImage(atlas.getImage());</b>
+<i>165</i>&nbsp;
+<b class="nc"><i>166</i>&nbsp;		description.setText(GodDescription.atlasDesc);</b>
+<b class="nc"><i>167</i>&nbsp;		description.setVisible(true);</b>
+<i>168</i>&nbsp;
+<b class="nc"><i>169</i>&nbsp;		setGodName(GodName.atlas);</b>
+<b class="nc"><i>170</i>&nbsp;		confirm.setVisible(true);</b>
+<b class="nc"><i>171</i>&nbsp;	}</b>
+<i>172</i>&nbsp;
+<i>173</i>&nbsp;	/**
+<i>174</i>&nbsp;	 * @author  Lorenzo Longaretti
+<i>175</i>&nbsp;	 * Shows a bigger Image of the selected god (Demeter) and a description of its power.
+<i>176</i>&nbsp;	 *
+<i>177</i>&nbsp;	 * @param event mouse click
+<i>178</i>&nbsp;	 */
+<i>179</i>&nbsp;	@FXML
+<i>180</i>&nbsp;	public void chosenDemeter(MouseEvent event){
+<i>181</i>&nbsp;
+<b class="nc"><i>182</i>&nbsp;		selectedGod.setImage(demeter.getImage());</b>
+<i>183</i>&nbsp;
+<b class="nc"><i>184</i>&nbsp;		description.setText(GodDescription.demeterDesc);</b>
+<b class="nc"><i>185</i>&nbsp;		description.setVisible(true);</b>
+<i>186</i>&nbsp;
+<b class="nc"><i>187</i>&nbsp;		setGodName(GodName.demeter);</b>
+<b class="nc"><i>188</i>&nbsp;		confirm.setVisible(true);</b>
+<b class="nc"><i>189</i>&nbsp;	}</b>
+<i>190</i>&nbsp;
+<i>191</i>&nbsp;	/**
+<i>192</i>&nbsp;	 * @author  Lorenzo Longaretti
+<i>193</i>&nbsp;	 * Shows a bigger Image of the selected god (Hephaestus) and a description of its power.
+<i>194</i>&nbsp;	 *
+<i>195</i>&nbsp;	 * @param event mouse click
+<i>196</i>&nbsp;	 */
+<i>197</i>&nbsp;	@FXML
+<i>198</i>&nbsp;	public void chosenHephaestus(MouseEvent event){
+<i>199</i>&nbsp;
+<b class="nc"><i>200</i>&nbsp;		selectedGod.setImage(hephaestus.getImage());</b>
+<i>201</i>&nbsp;
+<b class="nc"><i>202</i>&nbsp;		description.setText(GodDescription.hephaestusDesc);</b>
+<b class="nc"><i>203</i>&nbsp;		description.setVisible(true);</b>
+<i>204</i>&nbsp;
+<b class="nc"><i>205</i>&nbsp;		setGodName(GodName.hephaestus);</b>
+<b class="nc"><i>206</i>&nbsp;		confirm.setVisible(true);</b>
+<b class="nc"><i>207</i>&nbsp;	}</b>
+<i>208</i>&nbsp;
+<i>209</i>&nbsp;	/**
+<i>210</i>&nbsp;	 * @author  Lorenzo Longaretti
+<i>211</i>&nbsp;	 * Shows a bigger Image of the selected god (Minotaur) and a description of its power.
+<i>212</i>&nbsp;	 *
+<i>213</i>&nbsp;	 * @param event mouse click
+<i>214</i>&nbsp;	 */
+<i>215</i>&nbsp;	@FXML
+<i>216</i>&nbsp;	public void chosenMinotaur(MouseEvent event){
+<i>217</i>&nbsp;
+<b class="nc"><i>218</i>&nbsp;		selectedGod.setImage(minotaur.getImage());</b>
+<i>219</i>&nbsp;
+<b class="nc"><i>220</i>&nbsp;		description.setText(GodDescription.minotaurDesc);</b>
+<b class="nc"><i>221</i>&nbsp;		description.setVisible(true);</b>
+<i>222</i>&nbsp;
+<b class="nc"><i>223</i>&nbsp;		setGodName(GodName.minotaur);</b>
+<b class="nc"><i>224</i>&nbsp;		confirm.setVisible(true);</b>
+<b class="nc"><i>225</i>&nbsp;	}</b>
+<i>226</i>&nbsp;
+<i>227</i>&nbsp;	/**
+<i>228</i>&nbsp;	 * @author  Lorenzo Longaretti
+<i>229</i>&nbsp;	 * Shows a bigger Image of the selected god (Pan) and a description of its power.
+<i>230</i>&nbsp;	 *
+<i>231</i>&nbsp;	 * @param event mouse click
+<i>232</i>&nbsp;	 */
+<i>233</i>&nbsp;	@FXML
+<i>234</i>&nbsp;	public void chosenPan(MouseEvent event){
+<i>235</i>&nbsp;
+<b class="nc"><i>236</i>&nbsp;		selectedGod.setImage(pan.getImage());</b>
+<i>237</i>&nbsp;
+<b class="nc"><i>238</i>&nbsp;		description.setText(GodDescription.panDesc);</b>
+<b class="nc"><i>239</i>&nbsp;		description.setVisible(true);</b>
+<i>240</i>&nbsp;
+<b class="nc"><i>241</i>&nbsp;		setGodName(GodName.pan);</b>
+<b class="nc"><i>242</i>&nbsp;		confirm.setVisible(true);</b>
+<b class="nc"><i>243</i>&nbsp;	}</b>
+<i>244</i>&nbsp;
+<i>245</i>&nbsp;	/**
+<i>246</i>&nbsp;	 * @author  Lorenzo Longaretti
+<i>247</i>&nbsp;	 * Shows a bigger Image of the selected god (Prometheus) and a description of its power.
+<i>248</i>&nbsp;	 *
+<i>249</i>&nbsp;	 * @param event mouse click
+<i>250</i>&nbsp;	 */
+<i>251</i>&nbsp;	@FXML
+<i>252</i>&nbsp;	public void chosenPrometheus(MouseEvent event){
+<i>253</i>&nbsp;
+<b class="nc"><i>254</i>&nbsp;		selectedGod.setImage(prometheus.getImage());</b>
+<i>255</i>&nbsp;
+<b class="nc"><i>256</i>&nbsp;		description.setText(GodDescription.prometheusDesc);</b>
+<b class="nc"><i>257</i>&nbsp;		description.setVisible(true);</b>
+<i>258</i>&nbsp;
+<b class="nc"><i>259</i>&nbsp;		setGodName(GodName.prometheus);</b>
+<b class="nc"><i>260</i>&nbsp;		confirm.setVisible(true);</b>
+<b class="nc"><i>261</i>&nbsp;	}</b>
+<i>262</i>&nbsp;
+<i>263</i>&nbsp;	/**
+<i>264</i>&nbsp;	 * @author Lorenzo Longaretti
+<i>265</i>&nbsp;	 * Handles the sending of the divinities from the player who chooses all of them and the other players.
+<i>266</i>&nbsp;	 *
+<i>267</i>&nbsp;	 * @param event mouse click
+<i>268</i>&nbsp;	 */
+<i>269</i>&nbsp;	@FXML
+<i>270</i>&nbsp;	public void sendDivinity(MouseEvent event){
+<i>271</i>&nbsp;
+<b class="nc"><i>272</i>&nbsp;		if(more == 0){</b>
+<b class="nc"><i>273</i>&nbsp;			if(godName != null)</b>
+<i>274</i>&nbsp;			{
+<i>275</i>&nbsp;
+<b class="nc"><i>276</i>&nbsp;				lowerGodImageOpacity();</b>
+<b class="nc"><i>277</i>&nbsp;				Thread t = new Thread(new Runnable() {</b>
+<i>278</i>&nbsp;					@Override
+<i>279</i>&nbsp;					public void run() {
+<i>280</i>&nbsp;						try {
+<b class="nc"><i>281</i>&nbsp;							client = ClientAppGUI.getClient2();</b>
+<b class="nc"><i>282</i>&nbsp;							client.setGodName(godName);</b>
+<i>283</i>&nbsp;						}
+<b class="nc"><i>284</i>&nbsp;						catch (Exception e){</b>
+<b class="nc"><i>285</i>&nbsp;							System.err.println(e.getMessage());</b>
+<b class="nc"><i>286</i>&nbsp;						}</b>
+<i>287</i>&nbsp;
+<b class="nc"><i>288</i>&nbsp;					}</b>
+<i>289</i>&nbsp;				});
+<b class="nc"><i>290</i>&nbsp;				t.start();</b>
+<i>291</i>&nbsp;
+<b class="nc"><i>292</i>&nbsp;				gui.setYourGod(godName);</b>
+<i>293</i>&nbsp;
+<b class="nc"><i>294</i>&nbsp;				for(GodName god : godNames) { //client.service. arraylist con tutte le divinità</b>
+<b class="nc"><i>295</i>&nbsp;					gui.addDivinity(god);</b>
+<b class="nc"><i>296</i>&nbsp;				}</b>
+<b class="nc"><i>297</i>&nbsp;				for(String description: godDescriptions) {</b>
+<b class="nc"><i>298</i>&nbsp;					gui.addGodDescription(description);</b>
+<b class="nc"><i>299</i>&nbsp;				}</b>
+<i>300</i>&nbsp;
+<b class="nc"><i>301</i>&nbsp;				godsPane.setMouseTransparent(true);</b>
+<i>302</i>&nbsp;
+<b class="nc"><i>303</i>&nbsp;			}</b>
+<i>304</i>&nbsp;			else {
+<b class="nc"><i>305</i>&nbsp;				System.out.println(&quot;godname is null&quot;);</b>
+<i>306</i>&nbsp;			}
+<i>307</i>&nbsp;		}
+<i>308</i>&nbsp;		else{
+<i>309</i>&nbsp;			//----
+<b class="nc"><i>310</i>&nbsp;			if(godName != null)</b>
+<i>311</i>&nbsp;			{
+<b class="nc"><i>312</i>&nbsp;				if(godNames.size() == 0 ){</b>
+<b class="nc"><i>313</i>&nbsp;					godNames.add(godName);</b>
+<b class="nc"><i>314</i>&nbsp;					godDescriptions.add(godDescription);</b>
+<b class="nc"><i>315</i>&nbsp;					disableGodImage();</b>
+<i>316</i>&nbsp;				}
+<b class="nc"><i>317</i>&nbsp;				else if(godNames.size() == 1 &amp;&amp; client.getService().getIntservizio() == 3){</b>
+<b class="nc"><i>318</i>&nbsp;					godNames.add(godName);</b>
+<b class="nc"><i>319</i>&nbsp;					godDescriptions.add(godDescription);</b>
+<b class="nc"><i>320</i>&nbsp;					disableGodImage();</b>
+<i>321</i>&nbsp;				}
+<i>322</i>&nbsp;				else{
+<b class="nc"><i>323</i>&nbsp;					godNames.add(godName);</b>
+<b class="nc"><i>324</i>&nbsp;					godDescriptions.add(godDescription);</b>
+<b class="nc"><i>325</i>&nbsp;					disableGodImage();</b>
+<b class="nc"><i>326</i>&nbsp;					Thread t = new Thread(new Runnable() {</b>
+<i>327</i>&nbsp;						@Override
+<i>328</i>&nbsp;						public void run() {
+<i>329</i>&nbsp;							try {
+<b class="nc"><i>330</i>&nbsp;								client = ClientAppGUI.getClient2();</b>
+<b class="nc"><i>331</i>&nbsp;								client.setGodsName(godNames);</b>
+<i>332</i>&nbsp;							}
+<b class="nc"><i>333</i>&nbsp;							catch (Exception e){</b>
+<b class="nc"><i>334</i>&nbsp;								System.err.println(e.getMessage());</b>
+<b class="nc"><i>335</i>&nbsp;							}</b>
+<i>336</i>&nbsp;
+<b class="nc"><i>337</i>&nbsp;						}</b>
+<i>338</i>&nbsp;					});
+<b class="nc"><i>339</i>&nbsp;					t.start();</b>
+<i>340</i>&nbsp;
+<i>341</i>&nbsp;
+<b class="nc"><i>342</i>&nbsp;					godsPane.setMouseTransparent(true);</b>
+<i>343</i>&nbsp;
+<i>344</i>&nbsp;				}
+<b class="nc"><i>345</i>&nbsp;				godName = null;</b>
+<i>346</i>&nbsp;			}
+<i>347</i>&nbsp;			else {
+<b class="nc"><i>348</i>&nbsp;				System.out.println(&quot;godname is null&quot;);</b>
+<i>349</i>&nbsp;			}
+<i>350</i>&nbsp;		}
+<i>351</i>&nbsp;
+<b class="nc"><i>352</i>&nbsp;	}</b>
+<i>353</i>&nbsp;
+<i>354</i>&nbsp;	/**
+<i>355</i>&nbsp;	 * @author Lorenzo Longaretti
+<i>356</i>&nbsp;	 * Changes this scene to the one where the first player chooses who will start the game.
+<i>357</i>&nbsp;	 *
+<i>358</i>&nbsp;	 * @throws IOException
+<i>359</i>&nbsp;	 */
+<i>360</i>&nbsp;	@FXML
+<i>361</i>&nbsp;	public void loadFirstChoice() throws IOException {
+<i>362</i>&nbsp;
+<b class="nc"><i>363</i>&nbsp;		godsPane.setMouseTransparent(false);</b>
+<b class="nc"><i>364</i>&nbsp;		AnchorPane pane = FXMLLoader.load(getClass().getResource(&quot;/FXML/firstPlayerChoice.fxml&quot;));</b>
+<i>365</i>&nbsp;		//playerSetupController help = FXMLLoader();
+<b class="nc"><i>366</i>&nbsp;		godsPane.getChildren().setAll(pane);</b>
+<b class="nc"><i>367</i>&nbsp;		Stage stage = (Stage) pane.getScene().getWindow();</b>
+<i>368</i>&nbsp;
+<b class="nc"><i>369</i>&nbsp;	}</b>
+<i>370</i>&nbsp;
+<i>371</i>&nbsp;	/**
+<i>372</i>&nbsp;	 * @author Lorenzo Longaretti
+<i>373</i>&nbsp;	 * Changes this scene to the one where the players position their workes on the board.
+<i>374</i>&nbsp;	 *
+<i>375</i>&nbsp;	 * @throws IOException
+<i>376</i>&nbsp;	 */
+<i>377</i>&nbsp;	@FXML
+<i>378</i>&nbsp;	public void loadCoordinateChoice() throws IOException {
+<i>379</i>&nbsp;
+<b class="nc"><i>380</i>&nbsp;		godsPane.setMouseTransparent(false);</b>
+<b class="nc"><i>381</i>&nbsp;		AnchorPane pane = FXMLLoader.load(getClass().getResource(&quot;/FXML/preMainGame.fxml&quot;));</b>
+<b class="nc"><i>382</i>&nbsp;		godsPane.getChildren().setAll(pane);</b>
+<b class="nc"><i>383</i>&nbsp;		Stage stage = (Stage) pane.getScene().getWindow();</b>
+<b class="nc"><i>384</i>&nbsp;		stage.setHeight(750);</b>
+<b class="nc"><i>385</i>&nbsp;		stage.setWidth(1280);</b>
+<b class="nc"><i>386</i>&nbsp;	}</b>
+<i>387</i>&nbsp;
+<i>388</i>&nbsp;
+<i>389</i>&nbsp;	/**
+<i>390</i>&nbsp;	 * @author Andrea Gerosa
+<i>391</i>&nbsp;	 * Changes this scene to the main scene of the game, with the board and other informations.
+<i>392</i>&nbsp;	 *
+<i>393</i>&nbsp;	 * @throws IOException
+<i>394</i>&nbsp;	 */
+<i>395</i>&nbsp;	@FXML
+<i>396</i>&nbsp;	public void loadMainGame() throws IOException {
+<i>397</i>&nbsp;
+<b class="nc"><i>398</i>&nbsp;		godsPane.setMouseTransparent(false);</b>
+<b class="nc"><i>399</i>&nbsp;		AnchorPane pane = FXMLLoader.load(getClass().getResource(&quot;/FXML/mainGame.fxml&quot;));</b>
+<b class="nc"><i>400</i>&nbsp;		godsPane.getChildren().setAll(pane);</b>
+<b class="nc"><i>401</i>&nbsp;		Stage stage = (Stage) pane.getScene().getWindow();</b>
+<b class="nc"><i>402</i>&nbsp;		stage.setHeight(750);</b>
+<b class="nc"><i>403</i>&nbsp;		stage.setWidth(1280);</b>
+<b class="nc"><i>404</i>&nbsp;	}</b>
+<i>405</i>&nbsp;
+<i>406</i>&nbsp;	/**
+<i>407</i>&nbsp;	 * @author Lorenzo Longaretti
+<i>408</i>&nbsp;	 * Sets this controller in the gui object just after the scene has loaded.
+<i>409</i>&nbsp;	 * It also calls the choose method for showing the chosen gods and
+<i>410</i>&nbsp;	 * shows the most appropriate instruction for each step of this phase of the game.
+<i>411</i>&nbsp;	 *
+<i>412</i>&nbsp;	 */
+<i>413</i>&nbsp;	public void initialize(){
+<i>414</i>&nbsp;
+<b class="nc"><i>415</i>&nbsp;		godsPane.setMouseTransparent(false);</b>
+<b class="nc"><i>416</i>&nbsp;		disableOpaqueGod();</b>
+<b class="nc"><i>417</i>&nbsp;		choose();</b>
+<i>418</i>&nbsp;
+<b class="nc"><i>419</i>&nbsp;		more = client.getService().getIntservizio();</b>
+<i>420</i>&nbsp;
+<b class="nc"><i>421</i>&nbsp;		if(more != 0) {</b>
+<b class="nc"><i>422</i>&nbsp;			topText.setText(&quot;Choose the divinities for this match:&quot;);</b>
+<b class="nc"><i>423</i>&nbsp;			VBox.setMargin(topText, new Insets(0,0,-10,100));</b>
+<i>424</i>&nbsp;		}
+<i>425</i>&nbsp;		else {
+<b class="nc"><i>426</i>&nbsp;			topText.setText(&quot;Choose your divinity:&quot;);</b>
+<b class="nc"><i>427</i>&nbsp;			VBox.setMargin(topText, new Insets(0,0,-10,200));</b>
+<i>428</i>&nbsp;		}
+<i>429</i>&nbsp;
+<b class="nc"><i>430</i>&nbsp;		gui.setDivinitySetupController(this);</b>
+<b class="nc"><i>431</i>&nbsp;	}</b>
+<i>432</i>&nbsp;
+<i>433</i>&nbsp;	/**
+<i>434</i>&nbsp;	 * @author Andrea Gerosa
+<i>435</i>&nbsp;	 * Sets the Image of the selected god not visible and disable.
+<i>436</i>&nbsp;	 *
+<i>437</i>&nbsp;	 */
+<i>438</i>&nbsp;	public void disableGodImage() {
+<b class="nc"><i>439</i>&nbsp;		if(selectedGod.getImage() == apollo.getImage()) {</b>
+<b class="nc"><i>440</i>&nbsp;			apollo.setVisible(false);</b>
+<b class="nc"><i>441</i>&nbsp;			apollo.setDisable(true);</b>
+<i>442</i>&nbsp;		}
+<b class="nc"><i>443</i>&nbsp;		else if(selectedGod.getImage() == artemis.getImage()) {</b>
+<b class="nc"><i>444</i>&nbsp;			artemis.setVisible(false);</b>
+<b class="nc"><i>445</i>&nbsp;			artemis.setDisable(true);</b>
+<i>446</i>&nbsp;		}
+<b class="nc"><i>447</i>&nbsp;		else if(selectedGod.getImage() == athena.getImage()) {</b>
+<b class="nc"><i>448</i>&nbsp;			athena.setVisible(false);</b>
+<b class="nc"><i>449</i>&nbsp;			athena.setDisable(true);</b>
+<i>450</i>&nbsp;		}
+<b class="nc"><i>451</i>&nbsp;		else if(selectedGod.getImage() == atlas.getImage()) {</b>
+<b class="nc"><i>452</i>&nbsp;			atlas.setVisible(false);</b>
+<b class="nc"><i>453</i>&nbsp;			atlas.setDisable(true);</b>
+<i>454</i>&nbsp;		}
+<b class="nc"><i>455</i>&nbsp;		else if(selectedGod.getImage() == demeter.getImage()) {</b>
+<b class="nc"><i>456</i>&nbsp;			demeter.setVisible(false);</b>
+<b class="nc"><i>457</i>&nbsp;			demeter.setDisable(true);</b>
+<i>458</i>&nbsp;		}
+<b class="nc"><i>459</i>&nbsp;		else if(selectedGod.getImage() == hephaestus.getImage()) {</b>
+<b class="nc"><i>460</i>&nbsp;			hephaestus.setVisible(false);</b>
+<b class="nc"><i>461</i>&nbsp;			hephaestus.setDisable(true);</b>
+<i>462</i>&nbsp;		}
+<b class="nc"><i>463</i>&nbsp;		else if(selectedGod.getImage() == minotaur.getImage()) {</b>
+<b class="nc"><i>464</i>&nbsp;			minotaur.setVisible(false);</b>
+<b class="nc"><i>465</i>&nbsp;			minotaur.setDisable(true);</b>
+<i>466</i>&nbsp;		}
+<b class="nc"><i>467</i>&nbsp;		else if(selectedGod.getImage() == pan.getImage()) {</b>
+<b class="nc"><i>468</i>&nbsp;			pan.setVisible(false);</b>
+<b class="nc"><i>469</i>&nbsp;			pan.setDisable(true);</b>
+<i>470</i>&nbsp;		}
+<b class="nc"><i>471</i>&nbsp;		else if(selectedGod.getImage() == prometheus.getImage()) {</b>
+<b class="nc"><i>472</i>&nbsp;			prometheus.setVisible(false);</b>
+<b class="nc"><i>473</i>&nbsp;			prometheus.setDisable(true);</b>
+<i>474</i>&nbsp;		}
+<b class="nc"><i>475</i>&nbsp;	}</b>
+<i>476</i>&nbsp;
+<i>477</i>&nbsp;	/**
+<i>478</i>&nbsp;	 * @author Andrea Gerosa
+<i>479</i>&nbsp;	 * Sets the opacity of the gods&#39; ImageViews down to 0.5 if it&#39;s higher.
+<i>480</i>&nbsp;	 *
+<i>481</i>&nbsp;	 */
+<i>482</i>&nbsp;	public void lowerGodImageOpacity() {
+<b class="nc"><i>483</i>&nbsp;		if(apollo.getOpacity() &gt; 0.5) {</b>
+<b class="nc"><i>484</i>&nbsp;			apollo.setOpacity(0.5);</b>
+<i>485</i>&nbsp;		}
+<b class="nc"><i>486</i>&nbsp;		if(artemis.getOpacity() &gt; 0.5) {</b>
+<b class="nc"><i>487</i>&nbsp;			artemis.setOpacity(0.5);</b>
+<i>488</i>&nbsp;		}
+<b class="nc"><i>489</i>&nbsp;		if(athena.getOpacity() &gt; 0.5) {</b>
+<b class="nc"><i>490</i>&nbsp;			athena.setOpacity(0.5);</b>
+<i>491</i>&nbsp;		}
+<b class="nc"><i>492</i>&nbsp;		if(atlas.getOpacity() &gt; 0.5) {</b>
+<b class="nc"><i>493</i>&nbsp;			atlas.setOpacity(0.5);</b>
+<i>494</i>&nbsp;		}
+<b class="nc"><i>495</i>&nbsp;		if(demeter.getOpacity() &gt; 0.5) {</b>
+<b class="nc"><i>496</i>&nbsp;			demeter.setOpacity(0.5);</b>
+<i>497</i>&nbsp;		}
+<b class="nc"><i>498</i>&nbsp;		if(hephaestus.getOpacity() &gt; 0.5) {</b>
+<b class="nc"><i>499</i>&nbsp;			hephaestus.setOpacity(0.5);</b>
+<i>500</i>&nbsp;		}
+<b class="nc"><i>501</i>&nbsp;		if(minotaur.getOpacity() &gt; 0.5) {</b>
+<b class="nc"><i>502</i>&nbsp;			minotaur.setOpacity(0.5);</b>
+<i>503</i>&nbsp;		}
+<b class="nc"><i>504</i>&nbsp;		if(pan.getOpacity() &gt; 0.5) {</b>
+<b class="nc"><i>505</i>&nbsp;			pan.setOpacity(0.5);</b>
+<i>506</i>&nbsp;		}
+<b class="nc"><i>507</i>&nbsp;		if(prometheus.getOpacity() &gt; 0.5) {</b>
+<b class="nc"><i>508</i>&nbsp;			prometheus.setOpacity(0.5);</b>
+<i>509</i>&nbsp;		}
+<b class="nc"><i>510</i>&nbsp;	}</b>
+<i>511</i>&nbsp;
+<i>512</i>&nbsp;	/**
+<i>513</i>&nbsp;	 * @author Andrea Gerosa
+<i>514</i>&nbsp;	 * Disables the gods&#39; ImageViews whose opacity is 0.5.
+<i>515</i>&nbsp;	 *
+<i>516</i>&nbsp;	 */
+<i>517</i>&nbsp;	public void disableOpaqueGod() {
+<b class="nc"><i>518</i>&nbsp;		if(apollo.getOpacity() == 0.5) {</b>
+<b class="nc"><i>519</i>&nbsp;			apollo.setDisable(true);</b>
+<i>520</i>&nbsp;		}
+<b class="nc"><i>521</i>&nbsp;		if(artemis.getOpacity() == 0.5) {</b>
+<b class="nc"><i>522</i>&nbsp;			artemis.setDisable(true);</b>
+<i>523</i>&nbsp;		}
+<b class="nc"><i>524</i>&nbsp;		if(athena.getOpacity() == 0.5) {</b>
+<b class="nc"><i>525</i>&nbsp;			athena.setDisable(true);</b>
+<i>526</i>&nbsp;		}
+<b class="nc"><i>527</i>&nbsp;		if(atlas.getOpacity() == 0.5) {</b>
+<b class="nc"><i>528</i>&nbsp;			atlas.setDisable(true);</b>
+<i>529</i>&nbsp;		}
+<b class="nc"><i>530</i>&nbsp;		if(demeter.getOpacity() == 0.5) {</b>
+<b class="nc"><i>531</i>&nbsp;			demeter.setDisable(true);</b>
+<i>532</i>&nbsp;		}
+<b class="nc"><i>533</i>&nbsp;		if(hephaestus.getOpacity() == 0.5) {</b>
+<b class="nc"><i>534</i>&nbsp;			hephaestus.setDisable(true);</b>
+<i>535</i>&nbsp;		}
+<b class="nc"><i>536</i>&nbsp;		if(minotaur.getOpacity() == 0.5) {</b>
+<b class="nc"><i>537</i>&nbsp;			minotaur.setDisable(true);</b>
+<i>538</i>&nbsp;		}
+<b class="nc"><i>539</i>&nbsp;		if(pan.getOpacity() == 0.5) {</b>
+<b class="nc"><i>540</i>&nbsp;			pan.setDisable(true);</b>
+<i>541</i>&nbsp;		}
+<b class="nc"><i>542</i>&nbsp;		if(prometheus.getOpacity() == 0.5) {</b>
+<b class="nc"><i>543</i>&nbsp;			prometheus.setDisable(true);</b>
+<i>544</i>&nbsp;		}
+<b class="nc"><i>545</i>&nbsp;	}</b>
+<i>546</i>&nbsp;
+<i>547</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-07-03 18:11</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="secondPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.PSP45.gui.playerSetupController">
+   <children>
+      <ImageView fitHeight="490.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../graphicResources/Sant.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="92.0" layoutY="161.0" prefHeight="108.0" prefWidth="637.0" text="Set your name and the number of players (2 or 3)." textAlignment="CENTER" textFill="#0d0000">
+         <font>
+            <Font name="Cooper Black" size="24.0" />
+         </font></Label>
+      <Label layoutX="289.0" layoutY="280.0" prefHeight="17.0" prefWidth="62.0" text="Name:" textFill="#0d0000">
+         <font>
+            <Font name="Cooper Black" size="16.0" />
+         </font></Label>
+      <Label layoutX="284.0" layoutY="316.0" text="Players:" textFill="#0d0000">
+         <font>
+            <Font name="Cooper Black" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="nameText" layoutX="374.0" layoutY="277.0" promptText="Mario" />
+      <Button fx:id="nextButton" layoutX="350.0" layoutY="392.0" mnemonicParsing="false" onMouseClicked="#mouseName" prefHeight="43.0" prefWidth="100.0" text="NEXT" textAlignment="CENTER" textFill="#751653">
+         <font>
+            <Font name="Cooper Black" size="20.0" />
+         </font>
+      </Button>
+      <RadioButton fx:id="radio2" layoutX="391.0" layoutY="315.0" mnemonicParsing="false" text="2" textFill="#0d0000">
+         <font>
+            <Font name="Cooper Black" size="16.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="name" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="radio3" layoutX="462.0" layoutY="315.0" mnemonicParsing="false" text="3" textFill="#0d0000" toggleGroup="$name">
+         <font>
+            <Font name="Cooper Black" size="16.0" />
+         </font>
+      </RadioButton>
+   </children>
+</Pane>

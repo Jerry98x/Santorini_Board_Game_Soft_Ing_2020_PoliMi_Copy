@@ -1,0 +1,26 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+#IntelliJ
+out/
+.idea/
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/workspace.xml
+
+#Target folder
+out/
+target/
+target/**
+
+#Cache file
+*.DS_Store
+
+*.iml
+*.ipr
+*.iws

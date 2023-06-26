@@ -1,0 +1,415 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Minotaur</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.PSP45.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Minotaur (it.polimi.ingsw.PSP45.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Minotaur</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 31)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 138)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.PSP45.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.PSP45.model.*;
+<i>4</i>&nbsp;import it.polimi.ingsw.PSP45.utils.Color;
+<i>5</i>&nbsp;import it.polimi.ingsw.PSP45.utils.Service;
+<i>6</i>&nbsp;import it.polimi.ingsw.PSP45.utils.StateNumber;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;//import javax.sound.midi.spi.SoundbankReader;
+<i>9</i>&nbsp;import java.util.ArrayList;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;public class Minotaur extends God {
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;	public Minotaur(AbstractRule abstractRule){
+<b class="nc"><i>14</i>&nbsp;		super(abstractRule);</b>
+<b class="nc"><i>15</i>&nbsp;	}</b>
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;	@Override
+<i>18</i>&nbsp;	public ArrayList&lt;LightBlock&gt; getMoveList() {
+<b class="nc"><i>19</i>&nbsp;		return abstractRuleGod.getMoveList();</b>
+<i>20</i>&nbsp;	}
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;	@Override
+<i>23</i>&nbsp;	public ArrayList&lt;LightBlock&gt; getBuildList() {
+<b class="nc"><i>24</i>&nbsp;		return abstractRuleGod.getBuildList();</b>
+<i>25</i>&nbsp;	}
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;	@Override
+<i>28</i>&nbsp;	public StateNumber getState() {
+<b class="nc"><i>29</i>&nbsp;		return abstractRuleGod.getState();</b>
+<i>30</i>&nbsp;	}
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;	@Override
+<i>33</i>&nbsp;	public int getTurn() {
+<b class="nc"><i>34</i>&nbsp;		return abstractRuleGod.getTurn();</b>
+<i>35</i>&nbsp;	}
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;	@Override
+<i>38</i>&nbsp;	public void setState(StateNumber state) {
+<b class="nc"><i>39</i>&nbsp;		this.state = state;</b>
+<b class="nc"><i>40</i>&nbsp;		abstractRuleGod.setState(state);</b>
+<b class="nc"><i>41</i>&nbsp;	}</b>
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;	@Override
+<i>44</i>&nbsp;	public Player getCurrentPlayer() {
+<b class="nc"><i>45</i>&nbsp;		return abstractRuleGod.getCurrentPlayer();</b>
+<i>46</i>&nbsp;	}
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;	@Override
+<i>49</i>&nbsp;	public Player getNextPlayer() {
+<b class="nc"><i>50</i>&nbsp;		return abstractRuleGod.getNextPlayer();</b>
+<i>51</i>&nbsp;	}
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;	@Override
+<i>54</i>&nbsp;	public Player getThirdPlayer() {
+<b class="nc"><i>55</i>&nbsp;		return abstractRuleGod.getThirdPlayer();</b>
+<i>56</i>&nbsp;	}
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;	public void turnHandler(Service s) {
+<b class="nc"><i>60</i>&nbsp;		super.turnHandler(s);</b>
+<b class="nc"><i>61</i>&nbsp;	}</b>
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;	public void turnHandler_real(Service s){
+<b class="nc"><i>64</i>&nbsp;		abstractRuleGod.turnHandler_real(s);</b>
+<b class="nc"><i>65</i>&nbsp;	}</b>
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;	@Override
+<i>68</i>&nbsp;	public void setMoves() {
+<b class="nc"><i>69</i>&nbsp;		abstractRuleGod.setMoves();</b>
+<b class="nc"><i>70</i>&nbsp;		setState(currentPlayer.getAbstractRule().getState());</b>
+<b class="nc"><i>71</i>&nbsp;	}</b>
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;	@Override
+<i>74</i>&nbsp;	public void showMoves(Worker worker) {
+<i>75</i>&nbsp;	//fixme: it doesen&#39;t work
+<i>76</i>&nbsp;
+<b class="nc"><i>77</i>&nbsp;		Coordinate coordinate = worker.getCoordinate();</b>
+<i>78</i>&nbsp;
+<i>79</i>&nbsp;		try {
+<i>80</i>&nbsp;
+<b class="nc"><i>81</i>&nbsp;			ArrayList&lt;Coordinate&gt; helpMinotaur = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>82</i>&nbsp;			ArrayList&lt;Coordinate&gt; helpMinotaur2 = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>83</i>&nbsp;			ArrayList&lt;LightBlock&gt; helpMinotaur3 = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>84</i>&nbsp;			ArrayList&lt;LightBlock&gt; helpMinotaur4 = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>85</i>&nbsp;			helpMinotaur=board.spacesAround(coordinate);</b>
+<b class="nc"><i>86</i>&nbsp;			helpMinotaur2 = board.whereIsOccupied(helpMinotaur);</b>
+<b class="nc"><i>87</i>&nbsp;			Coordinate nextBlockC=null;</b>
+<i>88</i>&nbsp;			boolean nextBlockFree;
+<i>89</i>&nbsp;			boolean isOnBoard;
+<b class="nc"><i>90</i>&nbsp;			int coordX=coordinate.getX();</b>
+<b class="nc"><i>91</i>&nbsp;			int coordY=coordinate.getY();</b>
+<i>92</i>&nbsp;			int cX;
+<i>93</i>&nbsp;			int cY;
+<i>94</i>&nbsp;
+<b class="nc"><i>95</i>&nbsp;			LightBoard lightBoard = new LightBoard();</b>
+<b class="nc"><i>96</i>&nbsp;			lightBoard.update(board);</b>
+<i>97</i>&nbsp;
+<b class="nc"><i>98</i>&nbsp;			for(Coordinate c : helpMinotaur2){</b>
+<b class="nc"><i>99</i>&nbsp;				nextBlockC=nextBlockCoordinates(coordinate,c);</b>
+<b class="nc"><i>100</i>&nbsp;				cX=nextBlockC.getX();</b>
+<b class="nc"><i>101</i>&nbsp;				cY=nextBlockC.getY();</b>
+<b class="nc"><i>102</i>&nbsp;				nextBlockFree=isBlockFree(nextBlockC);</b>
+<b class="nc"><i>103</i>&nbsp;				if (nextBlockFree &amp;&amp; (cX!=coordX || cY!=coordY)){</b>
+<b class="nc"><i>104</i>&nbsp;					helpMinotaur3.add(lightBoard.getLightblock(c));</b>
+<b class="nc"><i>105</i>&nbsp;					helpMinotaur4=board.whereIsRightLevel(coordinate,helpMinotaur3);</b>
+<i>106</i>&nbsp;				}
+<b class="nc"><i>107</i>&nbsp;			}</b>
+<i>108</i>&nbsp;
+<b class="nc"><i>109</i>&nbsp;			for(int i = 0 ; i&lt; helpMinotaur4.size(); i++){</b>
+<b class="nc"><i>110</i>&nbsp;				moveList.add(helpMinotaur4.get(i));</b>
+<i>111</i>&nbsp;			}
+<i>112</i>&nbsp;
+<b class="nc"><i>113</i>&nbsp;			abstractRuleGod.showMoves(worker);</b>
+<b class="nc"><i>114</i>&nbsp;			setState(abstractRuleGod.getState());</b>
+<i>115</i>&nbsp;
+<i>116</i>&nbsp;		}
+<b class="nc"><i>117</i>&nbsp;		catch (Exception e){</b>
+<b class="nc"><i>118</i>&nbsp;			System.out.println(e);</b>
+<b class="nc"><i>119</i>&nbsp;		}</b>
+<b class="nc"><i>120</i>&nbsp;	}</b>
+<i>121</i>&nbsp;
+<i>122</i>&nbsp;
+<i>123</i>&nbsp;	@Override
+<i>124</i>&nbsp;	public void performMove(Worker worker, Coordinate coordinate, int idWorker) {
+<b class="nc"><i>125</i>&nbsp;		System.out.println(&quot;PASSA PER QUI&quot;);</b>
+<b class="nc"><i>126</i>&nbsp;		boolean usedMinotaur=false;</b>
+<i>127</i>&nbsp;
+<b class="nc"><i>128</i>&nbsp;		int rivalWorkerId=100;</b>
+<b class="nc"><i>129</i>&nbsp;		Color rivalWorkerColor=Color.ANSI_WHITE;</b>
+<b class="nc"><i>130</i>&nbsp;		Coordinate minotaurStartingBlock = worker.getCoordinate();</b>
+<b class="nc"><i>131</i>&nbsp;		Coordinate nextBlockCoordinates=nextBlockCoordinates(minotaurStartingBlock,coordinate);//TODO: METTERE DENTRO IF....PERDITA DI TEMPO</b>
+<b class="nc"><i>132</i>&nbsp;		boolean isNextBlockFree=isBlockFree(nextBlockCoordinates);</b>
+<i>133</i>&nbsp;
+<b class="nc"><i>134</i>&nbsp;		if (board.getBlock(coordinate).getOccupied() &amp;&amp; isNextBlockFree){</b>
+<b class="nc"><i>135</i>&nbsp;			usedMinotaur=true;</b>
+<b class="nc"><i>136</i>&nbsp;			rivalWorkerId = board.getBlock(coordinate).getWorker();</b>
+<b class="nc"><i>137</i>&nbsp;			rivalWorkerColor=board.getBlock(coordinate).getWorkerColor();</b>
+<b class="nc"><i>138</i>&nbsp;			board.removeworker(coordinate);</b>
+<i>139</i>&nbsp;		}
+<i>140</i>&nbsp;
+<i>141</i>&nbsp;
+<b class="nc"><i>142</i>&nbsp;		abstractRuleGod.performMove(worker, coordinate, idWorker);</b>
+<i>143</i>&nbsp;
+<b class="nc"><i>144</i>&nbsp;		setState(abstractRuleGod.getState());</b>
+<i>145</i>&nbsp;
+<b class="nc"><i>146</i>&nbsp;		if (usedMinotaur){</b>
+<b class="nc"><i>147</i>&nbsp;			board.addWorker(nextBlockCoordinates,rivalWorkerId,rivalWorkerColor);</b>
+<b class="nc"><i>148</i>&nbsp;			if(nextPlayer.getColor().equals(rivalWorkerColor)){</b>
+<b class="nc"><i>149</i>&nbsp;				nextPlayer.getWorkers().get(rivalWorkerId).setCoordinate(nextBlockCoordinates);</b>
+<i>150</i>&nbsp;			}
+<i>151</i>&nbsp;			else{
+<b class="nc"><i>152</i>&nbsp;				thirdPlayer.getWorkers().get(rivalWorkerId).setCoordinate(nextBlockCoordinates);</b>
+<i>153</i>&nbsp;			}
+<i>154</i>&nbsp;		}
+<b class="nc"><i>155</i>&nbsp;		usedMinotaur=false;//POTREBBE DARE PROBLEMI</b>
+<i>156</i>&nbsp;        /*Coordinate startingBlock=worker.getCoordinate();
+<i>157</i>&nbsp;        board.removeworker(startingBlock);
+<i>158</i>&nbsp;        if (board.getBlock(coordinate).getOccupied()){
+<i>159</i>&nbsp;            boolean isNextBlockFree=nextBlockOccupiedControls(startingBlock,coordinate);
+<i>160</i>&nbsp;            if (isNextBlockFree){
+<i>161</i>&nbsp;                Worker rivalWorker=null;
+<i>162</i>&nbsp;                int rivalWorkerId=100;
+<i>163</i>&nbsp;                for (int i = 0; i &lt;nextPlayer.getWorkers().size() ; i++) {
+<i>164</i>&nbsp;                    if (nextPlayer.getWorkers().get(i).getCoordinate()==coordinate) {
+<i>165</i>&nbsp;                        rivalWorker = nextPlayer.getWorkers().get(i);
+<i>166</i>&nbsp;                        rivalWorkerId= rivalWorker.getIdWorker();
+<i>167</i>&nbsp;                    }
+<i>168</i>&nbsp;                    board.removeworker(coordinate);
+<i>169</i>&nbsp;                    board.addWorker(startingBlock,rivalWorkerId,rivalWorker.getColor());
+<i>170</i>&nbsp;                    rivalWorker.setCoordinate(startingBlock);
+<i>171</i>&nbsp;                }
+<i>172</i>&nbsp;            }
+<i>173</i>&nbsp;        }
+<i>174</i>&nbsp;
+<i>175</i>&nbsp;        board.addWorker(coordinate,idWorker, currentPlayer.getColor());
+<i>176</i>&nbsp;        if(currentPlayer.getWorkers().get(0).getIdWorker() == idWorker){
+<i>177</i>&nbsp;            currentPlayer.getWorkers().get(0).setCoordinate(coordinate);
+<i>178</i>&nbsp;        }
+<i>179</i>&nbsp;        else{
+<i>180</i>&nbsp;            currentPlayer.getWorkers().get(1).setCoordinate(coordinate);
+<i>181</i>&nbsp;        }
+<i>182</i>&nbsp;        movedWorker=worker;
+<i>183</i>&nbsp;        System.out.println(&quot;finita perform move&quot;);*/
+<i>184</i>&nbsp;
+<b class="nc"><i>185</i>&nbsp;	}</b>
+<i>186</i>&nbsp;
+<i>187</i>&nbsp;
+<i>188</i>&nbsp;	@Override
+<i>189</i>&nbsp;	public void setBuild() {
+<b class="nc"><i>190</i>&nbsp;		abstractRuleGod.setBuild();</b>
+<b class="nc"><i>191</i>&nbsp;		setState(currentPlayer.getAbstractRule().getState());</b>
+<b class="nc"><i>192</i>&nbsp;	}</b>
+<i>193</i>&nbsp;
+<i>194</i>&nbsp;	@Override
+<i>195</i>&nbsp;	public void showBuild(Worker worker) {
+<b class="nc"><i>196</i>&nbsp;		abstractRuleGod.showBuild(worker);</b>
+<b class="nc"><i>197</i>&nbsp;	}</b>
+<i>198</i>&nbsp;
+<i>199</i>&nbsp;	@Override
+<i>200</i>&nbsp;	public void performBuild(Coordinate coordinate) {
+<b class="nc"><i>201</i>&nbsp;		abstractRuleGod.performBuild(coordinate);	setState(abstractRuleGod.getState());</b>
+<b class="nc"><i>202</i>&nbsp;	}</b>
+<i>203</i>&nbsp;
+<i>204</i>&nbsp;	@Override
+<i>205</i>&nbsp;	public void nextTurn() {
+<b class="nc"><i>206</i>&nbsp;		abstractRuleGod.nextTurn();	setState(abstractRuleGod.getState());</b>
+<b class="nc"><i>207</i>&nbsp;	}</b>
+<i>208</i>&nbsp;
+<i>209</i>&nbsp;
+<i>210</i>&nbsp;	public Coordinate nextBlockCoordinates(Coordinate minotaurCoordinate, Coordinate coordinate) {
+<i>211</i>&nbsp;		//minotaurCoordinate=coordinate in cui si trova il giocatore che ha minotauro
+<i>212</i>&nbsp;		//coordinate= coordinate in cui si trova il worker avversario che verrrebbe spinto
+<b class="nc"><i>213</i>&nbsp;		Coordinate nextBlockCoord=null;</b>
+<b class="nc"><i>214</i>&nbsp;		int mX=minotaurCoordinate.getX();</b>
+<b class="nc"><i>215</i>&nbsp;		int mY=minotaurCoordinate.getY();</b>
+<b class="nc"><i>216</i>&nbsp;		int cX=coordinate.getX();</b>
+<b class="nc"><i>217</i>&nbsp;		int cY=coordinate.getY();</b>
+<b class="nc"><i>218</i>&nbsp;		int nbX=5;</b>
+<b class="nc"><i>219</i>&nbsp;		int nbY=5;</b>
+<b class="nc"><i>220</i>&nbsp;		if (mX==cX){</b>
+<b class="nc"><i>221</i>&nbsp;			if (cY==mY+1){</b>
+<b class="nc"><i>222</i>&nbsp;				nbX=cX;</b>
+<b class="nc"><i>223</i>&nbsp;				nbY=cY+1;</b>
+<i>224</i>&nbsp;			}
+<b class="nc"><i>225</i>&nbsp;			if (cY==mY-1){</b>
+<b class="nc"><i>226</i>&nbsp;				nbX=cX;</b>
+<b class="nc"><i>227</i>&nbsp;				nbY=cY-1;</b>
+<i>228</i>&nbsp;			}
+<i>229</i>&nbsp;
+<i>230</i>&nbsp;		}
+<b class="nc"><i>231</i>&nbsp;		else if (mY==cY){</b>
+<b class="nc"><i>232</i>&nbsp;			if (cX==mX+1){</b>
+<b class="nc"><i>233</i>&nbsp;				nbX=cX+1;</b>
+<b class="nc"><i>234</i>&nbsp;				nbY=cY;</b>
+<i>235</i>&nbsp;			}
+<b class="nc"><i>236</i>&nbsp;			if (cX==mX-1){</b>
+<b class="nc"><i>237</i>&nbsp;				nbX=cX-1;</b>
+<b class="nc"><i>238</i>&nbsp;				nbY=cY;</b>
+<i>239</i>&nbsp;			}
+<i>240</i>&nbsp;		}
+<b class="nc"><i>241</i>&nbsp;		else if (cX==mX-1 &amp;&amp; cY==mY-1) {</b>
+<b class="nc"><i>242</i>&nbsp;			nbX=cX-1;</b>
+<b class="nc"><i>243</i>&nbsp;			nbY=cY-1;</b>
+<i>244</i>&nbsp;		}
+<b class="nc"><i>245</i>&nbsp;		else if (cX==mX+1 &amp;&amp; cY==mY-1) {</b>
+<b class="nc"><i>246</i>&nbsp;			nbX=cX+1;</b>
+<b class="nc"><i>247</i>&nbsp;			nbY=cY-1;</b>
+<i>248</i>&nbsp;
+<i>249</i>&nbsp;		}
+<b class="nc"><i>250</i>&nbsp;		else if (cX==mX-1 &amp;&amp; cY==mY+1) {</b>
+<b class="nc"><i>251</i>&nbsp;			nbX=cX-1;</b>
+<b class="nc"><i>252</i>&nbsp;			nbY=cY+1;</b>
+<i>253</i>&nbsp;		}
+<b class="nc"><i>254</i>&nbsp;		else if (cX==mX+1 &amp;&amp; cY==mY+1) {</b>
+<b class="nc"><i>255</i>&nbsp;			nbX=cX+1;</b>
+<b class="nc"><i>256</i>&nbsp;			nbY=cY+1;</b>
+<i>257</i>&nbsp;		}
+<b class="nc"><i>258</i>&nbsp;		boolean isOnBoard=board.isOnBoard(nbX, nbY);</b>
+<b class="nc"><i>259</i>&nbsp;		if (isOnBoard){</b>
+<b class="nc"><i>260</i>&nbsp;			nextBlockCoord=new Coordinate(nbX,nbY);</b>
+<b class="nc"><i>261</i>&nbsp;			return nextBlockCoord;</b>
+<i>262</i>&nbsp;		}
+<i>263</i>&nbsp;		else
+<b class="nc"><i>264</i>&nbsp;			return minotaurCoordinate;</b>
+<i>265</i>&nbsp;	}
+<i>266</i>&nbsp;
+<i>267</i>&nbsp;	public boolean isBlockFree(Coordinate coordinate){
+<b class="nc"><i>268</i>&nbsp;		if (!board.getBlock(coordinate).getOccupied() )</b>
+<b class="nc"><i>269</i>&nbsp;			return true;</b>
+<i>270</i>&nbsp;		else
+<b class="nc"><i>271</i>&nbsp;			return false;</b>
+<i>272</i>&nbsp;	}
+<i>273</i>&nbsp;
+<i>274</i>&nbsp;
+<i>275</i>&nbsp;	//-----nuovi con lose
+<i>276</i>&nbsp;	@Override
+<i>277</i>&nbsp;	public void setHasWon(Boolean hasWon) {
+<b class="nc"><i>278</i>&nbsp;		abstractRuleGod.setHasWon(hasWon);</b>
+<b class="nc"><i>279</i>&nbsp;	}</b>
+<i>280</i>&nbsp;
+<i>281</i>&nbsp;	@Override
+<i>282</i>&nbsp;	public int getLevelPrecPosition() {
+<b class="nc"><i>283</i>&nbsp;		return abstractRuleGod.getLevelPrecPosition();</b>
+<i>284</i>&nbsp;	}
+<i>285</i>&nbsp;
+<i>286</i>&nbsp;	@Override
+<i>287</i>&nbsp;	public void setLevelPrecPosition(int i) {
+<b class="nc"><i>288</i>&nbsp;		abstractRuleGod.setLevelPrecPosition(i);</b>
+<b class="nc"><i>289</i>&nbsp;	}</b>
+<i>290</i>&nbsp;
+<i>291</i>&nbsp;	@Override
+<i>292</i>&nbsp;	public void CheckIfWin() {
+<b class="nc"><i>293</i>&nbsp;		abstractRuleGod.CheckIfWin();</b>
+<b class="nc"><i>294</i>&nbsp;		setHasWon(abstractRuleGod.getHasWon());</b>
+<b class="nc"><i>295</i>&nbsp;	}</b>
+<i>296</i>&nbsp;
+<i>297</i>&nbsp;	@Override
+<i>298</i>&nbsp;	public void lose() {
+<b class="nc"><i>299</i>&nbsp;		abstractRuleGod.lose();</b>
+<b class="nc"><i>300</i>&nbsp;	}</b>
+<i>301</i>&nbsp;
+<i>302</i>&nbsp;	@Override
+<i>303</i>&nbsp;	public Boolean getHasWon() {
+<b class="nc"><i>304</i>&nbsp;		return abstractRuleGod.getHasWon();</b>
+<i>305</i>&nbsp;	}
+<i>306</i>&nbsp;
+<i>307</i>&nbsp;	@Override
+<i>308</i>&nbsp;	public Worker getMovedWorker() {
+<b class="nc"><i>309</i>&nbsp;		return abstractRuleGod.getMovedWorker();</b>
+<i>310</i>&nbsp;	}
+<i>311</i>&nbsp;
+<i>312</i>&nbsp;	@Override
+<i>313</i>&nbsp;	public void invertPlayer() {
+<b class="nc"><i>314</i>&nbsp;		abstractRuleGod.CheckIfWin();</b>
+<b class="nc"><i>315</i>&nbsp;	}</b>
+<i>316</i>&nbsp;
+<i>317</i>&nbsp;	@Override
+<i>318</i>&nbsp;	public void CheckList(ArrayList&lt;LightBlock&gt; list) {
+<b class="nc"><i>319</i>&nbsp;		abstractRuleGod.CheckList(list);</b>
+<b class="nc"><i>320</i>&nbsp;	}</b>
+<i>321</i>&nbsp;
+<i>322</i>&nbsp;	@Override
+<i>323</i>&nbsp;	public Boolean getIsalive() {
+<b class="nc"><i>324</i>&nbsp;		return abstractRuleGod.getIsalive();</b>
+<i>325</i>&nbsp;	}
+<i>326</i>&nbsp;
+<i>327</i>&nbsp;	@Override
+<i>328</i>&nbsp;	public void setIsalive(Boolean isalive) {
+<b class="nc"><i>329</i>&nbsp;		abstractRuleGod.setIsalive(isalive);</b>
+<b class="nc"><i>330</i>&nbsp;	}</b>
+<i>331</i>&nbsp;
+<i>332</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-26 13:43</div>
+</div>
+</body>
+</html>

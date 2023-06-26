@@ -1,0 +1,396 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Client</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.PSP45.client</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Client (it.polimi.ingsw.PSP45.client)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Client</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 36)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Client$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 40)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">Client$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 68)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 144)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.PSP45.client;
+<i>2</i>&nbsp;import it.polimi.ingsw.PSP45.model.Coordinate;
+<i>3</i>&nbsp;import it.polimi.ingsw.PSP45.model.LightBlock;
+<i>4</i>&nbsp;import it.polimi.ingsw.PSP45.utils.Service;
+<i>5</i>&nbsp;import it.polimi.ingsw.PSP45.utils.StateNumber;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import java.io.IOException;
+<i>8</i>&nbsp;import java.io.ObjectInputStream;
+<i>9</i>&nbsp;import java.io.ObjectOutputStream;
+<i>10</i>&nbsp;import java.net.Socket;
+<i>11</i>&nbsp;import java.util.NoSuchElementException;
+<i>12</i>&nbsp;import java.util.Scanner;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;//import sun.awt.windows.WPrinterJob;
+<i>15</i>&nbsp;/**
+<i>16</i>&nbsp; * @author Andrea Gerosa
+<i>17</i>&nbsp; * @author Lorenzo Longaretti
+<i>18</i>&nbsp; *
+<i>19</i>&nbsp; * Class that represent a client.
+<i>20</i>&nbsp; *
+<i>21</i>&nbsp; */
+<b class="nc"><i>22</i>&nbsp;public class Client {</b>
+<i>23</i>&nbsp;    private String IP;
+<i>24</i>&nbsp;    private int port;
+<i>25</i>&nbsp;    private StateNumber state;
+<b class="nc"><i>26</i>&nbsp;    private Service service = new Service(StateNumber.active, &quot;default&quot;, &quot;default&quot;);</b>
+<i>27</i>&nbsp;    private ObjectOutputStream socketOut;
+<i>28</i>&nbsp;
+<b class="nc"><i>29</i>&nbsp;    public Client(String IP, int port) {</b>
+<b class="nc"><i>30</i>&nbsp;        this.IP = IP;</b>
+<b class="nc"><i>31</i>&nbsp;        this.port = port;</b>
+<b class="nc"><i>32</i>&nbsp;        this.state = StateNumber.active;</b>
+<b class="nc"><i>33</i>&nbsp;    }</b>
+<b class="nc"><i>34</i>&nbsp;    private boolean active = true;</b>
+<i>35</i>&nbsp;    public synchronized boolean isActive() {
+<b class="nc"><i>36</i>&nbsp;        return active;</b>
+<i>37</i>&nbsp;    }
+<i>38</i>&nbsp;    public synchronized void setActive(boolean active) {
+<b class="nc"><i>39</i>&nbsp;        this.active = active;</b>
+<b class="nc"><i>40</i>&nbsp;    }</b>
+<i>41</i>&nbsp;    public synchronized void sendOutput(Service service) throws IOException {
+<b class="nc"><i>42</i>&nbsp;        socketOut.writeObject(service);</b>
+<b class="nc"><i>43</i>&nbsp;        socketOut.flush();</b>
+<b class="nc"><i>44</i>&nbsp;    }</b>
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    public Thread asyncReadFromSocket(final ObjectInputStream socketIn) {
+<b class="nc"><i>47</i>&nbsp;        Thread t = new Thread(new Runnable() {</b>
+<i>48</i>&nbsp;            @Override
+<i>49</i>&nbsp;            public void run() {
+<i>50</i>&nbsp;                try {
+<b class="nc"><i>51</i>&nbsp;                    while(isActive()) {</b>
+<i>52</i>&nbsp;                        //           System.out.println(&quot;è il tipo dal server &quot;);
+<b class="nc"><i>53</i>&nbsp;                        Service inputObject = new Service(StateNumber.active,&quot;def&quot;, &quot;def&quot;);</b>
+<b class="nc"><i>54</i>&nbsp;                        try{   inputObject = (Service) socketIn.readObject();}</b>
+<b class="nc"><i>55</i>&nbsp;                        catch (Exception e) {</b>
+<b class="nc"><i>56</i>&nbsp;                            System.out.println(&quot;salta qui&quot;);</b>
+<b class="nc"><i>57</i>&nbsp;                            System.out.println(e.getMessage());</b>
+<b class="nc"><i>58</i>&nbsp;                            setActive(false);</b>
+<b class="nc"><i>59</i>&nbsp;                        }</b>
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;
+<b class="nc"><i>63</i>&nbsp;                        System.out.println(&quot;è lo stato &quot; +state);</b>
+<b class="nc"><i>64</i>&nbsp;                        if(state == StateNumber.active) {</b>
+<b class="nc"><i>65</i>&nbsp;                            System.out.println(&quot;stampo is active da scrittura prima volta &quot;+ active);</b>
+<i>66</i>&nbsp;                            //setActive(true);
+<b class="nc"><i>67</i>&nbsp;                            if (inputObject.getType() == StateNumber.nameAndNumberRequest) {</b>
+<b class="nc"><i>68</i>&nbsp;                                System.out.println(inputObject.getCodice());</b>
+<i>69</i>&nbsp;                                //System.out.println(inputObject.getWhatshouldido());
+<b class="nc"><i>70</i>&nbsp;                                state = inputObject.getType();</b>
+<i>71</i>&nbsp;                            }
+<b class="nc"><i>72</i>&nbsp;                            else if (inputObject.getType() == StateNumber.moveState) {</b>
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;                                //cambi lo stato del client
+<b class="nc"><i>75</i>&nbsp;                                state = inputObject.getType();</b>
+<b class="nc"><i>76</i>&nbsp;                                service = inputObject;</b>
+<i>77</i>&nbsp;                                //aggiorni la board e la stampi
+<b class="nc"><i>78</i>&nbsp;                                service.getLightBoard().printBoard();</b>
+<i>79</i>&nbsp;                                //stampa la frase sullo schermo
+<i>80</i>&nbsp;
+<b class="nc"><i>81</i>&nbsp;                                System.out.println(&quot;stampa in inputobject di 33&quot; +inputObject.getCodice());</b>
+<b class="nc"><i>82</i>&nbsp;                                for(int l = 0 ; l&lt; service.getAvailableCells().size(); l++){</b>
+<b class="nc"><i>83</i>&nbsp;                                    System.out.print(service.getAvailableCells().get(l).getX() + &quot;,&quot;+ service.getAvailableCells().get(l).getY() + &quot;|&quot;);</b>
+<i>84</i>&nbsp;                                }
+<b class="nc"><i>85</i>&nbsp;                                System.out.println();</b>
+<i>86</i>&nbsp;                            }
+<b class="nc"><i>87</i>&nbsp;                            else if (inputObject.getType() == StateNumber.buildState) {</b>
+<b class="nc"><i>88</i>&nbsp;                                state = inputObject.getType();</b>
+<b class="nc"><i>89</i>&nbsp;                                service = inputObject;</b>
+<b class="nc"><i>90</i>&nbsp;                                service.getLightBoard().printBoard();</b>
+<b class="nc"><i>91</i>&nbsp;                                System.out.println(&quot;stampa inputobject di 22&quot;+inputObject.getCodice());</b>
+<b class="nc"><i>92</i>&nbsp;                                System.out.println(&quot;x,y,liv,giocat&quot;);</b>
+<b class="nc"><i>93</i>&nbsp;                                for(int l = 0 ; l&lt; service.getAvailableCells2().size(); l++){</b>
+<b class="nc"><i>94</i>&nbsp;                                    System.out.print(service.getAvailableCells2().get(l).getC().getX() + &quot;,&quot;+ service.getAvailableCells2().get(l).getC().getY()+ &quot;|&quot;);</b>
+<i>95</i>&nbsp;                                }
+<b class="nc"><i>96</i>&nbsp;                                System.out.println();</b>
+<i>97</i>&nbsp;                            }
+<b class="nc"><i>98</i>&nbsp;                            else if (inputObject.getType() == StateNumber.wait) {</b>
+<b class="nc"><i>99</i>&nbsp;                                System.out.println(&quot;trampa inputobject di 99&quot;+inputObject.getCodice());</b>
+<i>100</i>&nbsp;                            }
+<i>101</i>&nbsp;
+<i>102</i>&nbsp;                            //      System.out.println(&quot;stampo is active da scrittura prima volta fine if &quot;+ active);
+<i>103</i>&nbsp;                        } //fine controllo wait; se può accettare comandi dall&#39;esterno
+<i>104</i>&nbsp;                        //forse da fare un controllo IllegalArgumentException();
+<i>105</i>&nbsp;                        //setActive(true);
+<i>106</i>&nbsp;                        //           System.out.println(&quot;stampo is active da scrittura &quot;+ active);
+<b class="nc"><i>107</i>&nbsp;                    }</b>
+<i>108</i>&nbsp;                }
+<b class="nc"><i>109</i>&nbsp;                catch(Exception e) {</b>
+<b class="nc"><i>110</i>&nbsp;                    System.out.println(&quot;viene chiamato not is active dalla read&quot;);</b>
+<b class="nc"><i>111</i>&nbsp;                    setActive(false);</b>
+<b class="nc"><i>112</i>&nbsp;                }</b>
+<b class="nc"><i>113</i>&nbsp;            }</b>
+<i>114</i>&nbsp;        });
+<b class="nc"><i>115</i>&nbsp;        t.start();</b>
+<b class="nc"><i>116</i>&nbsp;        return t;</b>
+<i>117</i>&nbsp;    }
+<i>118</i>&nbsp;    public Thread asyncWriteFromSocket(final Scanner stdin) {
+<b class="nc"><i>119</i>&nbsp;        Thread t = new Thread(new Runnable() {</b>
+<i>120</i>&nbsp;            @Override
+<i>121</i>&nbsp;            public void run() {
+<i>122</i>&nbsp;                try {
+<b class="nc"><i>123</i>&nbsp;                    while(isActive()) {</b>
+<b class="nc"><i>124</i>&nbsp;                        System.out.println(&quot;si dovrebbe fernare qui&quot;);</b>
+<i>125</i>&nbsp;
+<i>126</i>&nbsp;
+<b class="nc"><i>127</i>&nbsp;                        String inputLine = new String();</b>
+<i>128</i>&nbsp;
+<i>129</i>&nbsp;                        try{
+<b class="nc"><i>130</i>&nbsp;                            inputLine = stdin.nextLine();</b>
+<i>131</i>&nbsp;                            // System.out.println(&quot;è riuscito a leggere&quot;);
+<b class="nc"><i>132</i>&nbsp;                        }catch (Exception e){</b>
+<b class="nc"><i>133</i>&nbsp;                            System.out.println(&quot;non è riuscito a leggere&quot;);</b>
+<b class="nc"><i>134</i>&nbsp;                            System.out.println(e.getMessage());</b>
+<b class="nc"><i>135</i>&nbsp;                        }</b>
+<i>136</i>&nbsp;
+<i>137</i>&nbsp;
+<i>138</i>&nbsp;
+<i>139</i>&nbsp;                        //     System.out.println(&quot;stato da lettura input&quot;+state);
+<i>140</i>&nbsp;                        //Service service = new Service(0,inputLine,&quot;default&quot;);
+<i>141</i>&nbsp;                        //if(stato == 77) controlli l&#39;input(tramite un metodo), se sta dentro i parametri
+<i>142</i>&nbsp;                        //se sono giusti ti prepari la risposta(con il metodo di service)
+<i>143</i>&nbsp;                        //lo mandi con
+<b class="nc"><i>144</i>&nbsp;                        if(state == StateNumber.nameAndNumberRequest) {</b>
+<b class="nc"><i>145</i>&nbsp;                            String[] inputs = inputLine.split(&quot;,&quot;);</b>
+<i>146</i>&nbsp;
+<b class="nc"><i>147</i>&nbsp;                            if(Integer.parseInt(inputs[1]) &lt; 2 || Integer.parseInt(inputs[1]) &gt; 3) {</b>
+<b class="nc"><i>148</i>&nbsp;                                throw new IllegalArgumentException();</b>
+<i>149</i>&nbsp;                            }
+<i>150</i>&nbsp;                            else {
+<b class="nc"><i>151</i>&nbsp;                                service.setResponseForName(inputs[0], Integer.parseInt(inputs[1]));</b>
+<b class="nc"><i>152</i>&nbsp;                                sendOutput(service);</b>
+<b class="nc"><i>153</i>&nbsp;                                state = StateNumber.active;</b>
+<i>154</i>&nbsp;                            }
+<b class="nc"><i>155</i>&nbsp;                        }</b>
+<i>156</i>&nbsp;                        //if(stato == 33) //la move
+<i>157</i>&nbsp;                        //controlli che l&#39;input possa essere fatto tramite quello che ti è arrivato dal server
+<i>158</i>&nbsp;                        // se va bene ti prepari il service di risposta e mandi
+<i>159</i>&nbsp;                        //sarà dentro il metodo send
+<b class="nc"><i>160</i>&nbsp;                        else if(state == StateNumber.moveState) {</b>
+<b class="nc"><i>161</i>&nbsp;                            System.out.println(&quot;a1&quot;);</b>
+<b class="nc"><i>162</i>&nbsp;                            String[] inputs = inputLine.split(&quot;,&quot;);</b>
+<b class="nc"><i>163</i>&nbsp;                            for(Coordinate c: service.getAvailableCells()) {</b>
+<b class="nc"><i>164</i>&nbsp;                                System.out.println(&quot;a2&quot;);</b>
+<i>165</i>&nbsp;                                //        System.out.println(c.getX() + &quot;dai &quot; + c.getY());
+<i>166</i>&nbsp;                                //    System.out.println(Integer.parseInt(inputs[0]) + &quot;da lettura&quot; + Integer.parseInt(inputs[1]));
+<i>167</i>&nbsp;                                //     System.out.println(&quot;&quot;);
+<i>168</i>&nbsp;
+<b class="nc"><i>169</i>&nbsp;                                if (c.getX() == Integer.parseInt(inputs[0]) &amp;&amp; c.getY() == Integer.parseInt(inputs[1])) {</b>
+<b class="nc"><i>170</i>&nbsp;                                    System.out.println(&quot;a3&quot;);</b>
+<i>171</i>&nbsp;                                    //   System.out.println(&quot;entra in sendmove&quot;);
+<i>172</i>&nbsp;                                    try{
+<b class="nc"><i>173</i>&nbsp;                                        System.out.println(&quot;a4&quot;);</b>
+<b class="nc"><i>174</i>&nbsp;                                        System.out.println(&quot;xda mandare&quot;+c.getX() + &quot;ydainviare&quot;+ c.getY());</b>
+<b class="nc"><i>175</i>&nbsp;                                        service.receiveMoveMessage(c, Integer.parseInt(inputs[2]));</b>
+<b class="nc"><i>176</i>&nbsp;                                        System.out.println(&quot;x da mandare in service &quot;+service.getAvailableCells().get(0).getX() + &quot; y dainviare in service&quot;+ service.getAvailableCells().get(0).getY());</b>
+<b class="nc"><i>177</i>&nbsp;                                        System.out.println(&quot;typo che invio &quot; + service.getType());</b>
+<i>178</i>&nbsp;                                    }
+<b class="nc"><i>179</i>&nbsp;                                    catch(Exception e){</b>
+<b class="nc"><i>180</i>&nbsp;                                        System.out.println(e.getMessage());</b>
+<b class="nc"><i>181</i>&nbsp;                                    }</b>
+<i>182</i>&nbsp;
+<i>183</i>&nbsp;
+<i>184</i>&nbsp;                                    // sendOutput(service);
+<i>185</i>&nbsp;
+<b class="nc"><i>186</i>&nbsp;                                    socketOut.writeObject(service);</b>
+<b class="nc"><i>187</i>&nbsp;                                    System.out.println(&quot;1&quot;);</b>
+<b class="nc"><i>188</i>&nbsp;                                    socketOut.flush();</b>
+<i>189</i>&nbsp;
+<b class="nc"><i>190</i>&nbsp;                                    state = StateNumber.active;</b>
+<b class="nc"><i>191</i>&nbsp;                                    break;</b>
+<i>192</i>&nbsp;                                }
+<b class="nc"><i>193</i>&nbsp;                            }</b>
+<b class="nc"><i>194</i>&nbsp;                            System.out.println(&quot;arriva a fine lettura di move&quot;);</b>
+<b class="nc"><i>195</i>&nbsp;                        }</b>
+<b class="nc"><i>196</i>&nbsp;                        else if(state == StateNumber.buildState) {</b>
+<b class="nc"><i>197</i>&nbsp;                            System.out.println(&quot;entra in build&quot;);</b>
+<b class="nc"><i>198</i>&nbsp;                            String[] inputs = inputLine.split(&quot;,&quot;);</b>
+<b class="nc"><i>199</i>&nbsp;                            int flag = 0;</b>
+<b class="nc"><i>200</i>&nbsp;                            System.out.println(&quot;coordinate ;&quot; + Integer.parseInt(inputs[0]) + &quot; &quot; + Integer.parseInt(inputs[1]) );</b>
+<b class="nc"><i>201</i>&nbsp;                            System.out.println(&quot;altezza ;&quot; + Integer.parseInt(inputs[2])  );</b>
+<b class="nc"><i>202</i>&nbsp;                            System.out.println(&quot;worker ;&quot; + Integer.parseInt(inputs[3])  );</b>
+<b class="nc"><i>203</i>&nbsp;                            System.out.println(&quot;&quot;);</b>
+<b class="nc"><i>204</i>&nbsp;                            System.out.println(&quot;&quot;);</b>
+<i>205</i>&nbsp;                            //scorri la lista   vedi se esiste
+<i>206</i>&nbsp;                            //se esiste    ti crei la risposta e la mandi
+<i>207</i>&nbsp;                            //se finisce il ciclo    stampi (&quot;hai sbagliato livello o coordinata, riprova&quot;)
+<b class="nc"><i>208</i>&nbsp;                            for(LightBlock lb : service.getAvailableCells2()) {</b>
+<i>209</i>&nbsp;
+<b class="nc"><i>210</i>&nbsp;                                if(lb.getC().getX() == Integer.parseInt(inputs[0]) &amp;&amp; lb.getC().getY() == Integer.parseInt(inputs[1]) &amp;&amp;lb.getLevel() == (Integer.parseInt(inputs[2])-1)) {</b>
+<b class="nc"><i>211</i>&nbsp;                                    service.receiveBuildMessage(lb, Integer.parseInt(inputs[3]));</b>
+<i>212</i>&nbsp;                                    //  System.out.println(&quot;arriva a questo punto di build&quot; );
+<b class="nc"><i>213</i>&nbsp;                                    sendOutput(service);</b>
+<b class="nc"><i>214</i>&nbsp;                                    System.out.println(&quot;checerror&quot;);</b>
+<b class="nc"><i>215</i>&nbsp;                                    state = StateNumber.active;</b>
+<b class="nc"><i>216</i>&nbsp;                                    flag++;</b>
+<b class="nc"><i>217</i>&nbsp;                                    break;</b>
+<i>218</i>&nbsp;                                }
+<b class="nc"><i>219</i>&nbsp;                            }</b>
+<b class="nc"><i>220</i>&nbsp;                            if(flag == 0){</b>
+<b class="nc"><i>221</i>&nbsp;                                System.out.println(&quot;Errore: non ha messo i parametri gusti. &quot; + service.getCodice() );</b>
+<i>222</i>&nbsp;                            }
+<i>223</i>&nbsp;                        }
+<i>224</i>&nbsp;                        /*else if(inputLine.equals(&quot;exit&quot;)  || inputLine.equals(&quot;Exit&quot;) || inputLine.equals(&quot;EXIT&quot;)) {
+<i>225</i>&nbsp;                            service.receiveExitMessage();
+<i>226</i>&nbsp;                            sendOutput(service);
+<i>227</i>&nbsp;                        }*/
+<i>228</i>&nbsp;
+<i>229</i>&nbsp;
+<i>230</i>&nbsp;                        //           System.out.println(&quot;stampo acrive&quot;+ active);
+<i>231</i>&nbsp;
+<b class="nc"><i>232</i>&nbsp;                    }</b>
+<b class="nc"><i>233</i>&nbsp;                    System.out.println(&quot;è uscito da active&quot;);</b>
+<i>234</i>&nbsp;                }
+<b class="nc"><i>235</i>&nbsp;                catch(Exception e) {</b>
+<b class="nc"><i>236</i>&nbsp;                    System.err.println(active);</b>
+<b class="nc"><i>237</i>&nbsp;                    System.err.println(&quot;errore generico in lettura da terminale!!&quot;+e.getMessage() +&quot;!!!&quot;+ e.initCause(e.getCause()));</b>
+<b class="nc"><i>238</i>&nbsp;                    System.err.println(active);</b>
+<b class="nc"><i>239</i>&nbsp;                }</b>
+<b class="nc"><i>240</i>&nbsp;            }</b>
+<i>241</i>&nbsp;        });
+<b class="nc"><i>242</i>&nbsp;        t.start();</b>
+<b class="nc"><i>243</i>&nbsp;        return t;</b>
+<i>244</i>&nbsp;    }
+<i>245</i>&nbsp;
+<i>246</i>&nbsp;    public void run() throws IOException {
+<b class="nc"><i>247</i>&nbsp;        Socket socket = new Socket(IP, port);</b>
+<b class="nc"><i>248</i>&nbsp;        System.out.println(&quot;Connection established&quot;);</b>
+<b class="nc"><i>249</i>&nbsp;        ObjectInputStream socketIn = new ObjectInputStream(socket.getInputStream());</b>
+<b class="nc"><i>250</i>&nbsp;        socketOut = new ObjectOutputStream(socket.getOutputStream());</b>
+<b class="nc"><i>251</i>&nbsp;        Scanner stdin = new Scanner(System.in);</b>
+<i>252</i>&nbsp;        try {
+<i>253</i>&nbsp;
+<b class="nc"><i>254</i>&nbsp;            Thread t1 = asyncWriteFromSocket(stdin);Thread t0 = asyncReadFromSocket(socketIn);</b>
+<b class="nc"><i>255</i>&nbsp;            t0.join();</b>
+<b class="nc"><i>256</i>&nbsp;            t1.join();</b>
+<i>257</i>&nbsp;        }
+<b class="nc"><i>258</i>&nbsp;        catch(InterruptedException | NoSuchElementException e) {</b>
+<b class="nc"><i>259</i>&nbsp;            System.out.println(&quot;Connection closed form the client side.&quot;);</b>
+<i>260</i>&nbsp;        }
+<i>261</i>&nbsp;        finally {
+<b class="nc"><i>262</i>&nbsp;            stdin.close();</b>
+<b class="nc"><i>263</i>&nbsp;            socketIn.close();</b>
+<b class="nc"><i>264</i>&nbsp;            socketOut.close();</b>
+<b class="nc"><i>265</i>&nbsp;            socket.close();</b>
+<b class="nc"><i>266</i>&nbsp;        }</b>
+<b class="nc"><i>267</i>&nbsp;    }</b>
+<i>268</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-12 12:31</div>
+</div>
+</body>
+</html>

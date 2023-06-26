@@ -1,0 +1,181 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Match</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.PSP45.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Match (it.polimi.ingsw.PSP45.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Match</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 12)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.PSP45.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;
+<i>4</i>&nbsp;import it.polimi.ingsw.PSP45.observer.Observable;
+<i>5</i>&nbsp;import it.polimi.ingsw.PSP45.utils.TurnObject;
+<i>6</i>&nbsp;import it.polimi.ingsw.PSP45.utils.frommodeltoview;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.util.ArrayList;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;/**
+<i>11</i>&nbsp; * @author Andrea Gerosa
+<i>12</i>&nbsp; * Classe che gestisce gli aspetti identificativi della partita e i giocatori che ne prendonop parte
+<i>13</i>&nbsp; *
+<i>14</i>&nbsp; */
+<i>15</i>&nbsp;public class Match extends Observable&lt;frommodeltoview&gt; {
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    //potrebbe essere utile id match
+<i>18</i>&nbsp;    private Board board;
+<b class="nc"><i>19</i>&nbsp;    ArrayList&lt;TurnObject&gt; turnobject = new ArrayList&lt;&gt;();</b>
+<i>20</i>&nbsp;    //la scelta della quantità di giocatori verrà effettuata in fase di scrittura della view
+<b class="nc"><i>21</i>&nbsp;    Coordinate cooordinate = new Coordinate(0,0);</b>
+<i>22</i>&nbsp;
+<b class="nc"><i>23</i>&nbsp;    public  Match(){</b>
+<b class="nc"><i>24</i>&nbsp;        this.board = null;</b>
+<b class="nc"><i>25</i>&nbsp;        this.turnobject = null;</b>
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;
+<b class="nc"><i>29</i>&nbsp;    }</b>
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    /**
+<i>32</i>&nbsp;     * @author Andrea Gerosa
+<i>33</i>&nbsp;     * Class constructor
+<i>34</i>&nbsp;     *
+<i>35</i>&nbsp;     */
+<b class="nc"><i>36</i>&nbsp;    public Match(Board board, ArrayList&lt;TurnObject&gt; turnobject) {</b>
+<i>37</i>&nbsp;
+<b class="nc"><i>38</i>&nbsp;        this.board = board;</b>
+<b class="nc"><i>39</i>&nbsp;        this.turnobject = turnobject;</b>
+<b class="nc"><i>40</i>&nbsp;    }</b>
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    public ArrayList&lt;TurnObject&gt; getTurnobject() {
+<b class="nc"><i>43</i>&nbsp;        return turnobject;</b>
+<i>44</i>&nbsp;    }
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    public Board getBoard() {
+<b class="nc"><i>47</i>&nbsp;        return board;</b>
+<i>48</i>&nbsp;    }
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    /*
+<i>51</i>&nbsp;     * @author Andrea Gerosa
+<i>52</i>&nbsp;     * Getter for the Match&#39;s ID
+<i>53</i>&nbsp;     *
+<i>54</i>&nbsp;     *
+<i>55</i>&nbsp;     * @return IdMatch
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    public int getIdMatch() {
+<i>58</i>&nbsp;        return IdMatch;
+<i>59</i>&nbsp;    }
+<i>60</i>&nbsp;  */
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    /*
+<i>63</i>&nbsp;     * @author Andrea Gerosa
+<i>64</i>&nbsp;     *
+<i>65</i>&nbsp;     * Setter for the Match&#39;s ID
+<i>66</i>&nbsp;     *
+<i>67</i>&nbsp;     * @param idMatch ID
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    public void setIdMatch(int idMatch) {
+<i>70</i>&nbsp;        this.IdMatch = idMatch;
+<i>71</i>&nbsp;    }
+<i>72</i>&nbsp;     */
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;    /*
+<i>77</i>&nbsp;     * @author Lorenzo Longaretti
+<i>78</i>&nbsp;     * @author Andrea Gerosa
+<i>79</i>&nbsp;     * Remove a player from the match, once he lost:
+<i>80</i>&nbsp;     * first of all remove all workers in board, and in a second time it removes the player
+<i>81</i>&nbsp;     *
+<i>82</i>&nbsp;     * @param p the player
+<i>83</i>&nbsp;
+<i>84</i>&nbsp;
+<i>85</i>&nbsp;     public void removePlayer(Player p) {
+<i>86</i>&nbsp;         ArrayList&lt;Worker&gt; helper = new ArrayList&lt;&gt;(p1.getWorkers());
+<i>87</i>&nbsp;         for(int i = 0; i&lt;=helper.size(); i++) {
+<i>88</i>&nbsp;             Coordinate c = helper.get(0).getCoordinate();
+<i>89</i>&nbsp;             board.removeworker(c);
+<i>90</i>&nbsp;             helper.remove(0);
+<i>91</i>&nbsp;         }
+<i>92</i>&nbsp;         //p.removeAllWorkers();
+<i>93</i>&nbsp;
+<i>94</i>&nbsp;     }
+<i>95</i>&nbsp;
+<i>96</i>&nbsp;     */
+<i>97</i>&nbsp;
+<i>98</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-05 14:10</div>
+</div>
+</body>
+</html>

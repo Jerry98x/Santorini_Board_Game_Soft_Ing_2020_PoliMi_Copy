@@ -1,0 +1,365 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Server</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.PSP45.server</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Server (it.polimi.ingsw.PSP45.server)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Server</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 111)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.PSP45.server;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.PSP45.controller.Controller;
+<i>4</i>&nbsp;import it.polimi.ingsw.PSP45.controller.Rules;
+<i>5</i>&nbsp;import it.polimi.ingsw.PSP45.model.Board;
+<i>6</i>&nbsp;import it.polimi.ingsw.PSP45.model.Match;
+<i>7</i>&nbsp;import it.polimi.ingsw.PSP45.model.Player;
+<i>8</i>&nbsp;import it.polimi.ingsw.PSP45.utils.Color;
+<i>9</i>&nbsp;import it.polimi.ingsw.PSP45.utils.Service;
+<i>10</i>&nbsp;import it.polimi.ingsw.PSP45.utils.TurnObject;
+<i>11</i>&nbsp;import it.polimi.ingsw.PSP45.view.RemoteView;
+<i>12</i>&nbsp;import it.polimi.ingsw.PSP45.view.View;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;import java.io.IOException;
+<i>15</i>&nbsp;import java.net.ServerSocket;
+<i>16</i>&nbsp;import java.net.Socket;
+<i>17</i>&nbsp;import java.util.*;
+<i>18</i>&nbsp;import java.util.concurrent.ExecutorService;
+<i>19</i>&nbsp;import java.util.concurrent.Executors;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;/**
+<i>22</i>&nbsp; * @author Lorenzo Longaretti
+<i>23</i>&nbsp; */
+<i>24</i>&nbsp;public class Server {
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    private static final int PORT = 12345;
+<i>27</i>&nbsp;    private ServerSocket serverSocket;
+<b class="nc"><i>28</i>&nbsp;    private ExecutorService executor = Executors.newFixedThreadPool(128);</b>
+<b class="nc"><i>29</i>&nbsp;    private ArrayList&lt;WaitingConnectionClass&gt; waitingConnectionarray= new ArrayList&lt;&gt;();</b>
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;
+<b class="nc"><i>32</i>&nbsp;    private ArrayList&lt;PlayerlistsonserverObject&gt; Playerlistonserver = new ArrayList&lt;&gt;();</b>
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    /**
+<i>36</i>&nbsp;     * method that disconnect the player of a match and the opponents
+<i>37</i>&nbsp;     * @param c
+<i>38</i>&nbsp;     */
+<i>39</i>&nbsp;    public synchronized void deregisterConnection(ClientConnection c) {
+<b class="nc"><i>40</i>&nbsp;        Player playerhelper = new Player(&quot;default&quot;, 15,&quot;apollo&quot;, Color.ANSI_WHITE);</b>
+<b class="nc"><i>41</i>&nbsp;        Player playerhelper2 = new Player(&quot;default&quot;, 15,&quot;apollo&quot;,Color.ANSI_WHITE);</b>
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;
+<b class="nc"><i>44</i>&nbsp;        for(int i = 0; i &lt; Playerlistonserver.size(); i++)</b>
+<b class="nc"><i>45</i>&nbsp;            if (Playerlistonserver.get(i).getC() == c) {</b>
+<i>46</i>&nbsp;
+<b class="nc"><i>47</i>&nbsp;                playerhelper = Playerlistonserver.get(i).getP2();</b>
+<b class="nc"><i>48</i>&nbsp;                playerhelper2 = Playerlistonserver.get(i).getP3();//possibile null pointer exception perchè potrebbe essere null</b>
+<b class="nc"><i>49</i>&nbsp;                Playerlistonserver.remove(i);</b>
+<b class="nc"><i>50</i>&nbsp;                i--;</b>
+<i>51</i>&nbsp;            }
+<i>52</i>&nbsp;
+<b class="nc"><i>53</i>&nbsp;        if(Playerlistonserver.get(0).getNumberoplayer() == 2){</b>
+<i>54</i>&nbsp;
+<b class="nc"><i>55</i>&nbsp;            for(int i = 0; i &lt; Playerlistonserver.size(); i++){</b>
+<b class="nc"><i>56</i>&nbsp;                if(Playerlistonserver.get(i).getP1() == playerhelper)  {Playerlistonserver.get(i).getC().closeConnection();</b>
+<b class="nc"><i>57</i>&nbsp;                    Playerlistonserver.remove(i);</b>
+<b class="nc"><i>58</i>&nbsp;                    i--;}</b>
+<i>59</i>&nbsp;            }
+<i>60</i>&nbsp;        }
+<i>61</i>&nbsp;        else{
+<i>62</i>&nbsp;
+<b class="nc"><i>63</i>&nbsp;            for(int i = 0; i &lt; Playerlistonserver.size(); i++){</b>
+<b class="nc"><i>64</i>&nbsp;                if(Playerlistonserver.get(i).getP1() == playerhelper)  {Playerlistonserver.get(i).getC().closeConnection();</b>
+<b class="nc"><i>65</i>&nbsp;                    Playerlistonserver.remove(i);</b>
+<b class="nc"><i>66</i>&nbsp;                    i--;}</b>
+<i>67</i>&nbsp;            }
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;
+<b class="nc"><i>70</i>&nbsp;            for(int i = 0; i &lt; Playerlistonserver.size(); i++){</b>
+<b class="nc"><i>71</i>&nbsp;                if(Playerlistonserver.get(i).getP1() == playerhelper2)  {Playerlistonserver.get(i).getC().closeConnection();</b>
+<b class="nc"><i>72</i>&nbsp;                    Playerlistonserver.remove(i);}</b>
+<i>73</i>&nbsp;            }
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;        }
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;  /*      Iterator&lt;String&gt; iterator = waitingConnection.keySet().iterator();
+<i>79</i>&nbsp;        while(iterator.hasNext()){
+<i>80</i>&nbsp;            if(waitingConnection.get(iterator.next())==c){
+<i>81</i>&nbsp;                iterator.remove();
+<i>82</i>&nbsp;            }
+<i>83</i>&nbsp;        }   */
+<b class="nc"><i>84</i>&nbsp;    }</b>
+<i>85</i>&nbsp;
+<i>86</i>&nbsp;
+<i>87</i>&nbsp;    /**
+<i>88</i>&nbsp;     * @author Lorenzo Longaretti
+<i>89</i>&nbsp;     * method that create a match
+<i>90</i>&nbsp;     */
+<i>91</i>&nbsp;    public synchronized void handlelobby(){
+<i>92</i>&nbsp;
+<b class="nc"><i>93</i>&nbsp;        if (waitingConnectionarray.size() == 2) {</b>
+<i>94</i>&nbsp;
+<b class="nc"><i>95</i>&nbsp;            ClientConnection c1 = waitingConnectionarray.get(0).getC();</b>
+<b class="nc"><i>96</i>&nbsp;            ClientConnection c2 = waitingConnectionarray.get(1).getC();</b>
+<b class="nc"><i>97</i>&nbsp;            Player player1 = new Player(waitingConnectionarray.get(0).getPlayername(),15,&quot;apollo&quot;,Color.ANSI_RED);</b>
+<b class="nc"><i>98</i>&nbsp;            Player player2 = new Player(waitingConnectionarray.get(0).getPlayername(), 16,&quot;demetra&quot;,Color.ANSI_BLUE);</b>
+<b class="nc"><i>99</i>&nbsp;            View player1View = new RemoteView(player1, c1);</b>
+<b class="nc"><i>100</i>&nbsp;            View player2View = new RemoteView(player2, c2);</b>
+<b class="nc"><i>101</i>&nbsp;            Board board = new Board();</b>
+<b class="nc"><i>102</i>&nbsp;            ArrayList&lt;TurnObject&gt; turnobject = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>103</i>&nbsp;            Rules rules1 = new Rules(1,board,player1,player2);</b>
+<b class="nc"><i>104</i>&nbsp;            TurnObject turnobject1 = new TurnObject(player1,rules1);</b>
+<i>105</i>&nbsp;
+<b class="nc"><i>106</i>&nbsp;            Rules rules2 = new Rules(2,board,player2,player1);</b>
+<b class="nc"><i>107</i>&nbsp;            TurnObject turnobject2 = new TurnObject(player2,rules2);</b>
+<i>108</i>&nbsp;
+<b class="nc"><i>109</i>&nbsp;            turnobject.add(turnobject1);</b>
+<b class="nc"><i>110</i>&nbsp;            turnobject.add(turnobject2);</b>
+<i>111</i>&nbsp;
+<b class="nc"><i>112</i>&nbsp;            Match model = new Match(board,turnobject);</b>
+<i>113</i>&nbsp;
+<i>114</i>&nbsp;
+<i>115</i>&nbsp;            //qua devo metter il controller
+<b class="nc"><i>116</i>&nbsp;            Controller controller = new Controller(model);</b>
+<i>117</i>&nbsp;
+<b class="nc"><i>118</i>&nbsp;            rules1.addObserver(player1View);</b>
+<b class="nc"><i>119</i>&nbsp;            rules2.addObserver(player2View);</b>
+<i>120</i>&nbsp;
+<b class="nc"><i>121</i>&nbsp;            rules2.addObserver(player1View);</b>
+<b class="nc"><i>122</i>&nbsp;            rules1.addObserver(player2View);</b>
+<i>123</i>&nbsp;
+<b class="nc"><i>124</i>&nbsp;            player1View.addObserver(controller);</b>
+<b class="nc"><i>125</i>&nbsp;            player2View.addObserver(controller);</b>
+<i>126</i>&nbsp;
+<i>127</i>&nbsp;            //imposta tutto
+<b class="nc"><i>128</i>&nbsp;            PlayerlistsonserverObject player1tolist = new PlayerlistsonserverObject(player1,player2,null,waitingConnectionarray.get(0).getNumberofplayer(),c1);</b>
+<b class="nc"><i>129</i>&nbsp;            PlayerlistsonserverObject player2tolist = new PlayerlistsonserverObject(player2,player1, null,waitingConnectionarray.get(0).getNumberofplayer(),c2);</b>
+<b class="nc"><i>130</i>&nbsp;            Playerlistonserver.add(player1tolist);</b>
+<b class="nc"><i>131</i>&nbsp;            Playerlistonserver.add(player2tolist);</b>
+<i>132</i>&nbsp;
+<b class="nc"><i>133</i>&nbsp;            waitingConnectionarray.clear();  // rimuove tutti i parametri da waiting connection</b>
+<i>134</i>&nbsp;
+<b class="nc"><i>135</i>&nbsp;            Service start = new Service(100,&quot;Default&quot;, &quot;Default&quot;);</b>
+<i>136</i>&nbsp;
+<b class="nc"><i>137</i>&nbsp;            controller.getMatch().getTurnobject().get(0).getRules().turnHandler(start);</b>
+<i>138</i>&nbsp;            //ricordo che c1 e c2 sono di tipo SocketCLientConnection
+<i>139</i>&nbsp;            //e dato che l&#39;ho creato io ho mandato il riferimento a c1
+<i>140</i>&nbsp;            //     c1.asyncSend(model.getBoardCopy()); // mando a c1 una copia della board
+<i>141</i>&nbsp;            //    c2.asyncSend(model.getBoardCopy()); // mando a c2 una copia della board
+<i>142</i>&nbsp;
+<i>143</i>&nbsp;            //credo che sia il primo turno
+<i>144</i>&nbsp;      /*      if(model.isPlayerTurn(player1)){ // manda varie richieste se è x
+<i>145</i>&nbsp;                c1.asyncSend(gameMessage.moveMessage);
+<i>146</i>&nbsp;                c2.asyncSend(gameMessage.waitMessage);
+<i>147</i>&nbsp;            } else {
+<i>148</i>&nbsp;                c2.asyncSend(gameMessage.moveMessage);
+<i>149</i>&nbsp;                c1.asyncSend(gameMessage.waitMessage);
+<i>150</i>&nbsp;            }                                                      */
+<i>151</i>&nbsp;
+<b class="nc"><i>152</i>&nbsp;        }</b>
+<i>153</i>&nbsp;        else{
+<i>154</i>&nbsp;
+<b class="nc"><i>155</i>&nbsp;            ClientConnection c1 = waitingConnectionarray.get(0).getC();</b>
+<b class="nc"><i>156</i>&nbsp;            ClientConnection c2 = waitingConnectionarray.get(1).getC();</b>
+<b class="nc"><i>157</i>&nbsp;            ClientConnection c3 = waitingConnectionarray.get(2).getC();</b>
+<b class="nc"><i>158</i>&nbsp;            Player player1 = new Player(waitingConnectionarray.get(0).getPlayername(),15,&quot;apollo&quot;,Color.ANSI_RED);</b>
+<b class="nc"><i>159</i>&nbsp;            Player player2 = new Player(waitingConnectionarray.get(1).getPlayername(), 16,&quot;demetra&quot;,Color.ANSI_BLUE);</b>
+<b class="nc"><i>160</i>&nbsp;            Player player3 = new Player(waitingConnectionarray.get(2).getPlayername(), 17,&quot;demetra&quot;,Color.ANSI_GREEN);</b>
+<b class="nc"><i>161</i>&nbsp;            View player1View = new RemoteView(player1, c1);</b>
+<b class="nc"><i>162</i>&nbsp;            View player2View = new RemoteView(player2, c2);</b>
+<b class="nc"><i>163</i>&nbsp;            View player3View = new RemoteView(player3, c3);</b>
+<i>164</i>&nbsp;
+<i>165</i>&nbsp;
+<b class="nc"><i>166</i>&nbsp;            Board board = new Board();</b>
+<b class="nc"><i>167</i>&nbsp;            ArrayList&lt;TurnObject&gt; turnobject = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>168</i>&nbsp;            Rules rules1 = new Rules(1,board,player1,player2);</b>
+<b class="nc"><i>169</i>&nbsp;            TurnObject turnobject1 = new TurnObject(player1,rules1);</b>
+<i>170</i>&nbsp;
+<b class="nc"><i>171</i>&nbsp;            Rules rules2 = new Rules(2,board,player2,player3);</b>
+<b class="nc"><i>172</i>&nbsp;            TurnObject turnobject2 = new TurnObject(player2,rules2);</b>
+<i>173</i>&nbsp;
+<b class="nc"><i>174</i>&nbsp;            Rules rules3 = new Rules(3,board,player3,player1);</b>
+<b class="nc"><i>175</i>&nbsp;            TurnObject turnobject3 = new TurnObject(player3,rules3);</b>
+<i>176</i>&nbsp;
+<b class="nc"><i>177</i>&nbsp;            turnobject.add(turnobject1);</b>
+<b class="nc"><i>178</i>&nbsp;            turnobject.add(turnobject2);</b>
+<b class="nc"><i>179</i>&nbsp;            turnobject.add(turnobject3);</b>
+<i>180</i>&nbsp;
+<b class="nc"><i>181</i>&nbsp;            Match model = new Match(board,turnobject);</b>
+<i>182</i>&nbsp;            //qua devo metter il controller
+<b class="nc"><i>183</i>&nbsp;            Controller controller = new Controller(model);</b>
+<i>184</i>&nbsp;
+<b class="nc"><i>185</i>&nbsp;            rules1.addObserver(player1View);</b>
+<b class="nc"><i>186</i>&nbsp;            rules2.addObserver(player2View);</b>
+<b class="nc"><i>187</i>&nbsp;            rules3.addObserver(player3View);</b>
+<b class="nc"><i>188</i>&nbsp;            player1View.addObserver(controller);</b>
+<b class="nc"><i>189</i>&nbsp;            player2View.addObserver(controller);</b>
+<b class="nc"><i>190</i>&nbsp;            player3View.addObserver(controller);</b>
+<i>191</i>&nbsp;            //imposta tutto
+<i>192</i>&nbsp;
+<i>193</i>&nbsp;
+<b class="nc"><i>194</i>&nbsp;            PlayerlistsonserverObject player1tolist = new PlayerlistsonserverObject(player1,player2,player3,waitingConnectionarray.get(0).getNumberofplayer(),c1);</b>
+<b class="nc"><i>195</i>&nbsp;            PlayerlistsonserverObject player2tolist = new PlayerlistsonserverObject(player2,player1,player3,waitingConnectionarray.get(0).getNumberofplayer(),c2);</b>
+<b class="nc"><i>196</i>&nbsp;            PlayerlistsonserverObject player3tolist = new PlayerlistsonserverObject(player3,player1,player2,waitingConnectionarray.get(0).getNumberofplayer(),c3);</b>
+<b class="nc"><i>197</i>&nbsp;            Playerlistonserver.add(player1tolist);</b>
+<b class="nc"><i>198</i>&nbsp;            Playerlistonserver.add(player2tolist);</b>
+<b class="nc"><i>199</i>&nbsp;            Playerlistonserver.add(player3tolist);</b>
+<b class="nc"><i>200</i>&nbsp;            waitingConnectionarray.clear();  // rimuove tutti i parametri da waiting connection</b>
+<i>201</i>&nbsp;
+<b class="nc"><i>202</i>&nbsp;            Service start = new Service(0,&quot;Default&quot;, &quot;Default&quot;);</b>
+<b class="nc"><i>203</i>&nbsp;            controller.getMatch().getTurnobject().get(0).getRules().turnHandler(start);</b>
+<i>204</i>&nbsp;
+<i>205</i>&nbsp;            //ricordo che c1 e c2 sono di tipo SocketCLientConnection
+<i>206</i>&nbsp;            //e dato che l&#39;ho creato io ho mandato il riferimento a c1
+<i>207</i>&nbsp;            //     c1.asyncSend(model.getBoardCopy()); // mando a c1 una copia della board
+<i>208</i>&nbsp;            //    c2.asyncSend(model.getBoardCopy()); // mando a c2 una copia della board
+<i>209</i>&nbsp;
+<i>210</i>&nbsp;            //credo che sia il primo turno
+<i>211</i>&nbsp;      /*      if(model.isPlayerTurn(player1)){ // manda varie richieste se è x
+<i>212</i>&nbsp;                c1.asyncSend(gameMessage.moveMessage);
+<i>213</i>&nbsp;                c2.asyncSend(gameMessage.waitMessage);
+<i>214</i>&nbsp;            } else {
+<i>215</i>&nbsp;                c2.asyncSend(gameMessage.moveMessage);
+<i>216</i>&nbsp;                c1.asyncSend(gameMessage.waitMessage);
+<i>217</i>&nbsp;            }                                                      */
+<i>218</i>&nbsp;        }
+<i>219</i>&nbsp;
+<i>220</i>&nbsp;
+<i>221</i>&nbsp;
+<i>222</i>&nbsp;
+<i>223</i>&nbsp;
+<i>224</i>&nbsp;
+<i>225</i>&nbsp;
+<b class="nc"><i>226</i>&nbsp;    }</b>
+<i>227</i>&nbsp;
+<i>228</i>&nbsp;
+<i>229</i>&nbsp;    //Wait for another player
+<i>230</i>&nbsp;
+<i>231</i>&nbsp;    /**
+<i>232</i>&nbsp;     * @author Lorenzo Longaretti
+<i>233</i>&nbsp;     * check if should create the lobby, or if shuld add the player in the waiting list
+<i>234</i>&nbsp;     * @param c
+<i>235</i>&nbsp;     * @param name
+<i>236</i>&nbsp;     * @param number
+<i>237</i>&nbsp;     */
+<i>238</i>&nbsp;    public synchronized void lobby(ClientConnection c, String name, int number){ // name è il nome del giocatore e c è di tipo SocketClientConnection
+<b class="nc"><i>239</i>&nbsp;        WaitingConnectionClass toadd = new WaitingConnectionClass(name,number,c);</b>
+<b class="nc"><i>240</i>&nbsp;        if(waitingConnectionarray.size() == 0 ){ waitingConnectionarray.add(toadd); //sendwait   c.asyncsend(aspsetta che si colleghino altri// )</b>
+<i>241</i>&nbsp;
+<i>242</i>&nbsp;        }
+<i>243</i>&nbsp;        else{
+<b class="nc"><i>244</i>&nbsp;            if((waitingConnectionarray.size()==1 &amp;&amp; waitingConnectionarray.get(0).getNumberofplayer()==2)||(waitingConnectionarray.size()==2 &amp;&amp; waitingConnectionarray.get(0).getNumberofplayer()==3)){</b>
+<i>245</i>&nbsp;                //se il secondo voleva giocare una partita da due
+<i>246</i>&nbsp;                //aggiungi e chiama metodo che inizializza
+<b class="nc"><i>247</i>&nbsp;                toadd.setNumberofplayer(waitingConnectionarray.get(0).getNumberofplayer());</b>
+<b class="nc"><i>248</i>&nbsp;                waitingConnectionarray.add(toadd);</b>
+<b class="nc"><i>249</i>&nbsp;                handlelobby();</b>
+<i>250</i>&nbsp;                //     waitingConnectionarray.clear();
+<i>251</i>&nbsp;            }
+<i>252</i>&nbsp;            else{
+<b class="nc"><i>253</i>&nbsp;                toadd.setNumberofplayer(waitingConnectionarray.get(0).getNumberofplayer());</b>
+<b class="nc"><i>254</i>&nbsp;                waitingConnectionarray.add(toadd);</b>
+<i>255</i>&nbsp;                //sendwait
+<i>256</i>&nbsp;
+<i>257</i>&nbsp;            }
+<i>258</i>&nbsp;        }
+<i>259</i>&nbsp;
+<i>260</i>&nbsp;
+<i>261</i>&nbsp;
+<b class="nc"><i>262</i>&nbsp;    }</b>
+<i>263</i>&nbsp;
+<i>264</i>&nbsp;
+<i>265</i>&nbsp;
+<b class="nc"><i>266</i>&nbsp;    public Server() throws IOException {</b>
+<b class="nc"><i>267</i>&nbsp;        this.serverSocket = new ServerSocket(PORT);</b>
+<b class="nc"><i>268</i>&nbsp;    }</b>
+<i>269</i>&nbsp;
+<i>270</i>&nbsp;    public void run(){ //accetta connessioni
+<i>271</i>&nbsp;        while(true){
+<i>272</i>&nbsp;            try {
+<b class="nc"><i>273</i>&nbsp;                Socket newSocket = serverSocket.accept(); //da server socket che ci deve essere e accetta</b>
+<b class="nc"><i>274</i>&nbsp;                SocketClientConnection socketConnection = new SocketClientConnection(newSocket, this);</b>
+<b class="nc"><i>275</i>&nbsp;                executor.submit(socketConnection); //chiama il suo metodo run</b>
+<b class="nc"><i>276</i>&nbsp;            } catch (IOException e) {</b>
+<b class="nc"><i>277</i>&nbsp;                System.out.println(&quot;Connection Error!&quot;);</b>
+<b class="nc"><i>278</i>&nbsp;            }</b>
+<i>279</i>&nbsp;        }
+<i>280</i>&nbsp;    }
+<i>281</i>&nbsp;
+<i>282</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-05 14:10</div>
+</div>
+</body>
+</html>

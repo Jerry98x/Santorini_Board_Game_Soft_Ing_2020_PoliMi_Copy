@@ -1,0 +1,473 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Service</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.PSP45.utils</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Service (it.polimi.ingsw.PSP45.utils)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Service</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    37,5%
+  </span>
+  <span class="absValue">
+    (15/ 40)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    35,1%
+  </span>
+  <span class="absValue">
+    (46/ 131)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.PSP45.utils;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.PSP45.model.Coordinate;
+<i>4</i>&nbsp;import it.polimi.ingsw.PSP45.model.LightBlock;
+<i>5</i>&nbsp;import it.polimi.ingsw.PSP45.model.LightBoard;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import java.io.Serializable;
+<i>8</i>&nbsp;import java.util.ArrayList;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;/**
+<i>11</i>&nbsp; * @author Lorenzo Longaretti
+<i>12</i>&nbsp; * @author Andrea Gerosa
+<i>13</i>&nbsp; *
+<i>14</i>&nbsp; * Class that represents the object serialized and sent through the stream.
+<i>15</i>&nbsp; * Service objects work as states of a finite-state machine and they consist mainly of three attributes:
+<i>16</i>&nbsp; * a StateNumber to identify the state, an int number and a string for a text message.
+<i>17</i>&nbsp; * A second string is available for necessity.
+<i>18</i>&nbsp; *
+<i>19</i>&nbsp; */
+<i>20</i>&nbsp;public class Service implements Serializable {
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    private static final long serialVersionUID = 234226995;
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    StateNumber type;
+<i>25</i>&nbsp;    String codice;
+<i>26</i>&nbsp;    String whatshouldido;
+<i>27</i>&nbsp;    int intservizio;
+<i>28</i>&nbsp;    private LightBoard lightBoard;
+<b class="fc"><i>29</i>&nbsp;    private ArrayList&lt;LightBlock&gt; availableCells = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>30</i>&nbsp;    private ArrayList&lt;LightBlock&gt; availableCells2 = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>31</i>&nbsp;    private ArrayList&lt;GodName&gt; listgod = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>32</i>&nbsp;    private ArrayList&lt;LightBlock&gt; worker = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>33</i>&nbsp;    private ArrayList&lt;String&gt; playersToChoose = new ArrayList&lt;&gt;();</b>
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    /**
+<i>36</i>&nbsp;     * @author Lorenzo Longaretti
+<i>37</i>&nbsp;     * Class constructor
+<i>38</i>&nbsp;     *
+<i>39</i>&nbsp;     * @param type StateNumber
+<i>40</i>&nbsp;     * @param codice cliMessage
+<i>41</i>&nbsp;     * @param whatshouldido another useful String
+<i>42</i>&nbsp;     */
+<b class="fc"><i>43</i>&nbsp;    public Service(StateNumber type, String codice, String whatshouldido) {</b>
+<b class="fc"><i>44</i>&nbsp;        this.type = type;</b>
+<b class="fc"><i>45</i>&nbsp;        this.codice = codice;</b>
+<b class="fc"><i>46</i>&nbsp;        this.whatshouldido = whatshouldido;</b>
+<b class="fc"><i>47</i>&nbsp;        this.intservizio = 0;</b>
+<i>48</i>&nbsp;
+<b class="fc"><i>49</i>&nbsp;    }</b>
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    public StateNumber getType() {
+<b class="fc"><i>52</i>&nbsp;        return type;</b>
+<i>53</i>&nbsp;    }
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    public String getCodice() {
+<b class="nc"><i>56</i>&nbsp;        return codice;</b>
+<i>57</i>&nbsp;    }
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;    public String getWhatshouldido() {
+<b class="nc"><i>60</i>&nbsp;        return whatshouldido;</b>
+<i>61</i>&nbsp;    }
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    public int getIntservizio() {
+<b class="fc"><i>64</i>&nbsp;        return intservizio;</b>
+<i>65</i>&nbsp;    }
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;    public LightBoard getLightBoard() {
+<b class="nc"><i>68</i>&nbsp;        return lightBoard;</b>
+<i>69</i>&nbsp;    }
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;    public void setType(StateNumber type) {
+<b class="fc"><i>72</i>&nbsp;        this.type = type;</b>
+<b class="fc"><i>73</i>&nbsp;    }</b>
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;    public void setCodice(String codice) {
+<b class="fc"><i>76</i>&nbsp;        this.codice = codice;</b>
+<b class="fc"><i>77</i>&nbsp;    }</b>
+<i>78</i>&nbsp;
+<i>79</i>&nbsp;    public void setIntservizio(int intservizio) {
+<b class="fc"><i>80</i>&nbsp;        this.intservizio = intservizio;</b>
+<b class="fc"><i>81</i>&nbsp;    }</b>
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;    public void setWhatshouldido(String whatshouldido) {
+<b class="fc"><i>84</i>&nbsp;        this.whatshouldido = whatshouldido;</b>
+<b class="fc"><i>85</i>&nbsp;    }</b>
+<i>86</i>&nbsp;
+<i>87</i>&nbsp;    public ArrayList&lt;LightBlock&gt; getWorker() {
+<b class="nc"><i>88</i>&nbsp;        return worker;</b>
+<i>89</i>&nbsp;    }
+<i>90</i>&nbsp;
+<i>91</i>&nbsp;    public void setWorker(ArrayList&lt;LightBlock&gt; worker) {
+<b class="fc"><i>92</i>&nbsp;        this.worker = worker;</b>
+<b class="fc"><i>93</i>&nbsp;    }</b>
+<i>94</i>&nbsp;
+<i>95</i>&nbsp;    public ArrayList&lt;LightBlock&gt; getAvailableCells() {
+<b class="fc"><i>96</i>&nbsp;        return availableCells;</b>
+<i>97</i>&nbsp;    }
+<i>98</i>&nbsp;
+<i>99</i>&nbsp;    public ArrayList&lt;LightBlock&gt; getAvailableCells2() {
+<b class="fc"><i>100</i>&nbsp;        return availableCells2;</b>
+<i>101</i>&nbsp;    }
+<i>102</i>&nbsp;
+<i>103</i>&nbsp;    public ArrayList&lt;GodName&gt; getListGod() {
+<b class="nc"><i>104</i>&nbsp;        return listgod;</b>
+<i>105</i>&nbsp;    }
+<i>106</i>&nbsp;
+<i>107</i>&nbsp;    public ArrayList&lt;String&gt; getPlayersToChoose() {
+<b class="nc"><i>108</i>&nbsp;        return playersToChoose;</b>
+<i>109</i>&nbsp;    }
+<i>110</i>&nbsp;
+<i>111</i>&nbsp;
+<i>112</i>&nbsp;    /**
+<i>113</i>&nbsp;     * @author Lorenzo longaretti
+<i>114</i>&nbsp;     * Sets the service for the name and number request phase.
+<i>115</i>&nbsp;     * It is sent from the server to the client.
+<i>116</i>&nbsp;     *
+<i>117</i>&nbsp;     */
+<i>118</i>&nbsp;    public void setForNameAndNumber(){
+<b class="nc"><i>119</i>&nbsp;        setType(StateNumber.nameAndNumberRequest);</b>
+<b class="nc"><i>120</i>&nbsp;        setCodice(cliMessage.nameMessage);</b>
+<b class="nc"><i>121</i>&nbsp;        setIntservizio(78);</b>
+<b class="nc"><i>122</i>&nbsp;    }</b>
+<i>123</i>&nbsp;
+<i>124</i>&nbsp;    /**
+<i>125</i>&nbsp;     * @author Lorenzo longaretti
+<i>126</i>&nbsp;     * Sets the service for the name and number response phase.
+<i>127</i>&nbsp;     * It is sent from the client to the server.
+<i>128</i>&nbsp;     *
+<i>129</i>&nbsp;     */
+<i>130</i>&nbsp;    public void setResponseForName(String name,int number){
+<b class="nc"><i>131</i>&nbsp;        setType(StateNumber.nameResponse);</b>
+<b class="nc"><i>132</i>&nbsp;        setWhatshouldido(name);</b>
+<b class="nc"><i>133</i>&nbsp;        setIntservizio(number);</b>
+<b class="nc"><i>134</i>&nbsp;    }</b>
+<i>135</i>&nbsp;
+<i>136</i>&nbsp;    /**
+<i>137</i>&nbsp;     * @author Lorenzo longaretti
+<i>138</i>&nbsp;     * Sets the service for waiting phase.
+<i>139</i>&nbsp;     * It is sent from the server to the client.
+<i>140</i>&nbsp;     *
+<i>141</i>&nbsp;     */
+<i>142</i>&nbsp;    public void sendWaitMessage(LightBoard b) {
+<b class="nc"><i>143</i>&nbsp;        setType(StateNumber.wait);</b>
+<b class="nc"><i>144</i>&nbsp;        setCodice(cliMessage.waitMessage);</b>
+<b class="nc"><i>145</i>&nbsp;        lightBoard = b;</b>
+<b class="nc"><i>146</i>&nbsp;        setIntservizio(1);</b>
+<i>147</i>&nbsp;
+<b class="nc"><i>148</i>&nbsp;    }</b>
+<i>149</i>&nbsp;
+<i>150</i>&nbsp;    /**
+<i>151</i>&nbsp;     * @author Lorenzo longaretti
+<i>152</i>&nbsp;     * Sets the service for the moving phase.
+<i>153</i>&nbsp;     * It is sent from the server to the client.
+<i>154</i>&nbsp;     *
+<i>155</i>&nbsp;     */
+<i>156</i>&nbsp;    public void sendMoveMessage(ArrayList&lt;LightBlock&gt; c, LightBoard b, ArrayList&lt;LightBlock&gt; worker, String s) { //array dove può muoversi
+<b class="fc"><i>157</i>&nbsp;        setType(StateNumber.moveState);</b>
+<b class="fc"><i>158</i>&nbsp;        setCodice(cliMessage.moveMessage);</b>
+<b class="fc"><i>159</i>&nbsp;        availableCells = c;</b>
+<b class="fc"><i>160</i>&nbsp;        lightBoard = b;</b>
+<b class="fc"><i>161</i>&nbsp;        setWorker(worker);</b>
+<b class="fc"><i>162</i>&nbsp;        setWhatshouldido(s);</b>
+<i>163</i>&nbsp;
+<i>164</i>&nbsp;
+<b class="fc"><i>165</i>&nbsp;    }</b>
+<i>166</i>&nbsp;
+<i>167</i>&nbsp;    /**
+<i>168</i>&nbsp;     * @author Lorenzo longaretti
+<i>169</i>&nbsp;     * Sets the service for the building phase.
+<i>170</i>&nbsp;     * It is sent from the server to the client.
+<i>171</i>&nbsp;     *
+<i>172</i>&nbsp;     */
+<i>173</i>&nbsp;    public void sendBuildMessage(ArrayList&lt;LightBlock&gt; l, LightBoard b, int k, String s) {
+<b class="fc"><i>174</i>&nbsp;        setType(StateNumber.buildState);</b>
+<b class="fc"><i>175</i>&nbsp;        setCodice(cliMessage.buildMessage);</b>
+<b class="fc"><i>176</i>&nbsp;        setIntservizio(k);</b>
+<b class="fc"><i>177</i>&nbsp;        availableCells2 = l;</b>
+<b class="fc"><i>178</i>&nbsp;        lightBoard = b;</b>
+<b class="fc"><i>179</i>&nbsp;        setWhatshouldido(s);</b>
+<b class="fc"><i>180</i>&nbsp;    }</b>
+<i>181</i>&nbsp;
+<i>182</i>&nbsp;    /**
+<i>183</i>&nbsp;     * @author Lorenzo longaretti
+<i>184</i>&nbsp;     * Sets the service for the moving phase.
+<i>185</i>&nbsp;     * It is sent from the client to the server.
+<i>186</i>&nbsp;     *
+<i>187</i>&nbsp;     */
+<i>188</i>&nbsp;    public void receiveMoveMessage(LightBlock lb, int k) {
+<b class="nc"><i>189</i>&nbsp;        System.out.println(&quot;entra in receive move message&quot;);</b>
+<b class="nc"><i>190</i>&nbsp;        availableCells.clear();</b>
+<b class="nc"><i>191</i>&nbsp;        availableCells.add(lb);</b>
+<b class="nc"><i>192</i>&nbsp;        setType(StateNumber.readyToMove);</b>
+<b class="nc"><i>193</i>&nbsp;        setIntservizio(k);</b>
+<b class="nc"><i>194</i>&nbsp;    }</b>
+<i>195</i>&nbsp;
+<i>196</i>&nbsp;    /**
+<i>197</i>&nbsp;     * @author Lorenzo longaretti
+<i>198</i>&nbsp;     * Sets the service for the name and number request phase.
+<i>199</i>&nbsp;     * It is sent from the client to the server.
+<i>200</i>&nbsp;     *
+<i>201</i>&nbsp;     */
+<i>202</i>&nbsp;    public void receiveBuildMessage(LightBlock lb) {
+<b class="nc"><i>203</i>&nbsp;        availableCells2.clear();</b>
+<b class="nc"><i>204</i>&nbsp;        availableCells2.add(lb);</b>
+<b class="nc"><i>205</i>&nbsp;        setType(StateNumber.readyToBuild);</b>
+<b class="nc"><i>206</i>&nbsp;    }</b>
+<i>207</i>&nbsp;
+<i>208</i>&nbsp;    /**
+<i>209</i>&nbsp;     * @author Lorenzo longaretti
+<i>210</i>&nbsp;     * Sets the service for the next turn phase, i.
+<i>211</i>&nbsp;     * It is sent from the server to the client.
+<i>212</i>&nbsp;     *
+<i>213</i>&nbsp;     */
+<i>214</i>&nbsp;    public void setNexTurn(){
+<b class="fc"><i>215</i>&nbsp;        setType(StateNumber.nextTurn);</b>
+<b class="fc"><i>216</i>&nbsp;    }</b>
+<i>217</i>&nbsp;
+<i>218</i>&nbsp;    public void receiveExitMessage() {
+<b class="nc"><i>219</i>&nbsp;        setType(StateNumber.exit);</b>
+<b class="nc"><i>220</i>&nbsp;    }</b>
+<i>221</i>&nbsp;
+<i>222</i>&nbsp;    /**
+<i>223</i>&nbsp;     * @author Lorenzo longaretti
+<i>224</i>&nbsp;     * Sets the service for the gods request phase.
+<i>225</i>&nbsp;     * It is sent from the server to the client.
+<i>226</i>&nbsp;     *
+<i>227</i>&nbsp;     */
+<i>228</i>&nbsp;    public void sendGod(ArrayList&lt;GodName&gt; listgod, int intservizio){
+<b class="nc"><i>229</i>&nbsp;        setType(StateNumber.setgod);</b>
+<i>230</i>&nbsp;
+<b class="nc"><i>231</i>&nbsp;        if(listgod.size() &gt; 3) {</b>
+<b class="nc"><i>232</i>&nbsp;            setCodice(cliMessage.godSelection);</b>
+<i>233</i>&nbsp;        }
+<i>234</i>&nbsp;        else {
+<b class="nc"><i>235</i>&nbsp;            setCodice(cliMessage.yourGodSelectionMessage);</b>
+<i>236</i>&nbsp;        }
+<i>237</i>&nbsp;
+<b class="nc"><i>238</i>&nbsp;        this.listgod = listgod;</b>
+<b class="nc"><i>239</i>&nbsp;        this.intservizio = intservizio;</b>
+<b class="nc"><i>240</i>&nbsp;    }</b>
+<i>241</i>&nbsp;
+<i>242</i>&nbsp;    /**
+<i>243</i>&nbsp;     * @author Lorenzo longaretti
+<i>244</i>&nbsp;     * Sets the service for the gods response phase, with the selected god.
+<i>245</i>&nbsp;     * It is sent from the client to the server.
+<i>246</i>&nbsp;     *
+<i>247</i>&nbsp;     */
+<i>248</i>&nbsp;    public void replyChosenGod(GodName god){
+<b class="nc"><i>249</i>&nbsp;        setType(StateNumber.replysetgod);</b>
+<b class="nc"><i>250</i>&nbsp;        listgod.clear();</b>
+<b class="nc"><i>251</i>&nbsp;        listgod.add(god);</b>
+<b class="nc"><i>252</i>&nbsp;        setIntservizio(0);</b>
+<b class="nc"><i>253</i>&nbsp;    }</b>
+<i>254</i>&nbsp;
+<i>255</i>&nbsp;    /**
+<i>256</i>&nbsp;     * @author Lorenzo longaretti
+<i>257</i>&nbsp;     * Sets the service for the gods request phase, with all the selected gods.
+<i>258</i>&nbsp;     * It is sent from the client to server.
+<i>259</i>&nbsp;     *
+<i>260</i>&nbsp;     */
+<i>261</i>&nbsp;    public void replyChosenGod1(ArrayList&lt;GodName&gt; god){
+<b class="nc"><i>262</i>&nbsp;        setType(StateNumber.replysetgod);</b>
+<b class="nc"><i>263</i>&nbsp;        listgod.clear();</b>
+<b class="nc"><i>264</i>&nbsp;        listgod = god;</b>
+<b class="nc"><i>265</i>&nbsp;        setIntservizio(3);</b>
+<b class="nc"><i>266</i>&nbsp;    }</b>
+<i>267</i>&nbsp;
+<i>268</i>&nbsp;
+<i>269</i>&nbsp;    public void setHasWon(){
+<b class="fc"><i>270</i>&nbsp;        setType(StateNumber.haswon);</b>
+<b class="fc"><i>271</i>&nbsp;    }</b>
+<i>272</i>&nbsp;
+<i>273</i>&nbsp;    /**
+<i>274</i>&nbsp;     * @author Lorenzo longaretti
+<i>275</i>&nbsp;     * Sets the service for winning the match.
+<i>276</i>&nbsp;     * It is sent from the server to the client.
+<i>277</i>&nbsp;     *
+<i>278</i>&nbsp;     */
+<i>279</i>&nbsp;    public void sendHasWon(){
+<b class="nc"><i>280</i>&nbsp;        setType(StateNumber.sendhaswon);</b>
+<b class="nc"><i>281</i>&nbsp;        setCodice(cliMessage.winMessage);</b>
+<b class="nc"><i>282</i>&nbsp;    }</b>
+<i>283</i>&nbsp;
+<i>284</i>&nbsp;    /**
+<i>285</i>&nbsp;     * @author Lorenzo longaretti
+<i>286</i>&nbsp;     * Sets the service for losing the match.
+<i>287</i>&nbsp;     * It is sent from the server to the client.
+<i>288</i>&nbsp;     *
+<i>289</i>&nbsp;     */
+<i>290</i>&nbsp;    public void sendHasLose(){
+<b class="fc"><i>291</i>&nbsp;        setType(StateNumber.haswon);</b>
+<b class="fc"><i>292</i>&nbsp;        setCodice(cliMessage.loseMessage);</b>
+<b class="fc"><i>293</i>&nbsp;    }</b>
+<i>294</i>&nbsp;
+<i>295</i>&nbsp;    public void sendLose(){
+<b class="nc"><i>296</i>&nbsp;        setType(StateNumber.sendhaslose);</b>
+<b class="nc"><i>297</i>&nbsp;        setCodice(cliMessage.loseMessage);</b>
+<b class="nc"><i>298</i>&nbsp;    }</b>
+<i>299</i>&nbsp;
+<i>300</i>&nbsp;    public void sendNotMove(){
+<b class="nc"><i>301</i>&nbsp;        setType(StateNumber.ghost);</b>
+<b class="nc"><i>302</i>&nbsp;        setCodice(cliMessage.youAreAGhostMessage);</b>
+<i>303</i>&nbsp;
+<b class="nc"><i>304</i>&nbsp;    }</b>
+<i>305</i>&nbsp;
+<i>306</i>&nbsp;    /**
+<i>307</i>&nbsp;     * @author Lorenzo longaretti
+<i>308</i>&nbsp;     * Sets the service for the first player choice phase.
+<i>309</i>&nbsp;     * It is sent from the server to the client.
+<i>310</i>&nbsp;     *
+<i>311</i>&nbsp;     */
+<i>312</i>&nbsp;    public void sendFirstPlayer(String primo, String secondo, String terzo, ArrayList&lt;GodName&gt; godNames){
+<b class="nc"><i>313</i>&nbsp;        setType(StateNumber.firstplayer);</b>
+<b class="nc"><i>314</i>&nbsp;        listgod = godNames;</b>
+<b class="nc"><i>315</i>&nbsp;        if(terzo.equals(&quot;1&quot;)) {</b>
+<b class="nc"><i>316</i>&nbsp;            setCodice(cliMessage.firstPlayerChoiceMessage + &quot;\n&quot; + primo + &quot;: &quot; + listgod.get(0) + &quot;\n&quot; + secondo + &quot;: &quot; + listgod.get(1) + &quot;\n&quot;);</b>
+<i>317</i>&nbsp;        }
+<i>318</i>&nbsp;        else {
+<b class="nc"><i>319</i>&nbsp;            setCodice(cliMessage.firstPlayerChoiceMessage + &quot;\n&quot; + primo + &quot;: &quot; + listgod.get(0) + &quot;\n&quot; + secondo + &quot;: &quot; + listgod.get(1) + &quot;\n&quot; + terzo + &quot;: &quot; + listgod.get(2) + &quot;\n&quot;);</b>
+<i>320</i>&nbsp;        }
+<i>321</i>&nbsp;
+<b class="nc"><i>322</i>&nbsp;        playersToChoose.add(primo);</b>
+<b class="nc"><i>323</i>&nbsp;        playersToChoose.add(secondo);</b>
+<b class="nc"><i>324</i>&nbsp;        playersToChoose.add(terzo);</b>
+<b class="nc"><i>325</i>&nbsp;    }</b>
+<i>326</i>&nbsp;    /**
+<i>327</i>&nbsp;     * @author Lorenzo longaretti
+<i>328</i>&nbsp;     * Sets the service for the first player response phase.
+<i>329</i>&nbsp;     * It is sent from the client to the server.
+<i>330</i>&nbsp;     *
+<i>331</i>&nbsp;     */
+<i>332</i>&nbsp;    public void receiveFirstPlayer(int i){
+<b class="nc"><i>333</i>&nbsp;        setType(StateNumber.firstplayerreceive);</b>
+<b class="nc"><i>334</i>&nbsp;        setIntservizio(i);</b>
+<b class="nc"><i>335</i>&nbsp;    }</b>
+<i>336</i>&nbsp;
+<i>337</i>&nbsp;    /**
+<i>338</i>&nbsp;     * @author Lorenzo longaretti
+<i>339</i>&nbsp;     * Sets the service for the ping.
+<i>340</i>&nbsp;     * It is sent from the server to the client.
+<i>341</i>&nbsp;     *
+<i>342</i>&nbsp;     */
+<b class="nc"><i>343</i>&nbsp;    public void sendPingMessage(){ setType(StateNumber.pingsend); }</b>
+<i>344</i>&nbsp;
+<i>345</i>&nbsp;    /**
+<i>346</i>&nbsp;     * @author Lorenzo longaretti
+<i>347</i>&nbsp;     * Sets the service for the ping.
+<i>348</i>&nbsp;     * It is sent from the client to the server.
+<i>349</i>&nbsp;     *
+<i>350</i>&nbsp;     */
+<b class="nc"><i>351</i>&nbsp;    public void receivePingMessage(){ setType(StateNumber.pingreceive);}</b>
+<i>352</i>&nbsp;
+<i>353</i>&nbsp;    /**
+<i>354</i>&nbsp;     * @author Lorenzo longaretti
+<i>355</i>&nbsp;     * Sets the service for the positioning phase.
+<i>356</i>&nbsp;     * It is sent from the client to the server.
+<i>357</i>&nbsp;     *
+<i>358</i>&nbsp;     */
+<i>359</i>&nbsp;    public void setCoordindatePlayer(int x1, int y1 ,int x2, int y2) {
+<b class="nc"><i>360</i>&nbsp;        setType(StateNumber.setcoordinatereply);</b>
+<b class="nc"><i>361</i>&nbsp;        availableCells.clear();</b>
+<b class="nc"><i>362</i>&nbsp;        availableCells.add(new LightBlock(new Coordinate(x1,y1)));</b>
+<b class="nc"><i>363</i>&nbsp;        availableCells.add(new LightBlock(new Coordinate(x2,y2)));</b>
+<b class="nc"><i>364</i>&nbsp;    }</b>
+<i>365</i>&nbsp;
+<i>366</i>&nbsp;    /**
+<i>367</i>&nbsp;     * @author Lorenzo longaretti
+<i>368</i>&nbsp;     * Sets the service for positioning phase.
+<i>369</i>&nbsp;     * It is sent from the server to the client.
+<i>370</i>&nbsp;     *
+<i>371</i>&nbsp;     */
+<i>372</i>&nbsp;    public void setCoordindatePlayerSend(LightBoard lb, ArrayList&lt;GodName&gt; godnames) {
+<b class="nc"><i>373</i>&nbsp;        setType(StateNumber.setcoordinate);</b>
+<b class="nc"><i>374</i>&nbsp;        setCodice(cliMessage.positionWorkersMessage);</b>
+<b class="nc"><i>375</i>&nbsp;        lightBoard = lb;</b>
+<b class="nc"><i>376</i>&nbsp;        listgod.clear();</b>
+<b class="nc"><i>377</i>&nbsp;        listgod = godnames;</b>
+<b class="nc"><i>378</i>&nbsp;    }</b>
+<i>379</i>&nbsp;
+<i>380</i>&nbsp;    /**
+<i>381</i>&nbsp;     * @author Lorenzo Longaretti
+<i>382</i>&nbsp;     * Sets the service for notifying unexpected disconnections.
+<i>383</i>&nbsp;     * It is sent from the server to the client.
+<i>384</i>&nbsp;     *
+<i>385</i>&nbsp;     */
+<i>386</i>&nbsp;    public void disconnection(){
+<b class="nc"><i>387</i>&nbsp;        setType(StateNumber.disconnection);</b>
+<b class="nc"><i>388</i>&nbsp;        setCodice(cliMessage.disconnectMessage);</b>
+<b class="nc"><i>389</i>&nbsp;    }</b>
+<i>390</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-07-03 18:11</div>
+</div>
+</body>
+</html>

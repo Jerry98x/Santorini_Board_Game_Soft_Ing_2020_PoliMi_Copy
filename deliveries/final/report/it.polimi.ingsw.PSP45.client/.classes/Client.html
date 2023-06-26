@@ -1,0 +1,1299 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Client</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.PSP45.client</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Client (it.polimi.ingsw.PSP45.client)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Client</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 29)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 444)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Client$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 68)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">Client$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 26)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">Client$3</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 11)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 35)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 549)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.PSP45.client;
+<i>2</i>&nbsp;import it.polimi.ingsw.PSP45.model.LightBlock;
+<i>3</i>&nbsp;import it.polimi.ingsw.PSP45.server.WaitingConnectionClass;
+<i>4</i>&nbsp;import it.polimi.ingsw.PSP45.utils.*;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import java.io.IOException;
+<i>7</i>&nbsp;import java.io.ObjectInputStream;
+<i>8</i>&nbsp;import java.io.ObjectOutputStream;
+<i>9</i>&nbsp;import java.net.Socket;
+<i>10</i>&nbsp;import java.util.ArrayList;
+<i>11</i>&nbsp;import java.util.NoSuchElementException;
+<i>12</i>&nbsp;import java.util.Scanner;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;/**
+<i>15</i>&nbsp; * @author Andrea Gerosa
+<i>16</i>&nbsp; * @author Lorenzo Longaretti
+<i>17</i>&nbsp; *
+<i>18</i>&nbsp; * Class that represent a client.
+<i>19</i>&nbsp; * This version is for the cli.
+<i>20</i>&nbsp; *
+<i>21</i>&nbsp; */
+<i>22</i>&nbsp;public class Client {
+<i>23</i>&nbsp;	private String IP;
+<i>24</i>&nbsp;	private int port;
+<i>25</i>&nbsp;	private StateNumber state;
+<b class="nc"><i>26</i>&nbsp;	private Service service = new Service(StateNumber.active, &quot;default&quot;, &quot;default&quot;);</b>
+<i>27</i>&nbsp;	private ObjectOutputStream socketOut;
+<i>28</i>&nbsp;	Scanner stdin;
+<i>29</i>&nbsp;	boolean newMatch;
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;	/**
+<i>32</i>&nbsp;	 * @author Andrea Gerosa
+<i>33</i>&nbsp;	 *
+<i>34</i>&nbsp;	 * Class constructor.
+<i>35</i>&nbsp;	 *
+<i>36</i>&nbsp;	 * @param IP
+<i>37</i>&nbsp;	 * @param port
+<i>38</i>&nbsp;	 */
+<b class="nc"><i>39</i>&nbsp;	public Client(String IP, int port) {</b>
+<b class="nc"><i>40</i>&nbsp;		this.IP = IP;</b>
+<b class="nc"><i>41</i>&nbsp;		this.port = port;</b>
+<b class="nc"><i>42</i>&nbsp;		this.state = StateNumber.active;</b>
+<b class="nc"><i>43</i>&nbsp;		System.out.println(&quot;fine costruttore&quot;);</b>
+<b class="nc"><i>44</i>&nbsp;		this.stdin = new Scanner(System.in);</b>
+<b class="nc"><i>45</i>&nbsp;	}</b>
+<b class="nc"><i>46</i>&nbsp;	private boolean active = true;</b>
+<i>47</i>&nbsp;	public synchronized boolean isActive() {
+<b class="nc"><i>48</i>&nbsp;		return active;</b>
+<i>49</i>&nbsp;	}
+<i>50</i>&nbsp;	public synchronized void setActive(boolean active) {
+<b class="nc"><i>51</i>&nbsp;		this.active = active;</b>
+<b class="nc"><i>52</i>&nbsp;	}</b>
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;	public boolean isNewMatch() {
+<b class="nc"><i>55</i>&nbsp;		return newMatch;</b>
+<i>56</i>&nbsp;	}
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;	/*public void setStdin(Scanner stdin) {
+<i>59</i>&nbsp;		this.stdin = stdin;
+<i>60</i>&nbsp;	}*/
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;	/**
+<i>63</i>&nbsp;	 * @author Andrea Gerosa
+<i>64</i>&nbsp;	 *
+<i>65</i>&nbsp;	 * Method that writes the service object on the outputStream and then slush the stream.
+<i>66</i>&nbsp;	 *
+<i>67</i>&nbsp;	 * @param service
+<i>68</i>&nbsp;	 * @throws IOException
+<i>69</i>&nbsp;	 */
+<i>70</i>&nbsp;	public synchronized void sendOutput(Service service) throws IOException {
+<b class="nc"><i>71</i>&nbsp;		socketOut.writeObject(service);</b>
+<b class="nc"><i>72</i>&nbsp;		socketOut.flush();</b>
+<b class="nc"><i>73</i>&nbsp;	}</b>
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;	/**
+<i>77</i>&nbsp;	 * @author Andrea Gerosa
+<i>78</i>&nbsp;	 *
+<i>79</i>&nbsp;	 *
+<i>80</i>&nbsp;	 * @param str input
+<i>81</i>&nbsp;	 * @return true if the input is an integer, false otherwise.
+<i>82</i>&nbsp;	 */
+<i>83</i>&nbsp;	public boolean isInteger(String str) {
+<i>84</i>&nbsp;		try {
+<b class="nc"><i>85</i>&nbsp;			Integer.parseInt(str);</b>
+<b class="nc"><i>86</i>&nbsp;			return true;</b>
+<i>87</i>&nbsp;		}
+<b class="nc"><i>88</i>&nbsp;		catch(Exception e) {</b>
+<b class="nc"><i>89</i>&nbsp;			return false;</b>
+<i>90</i>&nbsp;		}
+<i>91</i>&nbsp;	}
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;	/**
+<i>94</i>&nbsp;	 * @author Andrea Gerosa
+<i>95</i>&nbsp;	 *
+<i>96</i>&nbsp;	 * @param str inputs
+<i>97</i>&nbsp;	 * @return true if every input is an integer, false otherwise.
+<i>98</i>&nbsp;	 */
+<i>99</i>&nbsp;	public boolean areAllIntegers(String[] str) {
+<b class="nc"><i>100</i>&nbsp;		int helper = 0;</b>
+<b class="nc"><i>101</i>&nbsp;		for(String string : str) {</b>
+<b class="nc"><i>102</i>&nbsp;			if(isInteger(string)) {</b>
+<b class="nc"><i>103</i>&nbsp;				helper ++;</b>
+<i>104</i>&nbsp;			}
+<i>105</i>&nbsp;		}
+<i>106</i>&nbsp;
+<b class="nc"><i>107</i>&nbsp;		return helper == str.length;</b>
+<i>108</i>&nbsp;	}
+<i>109</i>&nbsp;
+<i>110</i>&nbsp;
+<i>111</i>&nbsp;	/**
+<i>112</i>&nbsp;	 * @author Andrea Gerosa
+<i>113</i>&nbsp;	 * @author Lorenzo Longaretti
+<i>114</i>&nbsp;	 *
+<i>115</i>&nbsp;	 * Creates a new thread that reads the messages from the inputStream, recognizes the service and set the state of the client.
+<i>116</i>&nbsp;	 *
+<i>117</i>&nbsp;	 * @param socketIn the stream in input
+<i>118</i>&nbsp;	 * @return the new created thread
+<i>119</i>&nbsp;	 */
+<i>120</i>&nbsp;	public Thread asyncReadFromSocket(final ObjectInputStream socketIn) {
+<b class="nc"><i>121</i>&nbsp;		Thread t = new Thread(new Runnable() {</b>
+<i>122</i>&nbsp;			@Override
+<i>123</i>&nbsp;			public void run() {
+<i>124</i>&nbsp;				try {
+<b class="nc"><i>125</i>&nbsp;					while(isActive()) {</b>
+<i>126</i>&nbsp;						//           System.out.println(&quot;è il tipo dal server &quot;);
+<b class="nc"><i>127</i>&nbsp;						Service inputObject = new Service(StateNumber.active,&quot;def&quot;, &quot;def&quot;);</b>
+<b class="nc"><i>128</i>&nbsp;						try{   inputObject = (Service) socketIn.readObject();}</b>
+<b class="nc"><i>129</i>&nbsp;						catch (Exception e) {</b>
+<b class="nc"><i>130</i>&nbsp;							System.out.println(&quot;salta qui&quot;);</b>
+<b class="nc"><i>131</i>&nbsp;							System.out.println(e.getMessage());</b>
+<b class="nc"><i>132</i>&nbsp;							setActive(false);</b>
+<b class="nc"><i>133</i>&nbsp;						}</b>
+<i>134</i>&nbsp;
+<i>135</i>&nbsp;
+<i>136</i>&nbsp;
+<b class="nc"><i>137</i>&nbsp;						System.out.println(&quot;è lo stato &quot; +state);</b>
+<b class="nc"><i>138</i>&nbsp;						if(state == StateNumber.active) {</b>
+<b class="nc"><i>139</i>&nbsp;							System.out.println(active);</b>
+<i>140</i>&nbsp;							//setActive(true);
+<b class="nc"><i>141</i>&nbsp;							if (inputObject.getType() == StateNumber.nameAndNumberRequest) {</b>
+<b class="nc"><i>142</i>&nbsp;								System.out.println(inputObject.getCodice());</b>
+<i>143</i>&nbsp;								//System.out.println(inputObject.getWhatshouldido());
+<b class="nc"><i>144</i>&nbsp;								state = inputObject.getType();</b>
+<i>145</i>&nbsp;							}
+<b class="nc"><i>146</i>&nbsp;							else if (inputObject.getType() == StateNumber.setgod){</b>
+<b class="nc"><i>147</i>&nbsp;								state = inputObject.getType();</b>
+<b class="nc"><i>148</i>&nbsp;								service = inputObject;</b>
+<b class="nc"><i>149</i>&nbsp;								System.out.println(inputObject.getCodice());</b>
+<b class="nc"><i>150</i>&nbsp;								for(GodName godname : inputObject.getListGod()){</b>
+<b class="nc"><i>151</i>&nbsp;									System.out.print(godname);</b>
+<b class="nc"><i>152</i>&nbsp;									System.out.println(&quot;&quot;);</b>
+<b class="nc"><i>153</i>&nbsp;								}</b>
+<i>154</i>&nbsp;							}
+<b class="nc"><i>155</i>&nbsp;							else if(inputObject.getType() == StateNumber.firstplayer) {</b>
+<b class="nc"><i>156</i>&nbsp;								state = inputObject.getType();</b>
+<b class="nc"><i>157</i>&nbsp;								service = inputObject;</b>
+<b class="nc"><i>158</i>&nbsp;								System.out.println(inputObject.getCodice());</b>
+<i>159</i>&nbsp;
+<i>160</i>&nbsp;								/*for(WaitingConnectionClass player : inputObject.getPlayerList()) {
+<i>161</i>&nbsp;									System.out.println(player.getPlayername() + &quot;: &quot;);
+<i>162</i>&nbsp;									for(GodName god : inputObject.getListGod()) {
+<i>163</i>&nbsp;										if(god)
+<i>164</i>&nbsp;									}
+<i>165</i>&nbsp;								}*/
+<i>166</i>&nbsp;
+<i>167</i>&nbsp;							}
+<b class="nc"><i>168</i>&nbsp;							else if (inputObject.getType() == StateNumber.setcoordinate) {</b>
+<b class="nc"><i>169</i>&nbsp;								state = inputObject.getType();</b>
+<b class="nc"><i>170</i>&nbsp;								service = inputObject;</b>
+<b class="nc"><i>171</i>&nbsp;								System.out.println(inputObject.getCodice());</b>
+<b class="nc"><i>172</i>&nbsp;								System.out.println();</b>
+<b class="nc"><i>173</i>&nbsp;								service.getLightBoard().printBoard();</b>
+<i>174</i>&nbsp;							}
+<b class="nc"><i>175</i>&nbsp;							else if (inputObject.getType() == StateNumber.moveState) {</b>
+<b class="nc"><i>176</i>&nbsp;								state = inputObject.getType();</b>
+<b class="nc"><i>177</i>&nbsp;								service = inputObject;</b>
+<i>178</i>&nbsp;
+<b class="nc"><i>179</i>&nbsp;								service.getLightBoard().printBoard();</b>
+<i>180</i>&nbsp;
+<b class="nc"><i>181</i>&nbsp;								System.out.println(inputObject.getCodice());</b>
+<b class="nc"><i>182</i>&nbsp;								System.out.println(&quot;Available cells for both your workers:&quot;);</b>
+<b class="nc"><i>183</i>&nbsp;								for (int l = 0; l &lt; service.getAvailableCells().size(); l++) {</b>
+<b class="nc"><i>184</i>&nbsp;									System.out.print(service.getAvailableCells().get(l).getC().getX() + &quot;,&quot; + service.getAvailableCells().get(l).getC().getY() + &quot;|&quot;);</b>
+<i>185</i>&nbsp;								}
+<b class="nc"><i>186</i>&nbsp;								System.out.println();</b>
+<i>187</i>&nbsp;							}
+<b class="nc"><i>188</i>&nbsp;							else if (inputObject.getType() == StateNumber.buildState) {</b>
+<b class="nc"><i>189</i>&nbsp;								state = inputObject.getType();</b>
+<b class="nc"><i>190</i>&nbsp;								service = inputObject;</b>
+<b class="nc"><i>191</i>&nbsp;								service.getLightBoard().printBoard();</b>
+<b class="nc"><i>192</i>&nbsp;								System.out.println(inputObject.getCodice());</b>
+<b class="nc"><i>193</i>&nbsp;								System.out.println(&quot;x,y,liv,giocat&quot;);</b>
+<b class="nc"><i>194</i>&nbsp;								for (int l = 0; l &lt; service.getAvailableCells2().size(); l++) {</b>
+<b class="nc"><i>195</i>&nbsp;									System.out.print(service.getAvailableCells2().get(l).getC().getX() + &quot;,&quot; + service.getAvailableCells2().get(l).getC().getY() + &quot;|&quot;);</b>
+<i>196</i>&nbsp;								}
+<b class="nc"><i>197</i>&nbsp;								System.out.println();</b>
+<i>198</i>&nbsp;							}
+<b class="nc"><i>199</i>&nbsp;							else if (inputObject.getType() == StateNumber.wait) {</b>
+<b class="nc"><i>200</i>&nbsp;								System.out.println(inputObject.getCodice());</b>
+<b class="nc"><i>201</i>&nbsp;								inputObject.getLightBoard().printBoard();</b>
+<i>202</i>&nbsp;							}
+<b class="nc"><i>203</i>&nbsp;							else if (inputObject.getType() == StateNumber.sendhaswon || inputObject.getType() == StateNumber.sendhaslose) {</b>
+<b class="nc"><i>204</i>&nbsp;								state = inputObject.getType();</b>
+<b class="nc"><i>205</i>&nbsp;								System.out.println(inputObject.getCodice());</b>
+<b class="nc"><i>206</i>&nbsp;								System.out.println(cliMessage.endGameMessage);</b>
+<b class="nc"><i>207</i>&nbsp;								System.out.println(&quot;potrei non settare più active&quot;);</b>
+<i>208</i>&nbsp;							}
+<b class="nc"><i>209</i>&nbsp;							else if(inputObject.getType() == StateNumber.disconnection) {</b>
+<b class="nc"><i>210</i>&nbsp;								state = inputObject.getType();</b>
+<b class="nc"><i>211</i>&nbsp;								System.out.println(inputObject.getCodice());</b>
+<i>212</i>&nbsp;							}
+<i>213</i>&nbsp;
+<i>214</i>&nbsp;						}
+<i>215</i>&nbsp;
+<i>216</i>&nbsp;						//           System.out.println(&quot;stampo is active da scrittura &quot;+ active);
+<b class="nc"><i>217</i>&nbsp;					}</b>
+<i>218</i>&nbsp;				}
+<b class="nc"><i>219</i>&nbsp;				catch(Exception e) {</b>
+<b class="nc"><i>220</i>&nbsp;					System.out.println(&quot;viene chiamato not is active dalla read&quot;);</b>
+<b class="nc"><i>221</i>&nbsp;					setActive(false);</b>
+<b class="nc"><i>222</i>&nbsp;				}</b>
+<b class="nc"><i>223</i>&nbsp;			}</b>
+<i>224</i>&nbsp;		});
+<b class="nc"><i>225</i>&nbsp;		t.start();</b>
+<b class="nc"><i>226</i>&nbsp;		return t;</b>
+<i>227</i>&nbsp;	}
+<i>228</i>&nbsp;
+<i>229</i>&nbsp;
+<i>230</i>&nbsp;	/**
+<i>231</i>&nbsp;	 * @author Andrea Gerosa
+<i>232</i>&nbsp;	 *
+<i>233</i>&nbsp;	 * Creates a new thread that reads a line from the standard input, checks the client&#39;s state and calls
+<i>234</i>&nbsp;	 * the most appropriate method, which will perform the correct action.
+<i>235</i>&nbsp;	 *
+<i>236</i>&nbsp;	 * @param stdin standard input
+<i>237</i>&nbsp;	 * @return the new created thread
+<i>238</i>&nbsp;	 */
+<i>239</i>&nbsp;	public Thread asyncWriteFromSocket(final Scanner stdin) {
+<b class="nc"><i>240</i>&nbsp;		Thread t = new Thread(new Runnable() {</b>
+<i>241</i>&nbsp;			@Override
+<i>242</i>&nbsp;			public void run() {
+<i>243</i>&nbsp;
+<i>244</i>&nbsp;				try {
+<b class="nc"><i>245</i>&nbsp;					while (isActive()) {</b>
+<i>246</i>&nbsp;						String inputLine;
+<i>247</i>&nbsp;
+<i>248</i>&nbsp;						/*if(stdin.hasNext()) {
+<i>249</i>&nbsp;							inputLine = stdin.nextLine();
+<i>250</i>&nbsp;						}
+<i>251</i>&nbsp;						else {
+<i>252</i>&nbsp;							stdin.reset();
+<i>253</i>&nbsp;							inputLine = stdin.nextLine();
+<i>254</i>&nbsp;						}*/
+<b class="nc"><i>255</i>&nbsp;						stdin.reset();</b>
+<b class="nc"><i>256</i>&nbsp;						inputLine = stdin.nextLine();</b>
+<i>257</i>&nbsp;
+<i>258</i>&nbsp;
+<b class="nc"><i>259</i>&nbsp;						if (state == StateNumber.nameAndNumberRequest) {</b>
+<b class="nc"><i>260</i>&nbsp;							setNameAndNumber(inputLine, stdin);</b>
+<i>261</i>&nbsp;						}
+<i>262</i>&nbsp;
+<b class="nc"><i>263</i>&nbsp;						else if (state == StateNumber.moveState) {</b>
+<b class="nc"><i>264</i>&nbsp;							sendMove(inputLine, stdin);</b>
+<i>265</i>&nbsp;						}
+<i>266</i>&nbsp;
+<b class="nc"><i>267</i>&nbsp;						else if (state == StateNumber.buildState) {</b>
+<b class="nc"><i>268</i>&nbsp;							sendBuild(inputLine, stdin);</b>
+<i>269</i>&nbsp;						}
+<i>270</i>&nbsp;
+<b class="nc"><i>271</i>&nbsp;						else if (state == StateNumber.setgod)  {</b>
+<b class="nc"><i>272</i>&nbsp;							setGodName(inputLine, stdin);</b>
+<i>273</i>&nbsp;						}
+<b class="nc"><i>274</i>&nbsp;						else if (state == StateNumber.firstplayer) {</b>
+<b class="nc"><i>275</i>&nbsp;							setFirstPlayer(inputLine, stdin);</b>
+<i>276</i>&nbsp;						}
+<b class="nc"><i>277</i>&nbsp;						else if (state == StateNumber.setcoordinate) {</b>
+<b class="nc"><i>278</i>&nbsp;							setWorkerPositions(inputLine, stdin);</b>
+<i>279</i>&nbsp;						}
+<b class="nc"><i>280</i>&nbsp;						else if (state == StateNumber.sendhaswon || state == StateNumber.sendhaslose) {</b>
+<b class="nc"><i>281</i>&nbsp;							endGameResponse(inputLine, stdin);</b>
+<i>282</i>&nbsp;						}
+<b class="nc"><i>283</i>&nbsp;						else if (state == StateNumber.disconnection) {</b>
+<b class="nc"><i>284</i>&nbsp;							disconnectionResponse(inputLine, stdin);</b>
+<i>285</i>&nbsp;						}
+<i>286</i>&nbsp;
+<b class="nc"><i>287</i>&nbsp;					}</b>
+<i>288</i>&nbsp;
+<b class="nc"><i>289</i>&nbsp;					System.out.println(&quot;è uscito da active&quot;);</b>
+<i>290</i>&nbsp;				}
+<b class="nc"><i>291</i>&nbsp;				catch (Exception e) {</b>
+<i>292</i>&nbsp;					//System.err.println(&quot;errore generico in lettura da terminale!!&quot; + e.getMessage() + &quot;!!!&quot; + e.initCause(e.getCause()));
+<b class="nc"><i>293</i>&nbsp;					System.err.println(e + &quot;: &quot;  + cliMessage.wrongInputMessage);</b>
+<i>294</i>&nbsp;					//setActive(false);
+<i>295</i>&nbsp;					//run();
+<b class="nc"><i>296</i>&nbsp;				}</b>
+<b class="nc"><i>297</i>&nbsp;			}</b>
+<i>298</i>&nbsp;		});
+<b class="nc"><i>299</i>&nbsp;		t.start();</b>
+<b class="nc"><i>300</i>&nbsp;		return t;</b>
+<i>301</i>&nbsp;	}
+<i>302</i>&nbsp;
+<i>303</i>&nbsp;
+<i>304</i>&nbsp;	/**
+<i>305</i>&nbsp;	 * @author Lorenzo Longaretti
+<i>306</i>&nbsp;	 * Thread that sends ping messages to the server.
+<i>307</i>&nbsp;	 *
+<i>308</i>&nbsp;	 * @return
+<i>309</i>&nbsp;	 */
+<i>310</i>&nbsp;	public Thread pingClient() {
+<b class="nc"><i>311</i>&nbsp;		Thread t = new Thread(new Runnable() {</b>
+<i>312</i>&nbsp;			@Override
+<i>313</i>&nbsp;			public void run() {
+<b class="nc"><i>314</i>&nbsp;				Service ping = new Service(StateNumber.pingreceive,&quot;def&quot;,&quot;def&quot;);</b>
+<b class="nc"><i>315</i>&nbsp;				ping.receivePingMessage();</b>
+<i>316</i>&nbsp;				try {
+<b class="nc"><i>317</i>&nbsp;					while (isActive()) {</b>
+<b class="nc"><i>318</i>&nbsp;						sendOutput(ping);</b>
+<b class="nc"><i>319</i>&nbsp;						Thread.sleep(200);</b>
+<i>320</i>&nbsp;					}
+<i>321</i>&nbsp;
+<b class="nc"><i>322</i>&nbsp;					System.out.println(&quot;è uscito da active&quot;);</b>
+<i>323</i>&nbsp;				}
+<b class="nc"><i>324</i>&nbsp;				catch (Exception e) {</b>
+<i>325</i>&nbsp;					//System.err.println(&quot;errore generico in lettura da terminale!!&quot; + e.getMessage() + &quot;!!!&quot; + e.initCause(e.getCause()));
+<b class="nc"><i>326</i>&nbsp;					System.err.println(e + &quot;: &quot;  + cliMessage.wrongInputMessage);</b>
+<i>327</i>&nbsp;					//setActive(false);
+<i>328</i>&nbsp;					//run();
+<b class="nc"><i>329</i>&nbsp;				}</b>
+<b class="nc"><i>330</i>&nbsp;			}</b>
+<i>331</i>&nbsp;		});
+<b class="nc"><i>332</i>&nbsp;		t.start();</b>
+<b class="nc"><i>333</i>&nbsp;		return t;</b>
+<i>334</i>&nbsp;	}
+<i>335</i>&nbsp;
+<i>336</i>&nbsp;
+<i>337</i>&nbsp;
+<i>338</i>&nbsp;	/**
+<i>339</i>&nbsp;	 * @author Andrea Gerosa
+<i>340</i>&nbsp;	 * Creates the socket and the streams; handles the threads.
+<i>341</i>&nbsp;	 *
+<i>342</i>&nbsp;	 * @throws IOException
+<i>343</i>&nbsp;	 */
+<i>344</i>&nbsp;	public void run() throws IOException {
+<b class="nc"><i>345</i>&nbsp;		Socket socket = new Socket(IP, port);</b>
+<b class="nc"><i>346</i>&nbsp;		System.out.println(&quot;Connection established&quot;);</b>
+<b class="nc"><i>347</i>&nbsp;		ObjectInputStream socketIn = new ObjectInputStream(socket.getInputStream());</b>
+<b class="nc"><i>348</i>&nbsp;		socketOut = new ObjectOutputStream(socket.getOutputStream());</b>
+<i>349</i>&nbsp;		//Scanner stdin = new Scanner(System.in);
+<i>350</i>&nbsp;
+<b class="nc"><i>351</i>&nbsp;		System.out.println(Title.title);</b>
+<i>352</i>&nbsp;
+<i>353</i>&nbsp;		try {
+<i>354</i>&nbsp;
+<b class="nc"><i>355</i>&nbsp;			Thread t1 = asyncWriteFromSocket(stdin);</b>
+<b class="nc"><i>356</i>&nbsp;			Thread t0 = asyncReadFromSocket(socketIn);</b>
+<b class="nc"><i>357</i>&nbsp;			Thread t2 = pingClient();</b>
+<b class="nc"><i>358</i>&nbsp;			t0.join();</b>
+<b class="nc"><i>359</i>&nbsp;			t1.join();</b>
+<b class="nc"><i>360</i>&nbsp;			t2.join();</b>
+<i>361</i>&nbsp;		}
+<b class="nc"><i>362</i>&nbsp;		catch(InterruptedException | NoSuchElementException e) {</b>
+<b class="nc"><i>363</i>&nbsp;			System.out.println(&quot;Connection closed form the client side.&quot;);</b>
+<i>364</i>&nbsp;		}
+<i>365</i>&nbsp;		finally {
+<b class="nc"><i>366</i>&nbsp;			socketIn.close();</b>
+<b class="nc"><i>367</i>&nbsp;			socketOut.close();</b>
+<b class="nc"><i>368</i>&nbsp;			socket.close();</b>
+<b class="nc"><i>369</i>&nbsp;		}</b>
+<b class="nc"><i>370</i>&nbsp;	}</b>
+<i>371</i>&nbsp;
+<i>372</i>&nbsp;
+<i>373</i>&nbsp;	/**
+<i>374</i>&nbsp;	 * @author Andrea Gerosa
+<i>375</i>&nbsp;	 * Sets the name of the player and the number of players of the match.
+<i>376</i>&nbsp;	 *
+<i>377</i>&nbsp;	 * @param inputLine line of text from stdin
+<i>378</i>&nbsp;	 * @param stdin standard input
+<i>379</i>&nbsp;	 */
+<i>380</i>&nbsp;	public void setNameAndNumber (String inputLine, Scanner stdin) {
+<b class="nc"><i>381</i>&nbsp;		String[] inputs = new String[2];</b>
+<b class="nc"><i>382</i>&nbsp;		inputs[0] = inputLine;</b>
+<i>383</i>&nbsp;
+<b class="nc"><i>384</i>&nbsp;		while(inputs[0].equals(&quot;\n&quot;) || inputs[0].equals(&quot;&quot;)) {</b>
+<b class="nc"><i>385</i>&nbsp;			System.out.println(&quot;Your name must be at least one-character long!&quot;);</b>
+<b class="nc"><i>386</i>&nbsp;			stdin.reset();</b>
+<b class="nc"><i>387</i>&nbsp;			inputLine = stdin.nextLine();</b>
+<b class="nc"><i>388</i>&nbsp;			inputs[0] = inputLine;</b>
+<i>389</i>&nbsp;		}
+<i>390</i>&nbsp;
+<b class="nc"><i>391</i>&nbsp;		System.out.println(&quot;Would you like to play a 2-player or a 3-player game?&quot;);</b>
+<i>392</i>&nbsp;
+<b class="nc"><i>393</i>&nbsp;		stdin.reset();</b>
+<b class="nc"><i>394</i>&nbsp;		inputLine = stdin.nextLine();</b>
+<b class="nc"><i>395</i>&nbsp;		inputs[1] = inputLine;</b>
+<i>396</i>&nbsp;
+<b class="nc"><i>397</i>&nbsp;		integerControl(inputLine, inputs, stdin);</b>
+<b class="nc"><i>398</i>&nbsp;		twoOrThreeControl(inputLine, inputs, stdin);</b>
+<i>399</i>&nbsp;
+<i>400</i>&nbsp;		try {
+<b class="nc"><i>401</i>&nbsp;			if (Integer.parseInt(inputs[1]) &lt; 2 || Integer.parseInt(inputs[1]) &gt; 3) {</b>
+<b class="nc"><i>402</i>&nbsp;				throw new IllegalArgumentException();</b>
+<i>403</i>&nbsp;			} else {
+<b class="nc"><i>404</i>&nbsp;				service.setResponseForName(inputs[0], Integer.parseInt(inputs[1]));</b>
+<b class="nc"><i>405</i>&nbsp;				sendOutput(service);</b>
+<b class="nc"><i>406</i>&nbsp;				state = StateNumber.active;</b>
+<i>407</i>&nbsp;			}
+<b class="nc"><i>408</i>&nbsp;		} catch (Exception e) {</b>
+<b class="nc"><i>409</i>&nbsp;			System.out.println(e + &quot;: you can only play a 2-players or 3-players match. Insert the number again.&quot;);</b>
+<b class="nc"><i>410</i>&nbsp;		}</b>
+<b class="nc"><i>411</i>&nbsp;	}</b>
+<i>412</i>&nbsp;
+<i>413</i>&nbsp;
+<i>414</i>&nbsp;	/**
+<i>415</i>&nbsp;	 * @author Lorenzo Longaretti
+<i>416</i>&nbsp;	 * @author Andrea Gerosa
+<i>417</i>&nbsp;	 * Sends the selected god&#39;s name to the server, after some controls.
+<i>418</i>&nbsp;	 *
+<i>419</i>&nbsp;	 * @param inputLine line of text from stdin
+<i>420</i>&nbsp;	 * @param stdin standard input
+<i>421</i>&nbsp;	 */
+<i>422</i>&nbsp;	public void setGodName(String inputLine, Scanner stdin) {
+<i>423</i>&nbsp;
+<b class="nc"><i>424</i>&nbsp;		if(service.getIntservizio() == 0) {</b>
+<b class="nc"><i>425</i>&nbsp;			String[] inputs = new String[1];</b>
+<b class="nc"><i>426</i>&nbsp;			inputs[0] = inputLine;</b>
+<i>427</i>&nbsp;
+<b class="nc"><i>428</i>&nbsp;			GodName godName = godControl(inputLine, stdin);</b>
+<i>429</i>&nbsp;
+<i>430</i>&nbsp;
+<i>431</i>&nbsp;			try {
+<b class="nc"><i>432</i>&nbsp;				System.out.println(&quot;il nome scelto è &quot; + godName);</b>
+<b class="nc"><i>433</i>&nbsp;				service.replyChosenGod(godName);</b>
+<b class="nc"><i>434</i>&nbsp;				sendOutput(service);</b>
+<b class="nc"><i>435</i>&nbsp;				state = StateNumber.active;</b>
+<i>436</i>&nbsp;
+<b class="nc"><i>437</i>&nbsp;			} catch (Exception e) {</b>
+<b class="nc"><i>438</i>&nbsp;				System.out.println(e + &quot;error in choose god: I don&#39;t know &quot;);</b>
+<b class="nc"><i>439</i>&nbsp;			}</b>
+<b class="nc"><i>440</i>&nbsp;		}</b>
+<b class="nc"><i>441</i>&nbsp;		else if(service.getIntservizio() == 2) {</b>
+<b class="nc"><i>442</i>&nbsp;			String[] inputs = new String[2];</b>
+<b class="nc"><i>443</i>&nbsp;			inputs[0] = inputLine;</b>
+<i>444</i>&nbsp;
+<b class="nc"><i>445</i>&nbsp;			GodName godName1 = godControl(inputLine, stdin);</b>
+<i>446</i>&nbsp;
+<b class="nc"><i>447</i>&nbsp;			stdin.reset();</b>
+<b class="nc"><i>448</i>&nbsp;			inputLine = stdin.nextLine();</b>
+<b class="nc"><i>449</i>&nbsp;			inputs[1] = inputLine;</b>
+<b class="nc"><i>450</i>&nbsp;			GodName godName2 = godControl(inputLine, stdin);</b>
+<i>451</i>&nbsp;
+<b class="nc"><i>452</i>&nbsp;			ArrayList&lt;GodName&gt; Divinities2Players = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>453</i>&nbsp;			Divinities2Players.add(0, godName1);</b>
+<b class="nc"><i>454</i>&nbsp;			Divinities2Players.add(1, godName2);</b>
+<i>455</i>&nbsp;
+<i>456</i>&nbsp;			try {
+<i>457</i>&nbsp;
+<b class="nc"><i>458</i>&nbsp;				service.replyChosenGod1(Divinities2Players);</b>
+<b class="nc"><i>459</i>&nbsp;				sendOutput(service);</b>
+<b class="nc"><i>460</i>&nbsp;				state = StateNumber.active;</b>
+<i>461</i>&nbsp;
+<b class="nc"><i>462</i>&nbsp;			} catch (Exception e) {</b>
+<b class="nc"><i>463</i>&nbsp;				System.out.println(e + &quot;error in choose god: I don&#39;t know &quot;);</b>
+<b class="nc"><i>464</i>&nbsp;			}</b>
+<b class="nc"><i>465</i>&nbsp;		}</b>
+<b class="nc"><i>466</i>&nbsp;		else if(service.getIntservizio() == 3) {</b>
+<b class="nc"><i>467</i>&nbsp;			String[] inputs = new String[3];</b>
+<b class="nc"><i>468</i>&nbsp;			inputs[0] = inputLine;</b>
+<i>469</i>&nbsp;
+<b class="nc"><i>470</i>&nbsp;			GodName godName1 = godControl(inputLine, stdin);</b>
+<i>471</i>&nbsp;
+<b class="nc"><i>472</i>&nbsp;			stdin.reset();</b>
+<b class="nc"><i>473</i>&nbsp;			inputLine = stdin.nextLine();</b>
+<b class="nc"><i>474</i>&nbsp;			inputs[1] = inputLine;</b>
+<b class="nc"><i>475</i>&nbsp;			GodName godName2 = godControl(inputLine, stdin);</b>
+<i>476</i>&nbsp;
+<b class="nc"><i>477</i>&nbsp;			stdin.reset();</b>
+<b class="nc"><i>478</i>&nbsp;			inputLine = stdin.nextLine();</b>
+<b class="nc"><i>479</i>&nbsp;			inputs[2] = inputLine;</b>
+<b class="nc"><i>480</i>&nbsp;			GodName godName3 = godControl(inputLine, stdin);</b>
+<i>481</i>&nbsp;
+<b class="nc"><i>482</i>&nbsp;			ArrayList&lt;GodName&gt; Divinities3Players = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>483</i>&nbsp;			Divinities3Players.add(0, godName1);</b>
+<b class="nc"><i>484</i>&nbsp;			Divinities3Players.add(1, godName2);</b>
+<b class="nc"><i>485</i>&nbsp;			Divinities3Players.add(2, godName3);</b>
+<i>486</i>&nbsp;
+<i>487</i>&nbsp;			try {
+<i>488</i>&nbsp;
+<b class="nc"><i>489</i>&nbsp;				service.replyChosenGod1(Divinities3Players);</b>
+<b class="nc"><i>490</i>&nbsp;				sendOutput(service);</b>
+<b class="nc"><i>491</i>&nbsp;				state = StateNumber.active;</b>
+<i>492</i>&nbsp;
+<b class="nc"><i>493</i>&nbsp;			} catch (Exception e) {</b>
+<b class="nc"><i>494</i>&nbsp;				System.out.println(e + &quot;error in choose god: I don&#39;t know &quot;);</b>
+<b class="nc"><i>495</i>&nbsp;			}</b>
+<i>496</i>&nbsp;		}
+<i>497</i>&nbsp;
+<b class="nc"><i>498</i>&nbsp;	}</b>
+<i>499</i>&nbsp;
+<i>500</i>&nbsp;	/**
+<i>501</i>&nbsp;	 * @author Lorenzo Longaretti
+<i>502</i>&nbsp;	 * Checks if the input is a divinity among those which are available.
+<i>503</i>&nbsp;	 *
+<i>504</i>&nbsp;	 * @param inputLine line of text from stdin
+<i>505</i>&nbsp;	 * @param stdin standard input
+<i>506</i>&nbsp;	 */
+<i>507</i>&nbsp;	public GodName godControl(String inputLine, Scanner stdin) {
+<b class="nc"><i>508</i>&nbsp;		GodName findgod = GodName.apollo;</b>
+<b class="nc"><i>509</i>&nbsp;		boolean find = false;</b>
+<b class="nc"><i>510</i>&nbsp;		while(!find) {</b>
+<b class="nc"><i>511</i>&nbsp;			for (GodName godName : service.getListGod()){</b>
+<b class="nc"><i>512</i>&nbsp;				if (godName.toString().equals(inputLine.toUpperCase())){</b>
+<b class="nc"><i>513</i>&nbsp;					find = true;</b>
+<b class="nc"><i>514</i>&nbsp;					findgod = godName;</b>
+<i>515</i>&nbsp;				}
+<b class="nc"><i>516</i>&nbsp;			}</b>
+<b class="nc"><i>517</i>&nbsp;			if(!find){</b>
+<b class="nc"><i>518</i>&nbsp;				System.out.println(cliMessage.wrongGodMessage);</b>
+<b class="nc"><i>519</i>&nbsp;				stdin.reset();</b>
+<b class="nc"><i>520</i>&nbsp;				inputLine = stdin.nextLine();</b>
+<i>521</i>&nbsp;			}
+<i>522</i>&nbsp;
+<i>523</i>&nbsp;		}
+<b class="nc"><i>524</i>&nbsp;		return findgod;</b>
+<i>525</i>&nbsp;	}
+<i>526</i>&nbsp;
+<i>527</i>&nbsp;	/**
+<i>528</i>&nbsp;	 * @author Andrea Gerosa
+<i>529</i>&nbsp;	 * Checks if the inserted player is correct and send the information about it.
+<i>530</i>&nbsp;	 *
+<i>531</i>&nbsp;	 * @param inputline
+<i>532</i>&nbsp;	 * @param stdin
+<i>533</i>&nbsp;	 */
+<i>534</i>&nbsp;	public void setFirstPlayer (String inputline, Scanner stdin) {
+<b class="nc"><i>535</i>&nbsp;		String[] inputs = new String[1];</b>
+<b class="nc"><i>536</i>&nbsp;		inputs[0] = inputline;</b>
+<i>537</i>&nbsp;
+<b class="nc"><i>538</i>&nbsp;		boolean ok = false;</b>
+<b class="nc"><i>539</i>&nbsp;		while(!ok) {</b>
+<i>540</i>&nbsp;
+<b class="nc"><i>541</i>&nbsp;			if(service.getPlayersToChoose().size() == 2) {</b>
+<b class="nc"><i>542</i>&nbsp;				while(!(inputs[0].equals(service.getPlayersToChoose().get(0)) || inputs[0].equals(service.getPlayersToChoose().get(1)))) {</b>
+<b class="nc"><i>543</i>&nbsp;					System.out.println(&quot;Choice not valid! Try again!&quot;);</b>
+<b class="nc"><i>544</i>&nbsp;					stdin.reset();</b>
+<b class="nc"><i>545</i>&nbsp;					inputline = stdin.nextLine();</b>
+<b class="nc"><i>546</i>&nbsp;					inputs[0] = inputline;</b>
+<i>547</i>&nbsp;				}
+<b class="nc"><i>548</i>&nbsp;				ok = true;</b>
+<i>549</i>&nbsp;			}
+<b class="nc"><i>550</i>&nbsp;			else if(service.getPlayersToChoose().size() == 3) {</b>
+<b class="nc"><i>551</i>&nbsp;				while(!(inputs[0].equals(service.getPlayersToChoose().get(0)) || inputs[0].equals(service.getPlayersToChoose().get(1)) || inputs[0].equals(service.getPlayersToChoose().get(2)))) {</b>
+<b class="nc"><i>552</i>&nbsp;					System.out.println(&quot;Choice not valid! Try again!&quot;);</b>
+<b class="nc"><i>553</i>&nbsp;					stdin.reset();</b>
+<b class="nc"><i>554</i>&nbsp;					inputline = stdin.nextLine();</b>
+<b class="nc"><i>555</i>&nbsp;					inputs[0] = inputline;</b>
+<i>556</i>&nbsp;				}
+<b class="nc"><i>557</i>&nbsp;				ok = true;</b>
+<i>558</i>&nbsp;			}
+<i>559</i>&nbsp;
+<i>560</i>&nbsp;		}
+<i>561</i>&nbsp;
+<i>562</i>&nbsp;		try {
+<b class="nc"><i>563</i>&nbsp;			if(inputs[0].equals(service.getPlayersToChoose().get(0))) {</b>
+<b class="nc"><i>564</i>&nbsp;				service.receiveFirstPlayer(0);</b>
+<i>565</i>&nbsp;			}
+<b class="nc"><i>566</i>&nbsp;			else if(inputs[0].equals(service.getPlayersToChoose().get(1))) {</b>
+<b class="nc"><i>567</i>&nbsp;				service.receiveFirstPlayer(1);</b>
+<i>568</i>&nbsp;			}
+<b class="nc"><i>569</i>&nbsp;			else if(inputs[0].equals(service.getPlayersToChoose().get(2))) {</b>
+<b class="nc"><i>570</i>&nbsp;				service.receiveFirstPlayer(2);</b>
+<i>571</i>&nbsp;			}
+<b class="nc"><i>572</i>&nbsp;			sendOutput(service);</b>
+<b class="nc"><i>573</i>&nbsp;			state = StateNumber.active;</b>
+<i>574</i>&nbsp;		}
+<b class="nc"><i>575</i>&nbsp;		catch(IOException e) {</b>
+<b class="nc"><i>576</i>&nbsp;			System.err.println(e + &quot;Error in first player choice.&quot;);</b>
+<b class="nc"><i>577</i>&nbsp;		}</b>
+<i>578</i>&nbsp;
+<b class="nc"><i>579</i>&nbsp;	}</b>
+<i>580</i>&nbsp;
+<i>581</i>&nbsp;	/**
+<i>582</i>&nbsp;	 * @author Andrea Gerosa
+<i>583</i>&nbsp;	 * Takes the input of the first and the second coordinate where the workers will be positioned and
+<i>584</i>&nbsp;	 * does some controls. Then sends the service as an outputStream.
+<i>585</i>&nbsp;	 *
+<i>586</i>&nbsp;	 * @param inputLine line of text from stdin
+<i>587</i>&nbsp;	 * @param stdin standard input
+<i>588</i>&nbsp;	 */
+<i>589</i>&nbsp;	public void setWorkerPositions(String inputLine, Scanner stdin) throws IOException {
+<i>590</i>&nbsp;
+<b class="nc"><i>591</i>&nbsp;		String[] inputsFirst = new String[2];</b>
+<b class="nc"><i>592</i>&nbsp;		String[] inputsHelper = inputLine.split(&quot;,&quot;);</b>
+<b class="nc"><i>593</i>&nbsp;		inputLine = moveChecks(inputLine, inputsHelper, stdin);</b>
+<b class="nc"><i>594</i>&nbsp;		inputsHelper = inputLine.split(&quot;,&quot;);</b>
+<b class="nc"><i>595</i>&nbsp;		inputsFirst[0] = inputsHelper[0];</b>
+<b class="nc"><i>596</i>&nbsp;		inputsFirst[1] = inputsHelper[1];</b>
+<i>597</i>&nbsp;
+<b class="nc"><i>598</i>&nbsp;		inputLine = boundsAndAvailabilityCheckPositions(inputLine, inputsFirst, stdin);</b>
+<b class="nc"><i>599</i>&nbsp;		inputsHelper = inputLine.split(&quot;,&quot;);</b>
+<b class="nc"><i>600</i>&nbsp;		inputsFirst[0] = inputsHelper[0];</b>
+<b class="nc"><i>601</i>&nbsp;		inputsFirst[1] = inputsHelper[1];</b>
+<i>602</i>&nbsp;
+<i>603</i>&nbsp;
+<b class="nc"><i>604</i>&nbsp;		System.out.println(&quot;Second one:&quot;);</b>
+<b class="nc"><i>605</i>&nbsp;		String[] inputsSecond = new String[2];</b>
+<b class="nc"><i>606</i>&nbsp;		stdin.reset();</b>
+<b class="nc"><i>607</i>&nbsp;		inputLine = stdin.nextLine();</b>
+<b class="nc"><i>608</i>&nbsp;		inputsHelper = inputLine.split(&quot;,&quot;);</b>
+<i>609</i>&nbsp;
+<b class="nc"><i>610</i>&nbsp;		boolean okDiff = false;</b>
+<b class="nc"><i>611</i>&nbsp;		while(!okDiff) {</b>
+<b class="nc"><i>612</i>&nbsp;			while(Integer.parseInt(inputsHelper[0]) == Integer.parseInt(inputsFirst[0]) &amp;&amp; Integer.parseInt(inputsHelper[1]) == Integer.parseInt(inputsFirst[1])) {</b>
+<b class="nc"><i>613</i>&nbsp;				System.out.println(&quot;This cell has been already chosen!&quot;);</b>
+<i>614</i>&nbsp;
+<b class="nc"><i>615</i>&nbsp;				stdin.reset();</b>
+<b class="nc"><i>616</i>&nbsp;				inputLine = stdin.nextLine();</b>
+<b class="nc"><i>617</i>&nbsp;				inputsHelper = inputLine.split(&quot;,&quot;);</b>
+<b class="nc"><i>618</i>&nbsp;				inputLine = moveChecks(inputLine, inputsHelper, stdin);</b>
+<b class="nc"><i>619</i>&nbsp;				inputsHelper = inputLine.split(&quot;,&quot;);</b>
+<i>620</i>&nbsp;			}
+<b class="nc"><i>621</i>&nbsp;			okDiff = true;</b>
+<i>622</i>&nbsp;		}
+<i>623</i>&nbsp;
+<b class="nc"><i>624</i>&nbsp;		inputLine = moveChecks(inputLine, inputsHelper, stdin);</b>
+<b class="nc"><i>625</i>&nbsp;		inputsHelper = inputLine.split(&quot;,&quot;);</b>
+<b class="nc"><i>626</i>&nbsp;		inputsSecond[0] = inputsHelper[0];</b>
+<b class="nc"><i>627</i>&nbsp;		inputsSecond[1] = inputsHelper[1];</b>
+<i>628</i>&nbsp;
+<b class="nc"><i>629</i>&nbsp;		inputLine = boundsAndAvailabilityCheckPositions(inputLine, inputsSecond, stdin);</b>
+<b class="nc"><i>630</i>&nbsp;		inputsHelper = inputLine.split(&quot;,&quot;);</b>
+<b class="nc"><i>631</i>&nbsp;		inputsSecond[0] = inputsHelper[0];</b>
+<b class="nc"><i>632</i>&nbsp;		inputsSecond[1] = inputsHelper[1];</b>
+<i>633</i>&nbsp;
+<i>634</i>&nbsp;
+<b class="nc"><i>635</i>&nbsp;		service.setCoordindatePlayer(Integer.parseInt(inputsFirst[0]), Integer.parseInt(inputsFirst[1]), Integer.parseInt(inputsSecond[0]), Integer.parseInt(inputsSecond[1]));</b>
+<b class="nc"><i>636</i>&nbsp;		state = StateNumber.active;</b>
+<b class="nc"><i>637</i>&nbsp;		sendOutput(service);</b>
+<b class="nc"><i>638</i>&nbsp;		System.out.println(&quot;adwersdtfyetrsyder&quot;);</b>
+<b class="nc"><i>639</i>&nbsp;	}</b>
+<i>640</i>&nbsp;
+<i>641</i>&nbsp;	/**
+<i>642</i>&nbsp;	 * @author Andrea Gerosa
+<i>643</i>&nbsp;	 * Checks if the input meets the costraints of the coordinates.
+<i>644</i>&nbsp;	 *
+<i>645</i>&nbsp;	 * @param inputLine
+<i>646</i>&nbsp;	 * @param inputs
+<i>647</i>&nbsp;	 * @param stdin
+<i>648</i>&nbsp;	 * @return
+<i>649</i>&nbsp;	 */
+<i>650</i>&nbsp;	public String boundsAndAvailabilityCheckPositions(String inputLine, String[] inputs, Scanner stdin) {
+<b class="nc"><i>651</i>&nbsp;		boolean okExt = false;</b>
+<b class="nc"><i>652</i>&nbsp;		while (!okExt) {</b>
+<i>653</i>&nbsp;			try {
+<i>654</i>&nbsp;
+<b class="nc"><i>655</i>&nbsp;				while (Integer.parseInt(inputs[0]) &lt; 0 || Integer.parseInt(inputs[0]) &gt; 4 || Integer.parseInt(inputs[1]) &lt; 0 || Integer.parseInt(inputs[1]) &gt; 4) {</b>
+<b class="nc"><i>656</i>&nbsp;					System.out.println(cliMessage.impossibleCellMessage);</b>
+<i>657</i>&nbsp;
+<b class="nc"><i>658</i>&nbsp;					boolean okInt = false;</b>
+<b class="nc"><i>659</i>&nbsp;					while (!okInt) {</b>
+<i>660</i>&nbsp;						try {
+<b class="nc"><i>661</i>&nbsp;							stdin.reset();</b>
+<b class="nc"><i>662</i>&nbsp;							inputLine = stdin.nextLine();</b>
+<b class="nc"><i>663</i>&nbsp;							String[] inputsHelper = inputLine.split(&quot;,&quot;);</b>
+<i>664</i>&nbsp;
+<i>665</i>&nbsp;							String iptln;
+<b class="nc"><i>666</i>&nbsp;							iptln = moveChecks(inputLine, inputsHelper, stdin);</b>
+<b class="nc"><i>667</i>&nbsp;							inputsHelper = iptln.split(&quot;,&quot;);</b>
+<b class="nc"><i>668</i>&nbsp;							inputs[0] = inputsHelper[0];</b>
+<b class="nc"><i>669</i>&nbsp;							inputs[1] = inputsHelper[1];</b>
+<i>670</i>&nbsp;
+<i>671</i>&nbsp;
+<b class="nc"><i>672</i>&nbsp;							okInt = true;</b>
+<b class="nc"><i>673</i>&nbsp;						} catch (Exception e) {</b>
+<b class="nc"><i>674</i>&nbsp;							System.err.println(e + &quot;: &quot; + cliMessage.wrongInputMessage);</b>
+<b class="nc"><i>675</i>&nbsp;						}</b>
+<i>676</i>&nbsp;					}
+<i>677</i>&nbsp;
+<b class="nc"><i>678</i>&nbsp;				}</b>
+<b class="nc"><i>679</i>&nbsp;				okExt = true;</b>
+<i>680</i>&nbsp;			}
+<b class="nc"><i>681</i>&nbsp;			catch(Exception e) {</b>
+<b class="nc"><i>682</i>&nbsp;				System.err.println(e + &quot;: &quot; + cliMessage.unavailableCellMessage);</b>
+<b class="nc"><i>683</i>&nbsp;			}</b>
+<i>684</i>&nbsp;		}
+<b class="nc"><i>685</i>&nbsp;		return inputLine;</b>
+<i>686</i>&nbsp;	}
+<i>687</i>&nbsp;
+<i>688</i>&nbsp;	/**
+<i>689</i>&nbsp;	 * @author Andrea Gerosa
+<i>690</i>&nbsp;	 * Checks if the input is an integer.
+<i>691</i>&nbsp;	 *
+<i>692</i>&nbsp;	 * @param inputLine line of text from stdin
+<i>693</i>&nbsp;	 * @param inputs array where values of interest has been split into
+<i>694</i>&nbsp;	 * @param stdin standard input
+<i>695</i>&nbsp;	 */
+<i>696</i>&nbsp;	public void integerControl(String inputLine, String[] inputs, Scanner stdin) {
+<b class="nc"><i>697</i>&nbsp;		while(!isInteger(inputLine)) {</b>
+<b class="nc"><i>698</i>&nbsp;			System.err.println(&quot;You must insert a number!&quot;);</b>
+<b class="nc"><i>699</i>&nbsp;			stdin.reset();</b>
+<b class="nc"><i>700</i>&nbsp;			inputLine = stdin.nextLine();</b>
+<b class="nc"><i>701</i>&nbsp;			inputs[1] = inputLine;</b>
+<i>702</i>&nbsp;		}
+<b class="nc"><i>703</i>&nbsp;	}</b>
+<i>704</i>&nbsp;
+<i>705</i>&nbsp;	/**
+<i>706</i>&nbsp;	 * @author Andrea Gerosa
+<i>707</i>&nbsp;	 * Checks if the input match the possible numbers for the players (2 or 3).
+<i>708</i>&nbsp;	 *
+<i>709</i>&nbsp;	 * @param inputLine line of text from stdin
+<i>710</i>&nbsp;	 * @param inputs array where values of interest has been split into
+<i>711</i>&nbsp;	 * @param stdin standard input
+<i>712</i>&nbsp;	 */
+<i>713</i>&nbsp;	public void twoOrThreeControl(String inputLine, String[] inputs, Scanner stdin) {
+<b class="nc"><i>714</i>&nbsp;		boolean okInt = false;</b>
+<i>715</i>&nbsp;
+<b class="nc"><i>716</i>&nbsp;		while(!okInt) {</b>
+<i>717</i>&nbsp;			try {
+<b class="nc"><i>718</i>&nbsp;				while(Integer.parseInt(inputs[1]) != 2 &amp;&amp; Integer.parseInt(inputs[1]) != 3) {</b>
+<b class="nc"><i>719</i>&nbsp;					System.out.println(cliMessage.wrongNumberOfPlayersMessage);</b>
+<b class="nc"><i>720</i>&nbsp;					stdin.reset();</b>
+<b class="nc"><i>721</i>&nbsp;					inputLine = stdin.nextLine();</b>
+<b class="nc"><i>722</i>&nbsp;					inputs[1] = inputLine;</b>
+<i>723</i>&nbsp;
+<b class="nc"><i>724</i>&nbsp;					integerControl(inputLine, inputs, stdin);</b>
+<i>725</i>&nbsp;				}
+<b class="nc"><i>726</i>&nbsp;				okInt = true;</b>
+<i>727</i>&nbsp;			}
+<b class="nc"><i>728</i>&nbsp;			catch(Exception e) {</b>
+<b class="nc"><i>729</i>&nbsp;				System.err.println(e + &quot;: &quot; + cliMessage.wrongInputMessage);</b>
+<b class="nc"><i>730</i>&nbsp;			}</b>
+<i>731</i>&nbsp;		}
+<b class="nc"><i>732</i>&nbsp;	}</b>
+<i>733</i>&nbsp;
+<i>734</i>&nbsp;
+<i>735</i>&nbsp;	/**
+<i>736</i>&nbsp;	 * @author Andrea Gerosa
+<i>737</i>&nbsp;	 * Calls all the methods that do various controls before sending the service.
+<i>738</i>&nbsp;	 *
+<i>739</i>&nbsp;	 * @param inputLine line of text from stdin
+<i>740</i>&nbsp;	 * @param stdin standard input
+<i>741</i>&nbsp;	 */
+<i>742</i>&nbsp;	public void sendMove(String inputLine, Scanner stdin) {
+<i>743</i>&nbsp;		//String[] inputs = inputLine.split(&quot;,&quot;);
+<i>744</i>&nbsp;
+<b class="nc"><i>745</i>&nbsp;		String[] inputs = new String[3];</b>
+<b class="nc"><i>746</i>&nbsp;		inputs[0] = inputLine;</b>
+<i>747</i>&nbsp;
+<b class="nc"><i>748</i>&nbsp;		boolean ok = false;</b>
+<b class="nc"><i>749</i>&nbsp;		while(!ok) {</b>
+<i>750</i>&nbsp;			try {
+<i>751</i>&nbsp;
+<b class="nc"><i>752</i>&nbsp;				while (!isInteger(inputLine) || (Integer.parseInt(inputs[0]) != 0 &amp;&amp; Integer.parseInt(inputs[0]) != 1)) {</b>
+<b class="nc"><i>753</i>&nbsp;					if (!isInteger(inputLine)) {</b>
+<b class="nc"><i>754</i>&nbsp;						System.err.println(&quot;You must insert a numeric value!&quot;);</b>
+<i>755</i>&nbsp;					}
+<i>756</i>&nbsp;					else {
+<b class="nc"><i>757</i>&nbsp;						if (Integer.parseInt(inputs[0]) != 0 &amp;&amp; Integer.parseInt(inputs[0]) != 1) {</b>
+<b class="nc"><i>758</i>&nbsp;							System.out.println(cliMessage.wrongWorkerMessage);</b>
+<i>759</i>&nbsp;						}
+<i>760</i>&nbsp;					}
+<b class="nc"><i>761</i>&nbsp;					stdin.reset();</b>
+<b class="nc"><i>762</i>&nbsp;					inputLine = stdin.nextLine();</b>
+<b class="nc"><i>763</i>&nbsp;					inputs[0] = inputLine;</b>
+<i>764</i>&nbsp;				}
+<i>765</i>&nbsp;
+<b class="nc"><i>766</i>&nbsp;				ok = true;</b>
+<i>767</i>&nbsp;			}
+<b class="nc"><i>768</i>&nbsp;			catch (Exception e) {</b>
+<b class="nc"><i>769</i>&nbsp;				System.err.println(e + &quot;You must insert a numeric value!&quot;);</b>
+<b class="nc"><i>770</i>&nbsp;			}</b>
+<i>771</i>&nbsp;		}
+<i>772</i>&nbsp;
+<i>773</i>&nbsp;
+<b class="nc"><i>774</i>&nbsp;		System.out.println(&quot;Available cells for the selected worker:&quot;);</b>
+<b class="nc"><i>775</i>&nbsp;		ArrayList&lt;LightBlock&gt; AvailableCellsSupport = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>776</i>&nbsp;		for(int l = 0 ; l &lt; service.getAvailableCells().size(); l++){</b>
+<b class="nc"><i>777</i>&nbsp;			if(service.getAvailableCells().get(l).getIdWorker() == Integer.parseInt(inputs[0])) {</b>
+<b class="nc"><i>778</i>&nbsp;				AvailableCellsSupport.add(service.getAvailableCells().get(l));</b>
+<i>779</i>&nbsp;			}
+<i>780</i>&nbsp;		}
+<b class="nc"><i>781</i>&nbsp;		service.getAvailableCells().clear();</b>
+<b class="nc"><i>782</i>&nbsp;		for (LightBlock lightBlock : AvailableCellsSupport) {</b>
+<b class="nc"><i>783</i>&nbsp;			service.getAvailableCells().add(lightBlock);</b>
+<b class="nc"><i>784</i>&nbsp;		}</b>
+<b class="nc"><i>785</i>&nbsp;		AvailableCellsSupport.clear();</b>
+<b class="nc"><i>786</i>&nbsp;		for (int l = 0; l &lt; service.getAvailableCells().size(); l++) {</b>
+<b class="nc"><i>787</i>&nbsp;			System.out.print(service.getAvailableCells().get(l).getC().getX() + &quot;,&quot; + service.getAvailableCells().get(l).getC().getY() + &quot;|&quot;);</b>
+<i>788</i>&nbsp;		}
+<b class="nc"><i>789</i>&nbsp;		System.out.println();</b>
+<i>790</i>&nbsp;
+<b class="nc"><i>791</i>&nbsp;		stdin.reset();</b>
+<b class="nc"><i>792</i>&nbsp;		inputLine = stdin.nextLine();</b>
+<b class="nc"><i>793</i>&nbsp;		String[] inputsHelper = inputLine.split(&quot;,&quot;);</b>
+<i>794</i>&nbsp;
+<b class="nc"><i>795</i>&nbsp;		inputLine = moveChecks(inputLine, inputsHelper, stdin);</b>
+<b class="nc"><i>796</i>&nbsp;		inputsHelper = inputLine.split(&quot;,&quot;);</b>
+<b class="nc"><i>797</i>&nbsp;		inputs[1] = inputsHelper[0];</b>
+<b class="nc"><i>798</i>&nbsp;		inputs[2] = inputsHelper[1];</b>
+<i>799</i>&nbsp;
+<b class="nc"><i>800</i>&nbsp;		boundsAndAvailabilityCheck(inputLine, inputs, stdin);</b>
+<i>801</i>&nbsp;
+<b class="nc"><i>802</i>&nbsp;	}</b>
+<i>803</i>&nbsp;
+<i>804</i>&nbsp;	/**
+<i>805</i>&nbsp;	 * @author Andrea Gerosa
+<i>806</i>&nbsp;	 * Checks if the input is a valid and makes sense.
+<i>807</i>&nbsp;	 *
+<i>808</i>&nbsp;	 * @param inputLine line of text from stdin
+<i>809</i>&nbsp;	 * @param inputs array where values of interest has been split into
+<i>810</i>&nbsp;	 * @param stdin standard input
+<i>811</i>&nbsp;	 * @return inputline
+<i>812</i>&nbsp;	 */
+<i>813</i>&nbsp;	public String moveChecks(String inputLine, String[] inputs, Scanner stdin) {
+<b class="nc"><i>814</i>&nbsp;		while(inputs.length != 2 || !areAllIntegers(inputs)) {</b>
+<i>815</i>&nbsp;
+<b class="nc"><i>816</i>&nbsp;			if(inputs.length != 2) {</b>
+<b class="nc"><i>817</i>&nbsp;				System.out.println(cliMessage.wrongInputMessage);</b>
+<i>818</i>&nbsp;			}
+<b class="nc"><i>819</i>&nbsp;			if(!areAllIntegers(inputs)) {</b>
+<b class="nc"><i>820</i>&nbsp;				System.err.println(&quot;You must insert numeric values!&quot;);</b>
+<i>821</i>&nbsp;			}
+<b class="nc"><i>822</i>&nbsp;			stdin.reset();</b>
+<b class="nc"><i>823</i>&nbsp;			inputLine = stdin.nextLine();</b>
+<b class="nc"><i>824</i>&nbsp;			inputs = inputLine.split(&quot;,&quot;);</b>
+<i>825</i>&nbsp;
+<i>826</i>&nbsp;		}
+<b class="nc"><i>827</i>&nbsp;		return inputLine;</b>
+<i>828</i>&nbsp;	}
+<i>829</i>&nbsp;
+<i>830</i>&nbsp;	/**
+<i>831</i>&nbsp;	 * @author Andrea Gerosa
+<i>832</i>&nbsp;	 * Checks if the input meets the costraints and then sends the service as an outputStream.
+<i>833</i>&nbsp;	 *
+<i>834</i>&nbsp;	 * @param inputLine line of text from stdin
+<i>835</i>&nbsp;	 * @param inputs array where values of interest has been split into
+<i>836</i>&nbsp;	 * @param stdin standard input
+<i>837</i>&nbsp;	 */
+<i>838</i>&nbsp;	public void boundsAndAvailabilityCheck(String inputLine, String[] inputs, Scanner stdin) {
+<b class="nc"><i>839</i>&nbsp;		boolean okExt = false;</b>
+<b class="nc"><i>840</i>&nbsp;		while(!okExt) {</b>
+<i>841</i>&nbsp;			try {
+<i>842</i>&nbsp;
+<b class="nc"><i>843</i>&nbsp;				while (Integer.parseInt(inputs[1]) &lt; 0 || Integer.parseInt(inputs[1]) &gt; 4 || Integer.parseInt(inputs[2]) &lt; 0 || Integer.parseInt(inputs[2]) &gt; 4) {</b>
+<b class="nc"><i>844</i>&nbsp;					System.out.println(cliMessage.impossibleCellMessage);</b>
+<i>845</i>&nbsp;
+<b class="nc"><i>846</i>&nbsp;					boolean okInt = false;</b>
+<b class="nc"><i>847</i>&nbsp;					while (!okInt) {</b>
+<i>848</i>&nbsp;						try {
+<b class="nc"><i>849</i>&nbsp;							stdin.reset();</b>
+<b class="nc"><i>850</i>&nbsp;							inputLine = stdin.nextLine();</b>
+<b class="nc"><i>851</i>&nbsp;							String[] inputsHelper = inputLine.split(&quot;,&quot;);</b>
+<i>852</i>&nbsp;
+<i>853</i>&nbsp;							String iptln;
+<b class="nc"><i>854</i>&nbsp;							iptln = moveChecks(inputLine, inputsHelper, stdin);</b>
+<b class="nc"><i>855</i>&nbsp;							inputsHelper = iptln.split(&quot;,&quot;);</b>
+<b class="nc"><i>856</i>&nbsp;							inputs[1] = inputsHelper[0];</b>
+<b class="nc"><i>857</i>&nbsp;							inputs[2] = inputsHelper[1];</b>
+<i>858</i>&nbsp;
+<i>859</i>&nbsp;
+<b class="nc"><i>860</i>&nbsp;							okInt = true;</b>
+<i>861</i>&nbsp;						}
+<b class="nc"><i>862</i>&nbsp;						catch (Exception e) {</b>
+<i>863</i>&nbsp;							//System.err.println(&quot;errore generico in lettura da terminale!!&quot; + e.getMessage() + &quot;!!!&quot; + e.initCause(e.getCause()));
+<b class="nc"><i>864</i>&nbsp;							System.err.println(e + &quot;: &quot; + cliMessage.wrongInputMessage);</b>
+<i>865</i>&nbsp;							//run();
+<b class="nc"><i>866</i>&nbsp;						}</b>
+<i>867</i>&nbsp;					}
+<i>868</i>&nbsp;
+<i>869</i>&nbsp;
+<b class="nc"><i>870</i>&nbsp;				}</b>
+<i>871</i>&nbsp;
+<b class="nc"><i>872</i>&nbsp;				int flag = checkIfAvailable(inputs);</b>
+<i>873</i>&nbsp;
+<b class="nc"><i>874</i>&nbsp;				if(flag != 0) {</b>
+<b class="nc"><i>875</i>&nbsp;					okExt = true;</b>
+<b class="nc"><i>876</i>&nbsp;					state = StateNumber.active;</b>
+<b class="nc"><i>877</i>&nbsp;					sendOutput(service);</b>
+<i>878</i>&nbsp;				}
+<i>879</i>&nbsp;				else {
+<b class="nc"><i>880</i>&nbsp;					System.err.println(cliMessage.unavailableCellMessage);</b>
+<b class="nc"><i>881</i>&nbsp;					stdin.reset();</b>
+<b class="nc"><i>882</i>&nbsp;					inputLine = stdin.nextLine();</b>
+<b class="nc"><i>883</i>&nbsp;					String[] inputsHelper = inputLine.split(&quot;,&quot;);</b>
+<i>884</i>&nbsp;
+<i>885</i>&nbsp;					String iptln;
+<b class="nc"><i>886</i>&nbsp;					iptln = moveChecks(inputLine, inputsHelper, stdin);</b>
+<b class="nc"><i>887</i>&nbsp;					inputsHelper = iptln.split(&quot;,&quot;);</b>
+<b class="nc"><i>888</i>&nbsp;					inputs[1] = inputsHelper[0];</b>
+<b class="nc"><i>889</i>&nbsp;					inputs[2] = inputsHelper[1];</b>
+<i>890</i>&nbsp;				}
+<i>891</i>&nbsp;
+<i>892</i>&nbsp;			}
+<b class="nc"><i>893</i>&nbsp;			catch(Exception e) {</b>
+<b class="nc"><i>894</i>&nbsp;				System.err.println(e + &quot;: &quot; + cliMessage.unavailableCellMessage);</b>
+<b class="nc"><i>895</i>&nbsp;			}</b>
+<i>896</i>&nbsp;
+<i>897</i>&nbsp;		}
+<b class="nc"><i>898</i>&nbsp;	}</b>
+<i>899</i>&nbsp;
+<i>900</i>&nbsp;	/**
+<i>901</i>&nbsp;	 * @author Andrea Gerosa
+<i>902</i>&nbsp;	 * Checks the availability of a cell.
+<i>903</i>&nbsp;	 *
+<i>904</i>&nbsp;	 * @param inputs array where values of interest has been split into
+<i>905</i>&nbsp;	 * @return a value that tells if the chosen cell is one of the available cells.
+<i>906</i>&nbsp;	 */
+<i>907</i>&nbsp;	public int checkIfAvailable(String[] inputs) {
+<b class="nc"><i>908</i>&nbsp;		int flag = 0;</b>
+<b class="nc"><i>909</i>&nbsp;		for (LightBlock lb : service.getAvailableCells()) {</b>
+<i>910</i>&nbsp;
+<b class="nc"><i>911</i>&nbsp;			if (lb.getC().getX() == Integer.parseInt(inputs[1]) &amp;&amp; lb.getC().getY() == Integer.parseInt(inputs[2])) {</b>
+<i>912</i>&nbsp;				try {
+<b class="nc"><i>913</i>&nbsp;					service.receiveMoveMessage(lb, Integer.parseInt(inputs[0]));</b>
+<b class="nc"><i>914</i>&nbsp;				} catch (Exception e) {</b>
+<b class="nc"><i>915</i>&nbsp;					System.out.println(e.getMessage());</b>
+<b class="nc"><i>916</i>&nbsp;				}</b>
+<i>917</i>&nbsp;
+<i>918</i>&nbsp;				//state = StateNumber.active;
+<b class="nc"><i>919</i>&nbsp;				flag++;</b>
+<b class="nc"><i>920</i>&nbsp;				break;</b>
+<i>921</i>&nbsp;			}
+<b class="nc"><i>922</i>&nbsp;		}</b>
+<b class="nc"><i>923</i>&nbsp;		return flag;</b>
+<i>924</i>&nbsp;	}
+<i>925</i>&nbsp;
+<i>926</i>&nbsp;	/**
+<i>927</i>&nbsp;	 * @author Andrea Gerosa
+<i>928</i>&nbsp;	 * Calls all the methods that do various controls before sending the service.
+<i>929</i>&nbsp;	 *
+<i>930</i>&nbsp;	 * @param inputLine line of text from stdin
+<i>931</i>&nbsp;	 * @param stdin standard input
+<i>932</i>&nbsp;	 * @throws IOException
+<i>933</i>&nbsp;	 */
+<i>934</i>&nbsp;	public void sendBuild(String inputLine, Scanner stdin) throws IOException {
+<i>935</i>&nbsp;
+<i>936</i>&nbsp;		//100 as default value
+<b class="nc"><i>937</i>&nbsp;		String[] inputs = new String[]{&quot;100&quot;, &quot;100&quot;, &quot;100&quot;};</b>
+<b class="nc"><i>938</i>&nbsp;		String[] inputsHelper = inputLine.split(&quot;,&quot;);</b>
+<b class="nc"><i>939</i>&nbsp;		for(int i = 0; i &lt; inputsHelper.length; i++) {</b>
+<b class="nc"><i>940</i>&nbsp;			if(inputsHelper[i] != null) {</b>
+<b class="nc"><i>941</i>&nbsp;				inputs[i] = inputsHelper[i];</b>
+<i>942</i>&nbsp;			}
+<i>943</i>&nbsp;		}
+<i>944</i>&nbsp;
+<b class="nc"><i>945</i>&nbsp;		inputLine = moveChecks(inputLine, inputsHelper, stdin);</b>
+<b class="nc"><i>946</i>&nbsp;		inputsHelper = inputLine.split(&quot;,&quot;);</b>
+<b class="nc"><i>947</i>&nbsp;		for(int i = 0; i &lt; inputsHelper.length; i++) {</b>
+<b class="nc"><i>948</i>&nbsp;			if(inputsHelper[i] != null) {</b>
+<b class="nc"><i>949</i>&nbsp;				inputs[i] = inputsHelper[i];</b>
+<i>950</i>&nbsp;			}
+<i>951</i>&nbsp;		}
+<i>952</i>&nbsp;
+<b class="nc"><i>953</i>&nbsp;		inputLine = boundsAndAvailabilityCheck2(inputLine, inputsHelper, stdin);</b>
+<b class="nc"><i>954</i>&nbsp;		inputsHelper = inputLine.split(&quot;,&quot;);</b>
+<b class="nc"><i>955</i>&nbsp;		for(int i = 0; i &lt; inputsHelper.length; i++) {</b>
+<b class="nc"><i>956</i>&nbsp;			if(inputsHelper[i] != null) {</b>
+<b class="nc"><i>957</i>&nbsp;				inputs[i] = inputsHelper[i];</b>
+<i>958</i>&nbsp;			}
+<i>959</i>&nbsp;		}
+<i>960</i>&nbsp;
+<i>961</i>&nbsp;
+<b class="nc"><i>962</i>&nbsp;		System.out.println(&quot;What floor are you building?&quot;);</b>
+<i>963</i>&nbsp;
+<b class="nc"><i>964</i>&nbsp;		stdin.reset();</b>
+<b class="nc"><i>965</i>&nbsp;		inputLine = stdin.nextLine();</b>
+<b class="nc"><i>966</i>&nbsp;		inputs[2] = inputLine;</b>
+<i>967</i>&nbsp;
+<b class="nc"><i>968</i>&nbsp;		boolean ok = false;</b>
+<b class="nc"><i>969</i>&nbsp;		while(!ok) {</b>
+<i>970</i>&nbsp;			try {
+<i>971</i>&nbsp;
+<b class="nc"><i>972</i>&nbsp;				while (!isInteger(inputLine) || (Integer.parseInt(inputs[2]) &lt; 1 &amp;&amp; Integer.parseInt(inputs[2]) &gt; 4)) {</b>
+<b class="nc"><i>973</i>&nbsp;					if (!isInteger(inputLine)) {</b>
+<b class="nc"><i>974</i>&nbsp;						System.err.println(&quot;You must insert a numeric value!&quot;);</b>
+<i>975</i>&nbsp;					}
+<i>976</i>&nbsp;					else {
+<b class="nc"><i>977</i>&nbsp;						if (Integer.parseInt(inputs[2]) &lt; 1 &amp;&amp; Integer.parseInt(inputs[2]) &gt; 4) {</b>
+<b class="nc"><i>978</i>&nbsp;							System.out.println(cliMessage.wrongLevelMessage);</b>
+<i>979</i>&nbsp;						}
+<i>980</i>&nbsp;					}
+<b class="nc"><i>981</i>&nbsp;					stdin.reset();</b>
+<b class="nc"><i>982</i>&nbsp;					inputLine = stdin.nextLine();</b>
+<b class="nc"><i>983</i>&nbsp;					inputs[2] = inputLine;</b>
+<i>984</i>&nbsp;				}
+<i>985</i>&nbsp;
+<b class="nc"><i>986</i>&nbsp;				if(levelCheck(inputs)) {</b>
+<b class="nc"><i>987</i>&nbsp;					ok = true;</b>
+<i>988</i>&nbsp;				}
+<i>989</i>&nbsp;				else {
+<b class="nc"><i>990</i>&nbsp;					System.err.println(&quot;You can&#39;t build this floor at this right moment!&quot;);</b>
+<b class="nc"><i>991</i>&nbsp;					stdin.reset();</b>
+<b class="nc"><i>992</i>&nbsp;					inputLine = stdin.nextLine();</b>
+<b class="nc"><i>993</i>&nbsp;					inputs[2] = inputLine;</b>
+<i>994</i>&nbsp;				}
+<i>995</i>&nbsp;
+<i>996</i>&nbsp;			}
+<b class="nc"><i>997</i>&nbsp;			catch (Exception e) {</b>
+<b class="nc"><i>998</i>&nbsp;				System.err.println(e + &quot;You must insert a numeric value!&quot;);</b>
+<b class="nc"><i>999</i>&nbsp;			}</b>
+<i>1000</i>&nbsp;		}
+<i>1001</i>&nbsp;
+<b class="nc"><i>1002</i>&nbsp;		sendOutput(service);</b>
+<b class="nc"><i>1003</i>&nbsp;		state = StateNumber.active;</b>
+<i>1004</i>&nbsp;
+<b class="nc"><i>1005</i>&nbsp;	}</b>
+<i>1006</i>&nbsp;
+<i>1007</i>&nbsp;	/**
+<i>1008</i>&nbsp;	 * @author Andrea Gerosa
+<i>1009</i>&nbsp;	 * Checks if the input meets the costraints and then sends the service as an outputStream.
+<i>1010</i>&nbsp;	 *
+<i>1011</i>&nbsp;	 * @param inputLine line of text from stdin
+<i>1012</i>&nbsp;	 * @param inputs array where values of interest has been split into
+<i>1013</i>&nbsp;	 * @param stdin standard input
+<i>1014</i>&nbsp;	 * @return input line
+<i>1015</i>&nbsp;	 */
+<i>1016</i>&nbsp;	public String boundsAndAvailabilityCheck2(String inputLine, String[] inputs, Scanner stdin) {
+<b class="nc"><i>1017</i>&nbsp;		boolean okExt = false;</b>
+<b class="nc"><i>1018</i>&nbsp;		while(!okExt) {</b>
+<i>1019</i>&nbsp;			try {
+<i>1020</i>&nbsp;
+<b class="nc"><i>1021</i>&nbsp;				while (Integer.parseInt(inputs[0]) &lt; 0 || Integer.parseInt(inputs[0]) &gt; 4 || Integer.parseInt(inputs[1]) &lt; 0 || Integer.parseInt(inputs[1]) &gt; 4) {</b>
+<b class="nc"><i>1022</i>&nbsp;					System.out.println(cliMessage.impossibleCellMessage);</b>
+<i>1023</i>&nbsp;
+<b class="nc"><i>1024</i>&nbsp;					boolean okInt = false;</b>
+<b class="nc"><i>1025</i>&nbsp;					while (!okInt) {</b>
+<i>1026</i>&nbsp;						try {
+<b class="nc"><i>1027</i>&nbsp;							stdin.reset();</b>
+<b class="nc"><i>1028</i>&nbsp;							inputLine = stdin.nextLine();</b>
+<b class="nc"><i>1029</i>&nbsp;							String[] inputsHelper = inputLine.split(&quot;,&quot;);</b>
+<i>1030</i>&nbsp;
+<i>1031</i>&nbsp;							String iptln;
+<b class="nc"><i>1032</i>&nbsp;							iptln = moveChecks(inputLine, inputsHelper, stdin);</b>
+<b class="nc"><i>1033</i>&nbsp;							inputLine = iptln;</b>
+<b class="nc"><i>1034</i>&nbsp;							inputsHelper = iptln.split(&quot;,&quot;);</b>
+<b class="nc"><i>1035</i>&nbsp;							inputs[0] = inputsHelper[0];</b>
+<b class="nc"><i>1036</i>&nbsp;							inputs[1] = inputsHelper[1];</b>
+<i>1037</i>&nbsp;
+<i>1038</i>&nbsp;
+<b class="nc"><i>1039</i>&nbsp;							okInt = true;</b>
+<i>1040</i>&nbsp;						}
+<b class="nc"><i>1041</i>&nbsp;						catch (Exception e) {</b>
+<b class="nc"><i>1042</i>&nbsp;							System.err.println(e + &quot;: &quot; + cliMessage.wrongInputMessage);</b>
+<b class="nc"><i>1043</i>&nbsp;						}</b>
+<i>1044</i>&nbsp;					}
+<i>1045</i>&nbsp;
+<i>1046</i>&nbsp;
+<b class="nc"><i>1047</i>&nbsp;				}</b>
+<i>1048</i>&nbsp;
+<b class="nc"><i>1049</i>&nbsp;				int flag = checkIfAvailable2(inputs);</b>
+<i>1050</i>&nbsp;
+<b class="nc"><i>1051</i>&nbsp;				if(flag != 0) {</b>
+<b class="nc"><i>1052</i>&nbsp;					okExt = true;</b>
+<i>1053</i>&nbsp;				}
+<i>1054</i>&nbsp;				else {
+<b class="nc"><i>1055</i>&nbsp;					System.err.println(cliMessage.unavailableCellMessage);</b>
+<b class="nc"><i>1056</i>&nbsp;					stdin.reset();</b>
+<b class="nc"><i>1057</i>&nbsp;					inputLine = stdin.nextLine();</b>
+<b class="nc"><i>1058</i>&nbsp;					String[] inputsHelper = inputLine.split(&quot;,&quot;);</b>
+<i>1059</i>&nbsp;
+<i>1060</i>&nbsp;					String iptln;
+<b class="nc"><i>1061</i>&nbsp;					iptln = moveChecks(inputLine, inputsHelper, stdin);</b>
+<b class="nc"><i>1062</i>&nbsp;					inputLine = iptln;</b>
+<b class="nc"><i>1063</i>&nbsp;					inputsHelper = iptln.split(&quot;,&quot;);</b>
+<b class="nc"><i>1064</i>&nbsp;					inputs[0] = inputsHelper[0];</b>
+<b class="nc"><i>1065</i>&nbsp;					inputs[1] = inputsHelper[1];</b>
+<i>1066</i>&nbsp;				}
+<i>1067</i>&nbsp;
+<i>1068</i>&nbsp;			}
+<b class="nc"><i>1069</i>&nbsp;			catch(Exception e) {</b>
+<b class="nc"><i>1070</i>&nbsp;				System.err.println(e + &quot;: &quot; + cliMessage.unavailableCellMessage);</b>
+<b class="nc"><i>1071</i>&nbsp;			}</b>
+<i>1072</i>&nbsp;
+<i>1073</i>&nbsp;		}
+<b class="nc"><i>1074</i>&nbsp;		return inputLine;</b>
+<i>1075</i>&nbsp;	}
+<i>1076</i>&nbsp;
+<i>1077</i>&nbsp;	/**
+<i>1078</i>&nbsp;	 * @author Andrea Gerosa
+<i>1079</i>&nbsp;	 * Checks the availability of a cell.
+<i>1080</i>&nbsp;	 *
+<i>1081</i>&nbsp;	 * @param inputs array where values of interest has been split into
+<i>1082</i>&nbsp;	 * @return a value that tells if the chosen cell is one of the available cells.
+<i>1083</i>&nbsp;	 */
+<i>1084</i>&nbsp;	public int checkIfAvailable2(String[] inputs) {
+<b class="nc"><i>1085</i>&nbsp;		int flag = 0;</b>
+<b class="nc"><i>1086</i>&nbsp;		for (LightBlock lb : service.getAvailableCells2()) {</b>
+<i>1087</i>&nbsp;
+<b class="nc"><i>1088</i>&nbsp;			if (lb.getC().getX() == Integer.parseInt(inputs[0]) &amp;&amp; lb.getC().getY() == Integer.parseInt(inputs[1])) {</b>
+<i>1089</i>&nbsp;				//lb.getC().getX() == Integer.parseInt(inputs[0]) &amp;&amp; lb.getC().getY() == Integer.parseInt(inputs[1]) &amp;&amp; lb.getLevel() == (Integer.parseInt(inputs[2]) - 1)
+<i>1090</i>&nbsp;				//state = StateNumber.active;
+<b class="nc"><i>1091</i>&nbsp;				flag++;</b>
+<b class="nc"><i>1092</i>&nbsp;				break;</b>
+<i>1093</i>&nbsp;			}
+<b class="nc"><i>1094</i>&nbsp;		}</b>
+<b class="nc"><i>1095</i>&nbsp;		return flag;</b>
+<i>1096</i>&nbsp;	}
+<i>1097</i>&nbsp;
+<i>1098</i>&nbsp;	/**
+<i>1099</i>&nbsp;	 * @author Andrea Gerosa
+<i>1100</i>&nbsp;	 * Checks if the level in input makes sense.
+<i>1101</i>&nbsp;	 *
+<i>1102</i>&nbsp;	 * @param inputs array where values of interest has been split into
+<i>1103</i>&nbsp;	 * @return a boolean value which indicates if the chosen floor, in the chosen cell, can be built.
+<i>1104</i>&nbsp;	 */
+<i>1105</i>&nbsp;	public boolean levelCheck(String[] inputs) {
+<b class="nc"><i>1106</i>&nbsp;		for (LightBlock lb : service.getAvailableCells2()) {</b>
+<b class="nc"><i>1107</i>&nbsp;			if(lb.getC().getX() == Integer.parseInt(inputs[0]) &amp;&amp; lb.getC().getY() == Integer.parseInt(inputs[1]) &amp;&amp; lb.getLevel() == (Integer.parseInt(inputs[2]) - 1)) {</b>
+<b class="nc"><i>1108</i>&nbsp;				service.receiveBuildMessage(lb);</b>
+<b class="nc"><i>1109</i>&nbsp;				return true;</b>
+<i>1110</i>&nbsp;			}
+<b class="nc"><i>1111</i>&nbsp;		}</b>
+<b class="nc"><i>1112</i>&nbsp;		return  false;</b>
+<i>1113</i>&nbsp;	}
+<i>1114</i>&nbsp;
+<i>1115</i>&nbsp;	/**
+<i>1116</i>&nbsp;	 * @author Andrea Gerosa
+<i>1117</i>&nbsp;	 * Checks if the player wants to do another match or exit the game at the end of the match.
+<i>1118</i>&nbsp;	 * Then sends the service as an outputStream.
+<i>1119</i>&nbsp;	 *
+<i>1120</i>&nbsp;	 * @param inputLine line of text from stdin
+<i>1121</i>&nbsp;	 * @param stdin standard input
+<i>1122</i>&nbsp;	 */
+<i>1123</i>&nbsp;	public void endGameResponse(String inputLine, Scanner stdin) {
+<i>1124</i>&nbsp;
+<b class="nc"><i>1125</i>&nbsp;		while(!(inputLine.equals(&quot;yes&quot;) || inputLine.equals(&quot;no&quot;))) {</b>
+<b class="nc"><i>1126</i>&nbsp;			System.out.println(&quot;Enter &#39;yes&#39; or &#39;no&#39;.&quot;);</b>
+<b class="nc"><i>1127</i>&nbsp;			stdin.reset();</b>
+<b class="nc"><i>1128</i>&nbsp;			inputLine = stdin.nextLine();</b>
+<i>1129</i>&nbsp;		}
+<b class="nc"><i>1130</i>&nbsp;		newMatch = inputLine.equals(&quot;yes&quot;);</b>
+<i>1131</i>&nbsp;
+<b class="nc"><i>1132</i>&nbsp;	}</b>
+<i>1133</i>&nbsp;
+<i>1134</i>&nbsp;	/**
+<i>1135</i>&nbsp;	 * @author Andrea Gerosa
+<i>1136</i>&nbsp;	 * After a player&#39;s unexpected disconnection, checks if the player decides to do another match
+<i>1137</i>&nbsp;	 * or exit the game.
+<i>1138</i>&nbsp;	 * Then sends the service as an outputStream.
+<i>1139</i>&nbsp;	 *
+<i>1140</i>&nbsp;	 * @param inputLine line of text from stdin
+<i>1141</i>&nbsp;	 * @param stdin standard input
+<i>1142</i>&nbsp;	 */
+<i>1143</i>&nbsp;	public void disconnectionResponse(String inputLine, Scanner stdin) {
+<b class="nc"><i>1144</i>&nbsp;		while(!(inputLine.equals(&quot;yes&quot;) || inputLine.equals(&quot;no&quot;))) {</b>
+<b class="nc"><i>1145</i>&nbsp;			System.out.println(&quot;Enter &#39;yes&#39; or &#39;no&#39;.&quot;);</b>
+<b class="nc"><i>1146</i>&nbsp;			stdin.reset();</b>
+<b class="nc"><i>1147</i>&nbsp;			inputLine = stdin.nextLine();</b>
+<i>1148</i>&nbsp;		}
+<b class="nc"><i>1149</i>&nbsp;		newMatch = inputLine.equals(&quot;yes&quot;);</b>
+<b class="nc"><i>1150</i>&nbsp;	}</b>
+<i>1151</i>&nbsp;
+<i>1152</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-07-03 18:11</div>
+</div>
+</body>
+</html>

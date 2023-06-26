@@ -1,0 +1,244 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RemoteView</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.PSP45.view</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RemoteView (it.polimi.ingsw.PSP45.view)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RemoteView</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 33)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">RemoteView$1</td>
+  </tr>
+  <tr>
+    <td class="name">RemoteView$MessageReceiver</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 7)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 40)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.PSP45.view;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;
+<i>4</i>&nbsp;import it.polimi.ingsw.PSP45.model.Player;
+<i>5</i>&nbsp;import it.polimi.ingsw.PSP45.observer.Observer;
+<i>6</i>&nbsp;import it.polimi.ingsw.PSP45.server.ClientConnection;
+<i>7</i>&nbsp;import it.polimi.ingsw.PSP45.utils.Service;
+<i>8</i>&nbsp;import it.polimi.ingsw.PSP45.utils.StateNumber;
+<i>9</i>&nbsp;import it.polimi.ingsw.PSP45.utils.frommodeltoview;
+<i>10</i>&nbsp;import it.polimi.ingsw.PSP45.utils.fromviewtocontroll;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;/**
+<i>14</i>&nbsp; * @author Lorenzo Longaretti
+<i>15</i>&nbsp; * class that rappresent the view of a client seen by the server
+<i>16</i>&nbsp; */
+<b class="nc"><i>17</i>&nbsp;public class RemoteView extends View {</b>
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    /**
+<i>21</i>&nbsp;     * class that receive the client&#39;s communication and redirect that to the remote view
+<i>22</i>&nbsp;     */
+<b class="nc"><i>23</i>&nbsp;    private class MessageReceiver implements Observer&lt;Service&gt; {</b>
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;        @Override
+<i>27</i>&nbsp;        public void update(Service message) {
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;            try{
+<b class="nc"><i>30</i>&nbsp;                System.out.println(&quot;passa per message receiver&quot;);</b>
+<i>31</i>&nbsp;                // clientConnection.asyncSend(message);
+<b class="nc"><i>32</i>&nbsp;                handleMove(message);</b>
+<b class="nc"><i>33</i>&nbsp;            }catch(IllegalArgumentException e){</b>
+<b class="nc"><i>34</i>&nbsp;                clientConnection.asyncSend(&quot;Error!&quot;);</b>
+<b class="nc"><i>35</i>&nbsp;            }</b>
+<b class="nc"><i>36</i>&nbsp;        }</b>
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    }
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    private ClientConnection clientConnection;
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    public RemoteView(Player player, ClientConnection c) {
+<b class="nc"><i>44</i>&nbsp;        super(player);</b>
+<b class="nc"><i>45</i>&nbsp;        this.clientConnection = c;</b>
+<b class="nc"><i>46</i>&nbsp;        c.addObserver(new MessageReceiver());</b>
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;
+<b class="nc"><i>49</i>&nbsp;    }</b>
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    //mi serve solo per il metodo astrattp......
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    /**
+<i>54</i>&nbsp;     * @author Lorenzo Longaretti
+<i>55</i>&nbsp;     * method that invke the method for sending messages to a server
+<i>56</i>&nbsp;     * @param message
+<i>57</i>&nbsp;     */
+<i>58</i>&nbsp;    @Override
+<i>59</i>&nbsp;    protected void showMessage(Service message) {
+<b class="nc"><i>60</i>&nbsp;        clientConnection.asyncSend(message);</b>
+<b class="nc"><i>61</i>&nbsp;    }</b>
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;    /**
+<i>65</i>&nbsp;     * @author Lorenzo Longaretti
+<i>66</i>&nbsp;     * method that handle the request from the match to redirect messages to a client or to the controll (if should change the turn)
+<i>67</i>&nbsp;     * @param message
+<i>68</i>&nbsp;     */
+<i>69</i>&nbsp;    @Override
+<i>70</i>&nbsp;    public void update(frommodeltoview message) {
+<b class="nc"><i>71</i>&nbsp;        System.out.println(&quot;fa update&quot;+ message.getPlayer().toString());</b>
+<b class="nc"><i>72</i>&nbsp;        System.out.println(message.getPlayer().getGod() +&quot;|&quot;+ message.getServizio().getCodice()+&quot;/&quot; + this.getPlayer().getGod());</b>
+<b class="nc"><i>73</i>&nbsp;        Service tosend = message.getServizio();</b>
+<b class="nc"><i>74</i>&nbsp;        Player playertosend = message.getPlayer();</b>
+<b class="nc"><i>75</i>&nbsp;        Player playerhelp = this.getPlayer();</b>
+<b class="nc"><i>76</i>&nbsp;        System.out.println(&quot;tipo all&#39;update&quot; + message.getServizio().getType());</b>
+<i>77</i>&nbsp;
+<b class="nc"><i>78</i>&nbsp;        if(message.getServizio().getType()== StateNumber.nextTurn &amp;&amp; message.getPlayer() == playerhelp )</b>
+<i>79</i>&nbsp;        {
+<i>80</i>&nbsp;            //  fromviewtocontroll help = new fromviewtocontroll(message.getPlayer(),message.getServizio());
+<b class="nc"><i>81</i>&nbsp;            System.out.println(&quot;--------------------ha inviato il cambio giocatore&quot;);</b>
+<i>82</i>&nbsp;            //  notify(help);
+<i>83</i>&nbsp;        }
+<i>84</i>&nbsp;        else{
+<b class="nc"><i>85</i>&nbsp;            System.out.println(&quot;non entra in notify&quot;);</b>
+<i>86</i>&nbsp;            //clientConnection.asyncSend(tosend);
+<i>87</i>&nbsp;            //showMessage(tosend);
+<i>88</i>&nbsp;        }
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;
+<b class="nc"><i>91</i>&nbsp;        if(message.getServizio().getType()== StateNumber.nextTurn &amp;&amp; message.getPlayer() != playerhelp )</b>
+<i>92</i>&nbsp;        {
+<b class="nc"><i>93</i>&nbsp;            fromviewtocontroll help = new fromviewtocontroll(message.getPlayer(),message.getServizio());</b>
+<b class="nc"><i>94</i>&nbsp;            System.out.println(&quot;--------------------ha inviato il cambio giocatore&quot;);</b>
+<b class="nc"><i>95</i>&nbsp;            notify(help);</b>
+<b class="nc"><i>96</i>&nbsp;        }</b>
+<i>97</i>&nbsp;        else{
+<b class="nc"><i>98</i>&nbsp;            System.out.println(&quot;non lo capisco&quot;);</b>
+<i>99</i>&nbsp;        }
+<i>100</i>&nbsp;
+<i>101</i>&nbsp;
+<i>102</i>&nbsp;
+<b class="nc"><i>103</i>&nbsp;        if(playerhelp!=playertosend &amp;&amp; message.getServizio().getType() != StateNumber.nextTurn){</b>
+<b class="nc"><i>104</i>&nbsp;            System.out.println(&quot;entra in waitmessage diverso&quot;);</b>
+<b class="nc"><i>105</i>&nbsp;            Service dainviare = new Service(StateNumber.active,&quot;def&quot;,&quot;def&quot;);</b>
+<b class="nc"><i>106</i>&nbsp;            System.out.println(&quot;vedo se cambia tosend&quot;+ tosend.getCodice());</b>
+<b class="nc"><i>107</i>&nbsp;            dainviare.sendWaitMessage();</b>
+<b class="nc"><i>108</i>&nbsp;            System.out.println(&quot;non dovrebbe avermi cambiato to send &quot; + tosend.getCodice());</b>
+<b class="nc"><i>109</i>&nbsp;            clientConnection.asyncSend(dainviare);</b>
+<i>110</i>&nbsp;        }
+<i>111</i>&nbsp;
+<i>112</i>&nbsp;
+<b class="nc"><i>113</i>&nbsp;        if(playerhelp==playertosend &amp;&amp; message.getServizio().getType() != StateNumber.nextTurn){</b>
+<b class="nc"><i>114</i>&nbsp;            System.out.println(&quot;entra in waitmessage uguale&quot;);</b>
+<i>115</i>&nbsp;            // tosend.sendWaitMessage();
+<b class="nc"><i>116</i>&nbsp;            clientConnection.asyncSend(tosend);</b>
+<i>117</i>&nbsp;        }
+<i>118</i>&nbsp;
+<i>119</i>&nbsp;
+<i>120</i>&nbsp;        //clientConnection.asyncSend(tosend);
+<i>121</i>&nbsp;        //potrei sostituirvi show message per dargli un senso
+<i>122</i>&nbsp;
+<i>123</i>&nbsp;
+<i>124</i>&nbsp;
+<i>125</i>&nbsp;
+<i>126</i>&nbsp;
+<i>127</i>&nbsp;        //al posto che fare notify posso fare handle move
+<i>128</i>&nbsp;
+<b class="nc"><i>129</i>&nbsp;    }</b>
+<i>130</i>&nbsp;
+<i>131</i>&nbsp;}
+<i>132</i>&nbsp;
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-19 14:03</div>
+</div>
+</body>
+</html>

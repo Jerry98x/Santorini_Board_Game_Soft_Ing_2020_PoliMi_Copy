@@ -1,0 +1,367 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: GodLobby_Class</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.PSP45.server</a> ]
+</div>
+
+<h1>Coverage Summary for Class: GodLobby_Class (it.polimi.ingsw.PSP45.server)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GodLobby_Class</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 45)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 115)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.PSP45.server;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.PSP45.model.Coordinate;
+<i>4</i>&nbsp;import it.polimi.ingsw.PSP45.model.LightBoard;
+<i>5</i>&nbsp;import it.polimi.ingsw.PSP45.utils.GodName;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import java.util.ArrayList;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;/**
+<i>10</i>&nbsp; * @author Lorenzo Longaretti
+<i>11</i>&nbsp; *
+<i>12</i>&nbsp; * Class that stores the informations during the creation of the match.
+<i>13</i>&nbsp; *
+<i>14</i>&nbsp; */
+<i>15</i>&nbsp;public class GodLobby_Class {
+<b class="nc"><i>16</i>&nbsp;	private ArrayList&lt;WaitingConnectionClass&gt; list = new ArrayList&lt;&gt;();</b>
+<i>17</i>&nbsp;	private ClientConnection c1;
+<i>18</i>&nbsp;	private ClientConnection c2;
+<i>19</i>&nbsp;	private ClientConnection c3;
+<i>20</i>&nbsp;	private GodName c1god;
+<i>21</i>&nbsp;	private GodName c2god;
+<i>22</i>&nbsp;	private GodName c3god;
+<i>23</i>&nbsp;	private int usage;
+<b class="nc"><i>24</i>&nbsp;	private ArrayList&lt;GodName&gt; listgodnotused = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>25</i>&nbsp;	private ArrayList&lt;GodName&gt; listgodused = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>26</i>&nbsp;	private LightBoard lightBoard = new LightBoard();</b>
+<i>27</i>&nbsp;	private Coordinate firstworker_firstPlayerCoordinate ;
+<i>28</i>&nbsp;	private Coordinate secondworker_firstPlayerCoordinate;
+<i>29</i>&nbsp;	private Coordinate firstworker_secondPlayerCoordinate;
+<i>30</i>&nbsp;	private Coordinate secondworker_secondPlayerCoordinate;
+<i>31</i>&nbsp;	private Coordinate firstworker_thirdPlayerCoordinate;
+<i>32</i>&nbsp;	private Coordinate secondworker_thirdPlayerCoordinate;
+<b class="nc"><i>33</i>&nbsp;	private ArrayList&lt;Coordinate&gt; coordinates = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>34</i>&nbsp;	private int firstPlayer = 4;</b>
+<i>35</i>&nbsp;	private ClientConnection toPutCoordinate;
+<b class="nc"><i>36</i>&nbsp;	private int toPutCoordinateInt = 0;</b>
+<b class="nc"><i>37</i>&nbsp;	int tosend = 0;</b>
+<b class="nc"><i>38</i>&nbsp;	private ArrayList&lt;String&gt; playersNames = new ArrayList&lt;&gt;();</b>
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;	/**
+<i>41</i>&nbsp;	 * Class constructor
+<i>42</i>&nbsp;	 *
+<i>43</i>&nbsp;	 * @param list
+<i>44</i>&nbsp;	 * @param c1
+<i>45</i>&nbsp;	 * @param c2
+<i>46</i>&nbsp;	 * @param c3
+<i>47</i>&nbsp;	 */
+<b class="nc"><i>48</i>&nbsp;	public GodLobby_Class(ArrayList&lt;WaitingConnectionClass&gt; list, ClientConnection c1, ClientConnection c2, ClientConnection c3) {</b>
+<b class="nc"><i>49</i>&nbsp;		for(WaitingConnectionClass waitingConnectionClass : list){</b>
+<b class="nc"><i>50</i>&nbsp;		this.list.add(waitingConnectionClass.clone());</b>
+<b class="nc"><i>51</i>&nbsp;		}</b>
+<b class="nc"><i>52</i>&nbsp;		this.c1 = c1;</b>
+<b class="nc"><i>53</i>&nbsp;		this.c2 = c2;</b>
+<b class="nc"><i>54</i>&nbsp;		this.c3 = c3;</b>
+<b class="nc"><i>55</i>&nbsp;		this.usage =0;</b>
+<b class="nc"><i>56</i>&nbsp;		listgodnotused.add(GodName.apollo);</b>
+<b class="nc"><i>57</i>&nbsp;		listgodnotused.add(GodName.minotaur);</b>
+<b class="nc"><i>58</i>&nbsp;		listgodnotused.add(GodName.hephaestus);</b>
+<b class="nc"><i>59</i>&nbsp;		listgodnotused.add(GodName.athena);</b>
+<b class="nc"><i>60</i>&nbsp;		listgodnotused.add(GodName.pan);</b>
+<b class="nc"><i>61</i>&nbsp;		listgodnotused.add(GodName.demeter);</b>
+<b class="nc"><i>62</i>&nbsp;		listgodnotused.add(GodName.artemis);</b>
+<b class="nc"><i>63</i>&nbsp;		listgodnotused.add(GodName.atlas);</b>
+<b class="nc"><i>64</i>&nbsp;		listgodnotused.add(GodName.prometheus);</b>
+<b class="nc"><i>65</i>&nbsp;	}</b>
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;	public int getFirstPlayer() {
+<b class="nc"><i>68</i>&nbsp;		return firstPlayer;</b>
+<i>69</i>&nbsp;	}
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;	public void setFirstPlayer(int firstPlayer) {
+<b class="nc"><i>72</i>&nbsp;		this.firstPlayer = firstPlayer;</b>
+<b class="nc"><i>73</i>&nbsp;	}</b>
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;	public ClientConnection getToPutCoordinate() {
+<b class="nc"><i>76</i>&nbsp;		return toPutCoordinate;</b>
+<i>77</i>&nbsp;	}
+<i>78</i>&nbsp;
+<i>79</i>&nbsp;	public void setToPutCoordinate(ClientConnection toPutCoordinate) {
+<b class="nc"><i>80</i>&nbsp;		this.toPutCoordinate = toPutCoordinate;</b>
+<b class="nc"><i>81</i>&nbsp;	}</b>
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;	public int getToPutCoordinateInt() {
+<b class="nc"><i>84</i>&nbsp;		return toPutCoordinateInt;</b>
+<i>85</i>&nbsp;	}
+<i>86</i>&nbsp;
+<i>87</i>&nbsp;	public void setToPutCoordinateInt(int toPutCoordinateInt) {
+<b class="nc"><i>88</i>&nbsp;		this.toPutCoordinateInt = toPutCoordinateInt;</b>
+<b class="nc"><i>89</i>&nbsp;	}</b>
+<i>90</i>&nbsp;
+<i>91</i>&nbsp;	public int getTosend() {
+<b class="nc"><i>92</i>&nbsp;		return tosend;</b>
+<i>93</i>&nbsp;	}
+<i>94</i>&nbsp;
+<i>95</i>&nbsp;	public void setTosend(int tosend) {
+<b class="nc"><i>96</i>&nbsp;		this.tosend = tosend;</b>
+<b class="nc"><i>97</i>&nbsp;	}</b>
+<i>98</i>&nbsp;
+<i>99</i>&nbsp;	public ArrayList&lt;Coordinate&gt; getCoordinates() {
+<b class="nc"><i>100</i>&nbsp;		return coordinates;</b>
+<i>101</i>&nbsp;	}
+<i>102</i>&nbsp;
+<i>103</i>&nbsp;	public void setCoordinates(ArrayList&lt;Coordinate&gt; coordinates) {
+<b class="nc"><i>104</i>&nbsp;		this.coordinates = coordinates;</b>
+<b class="nc"><i>105</i>&nbsp;	}</b>
+<i>106</i>&nbsp;
+<i>107</i>&nbsp;	public Coordinate getFirstworker_firstPlayerCoordinate() {
+<b class="nc"><i>108</i>&nbsp;		return firstworker_firstPlayerCoordinate;</b>
+<i>109</i>&nbsp;	}
+<i>110</i>&nbsp;
+<i>111</i>&nbsp;	public void setFirstworker_firstPlayerCoordinate(Coordinate firstworker_firstPlayerCoordinate) {
+<b class="nc"><i>112</i>&nbsp;		this.firstworker_firstPlayerCoordinate = firstworker_firstPlayerCoordinate;</b>
+<b class="nc"><i>113</i>&nbsp;	}</b>
+<i>114</i>&nbsp;
+<i>115</i>&nbsp;	public Coordinate getSecondworker_firstPlayerCoordinate() {
+<b class="nc"><i>116</i>&nbsp;		return secondworker_firstPlayerCoordinate;</b>
+<i>117</i>&nbsp;	}
+<i>118</i>&nbsp;
+<i>119</i>&nbsp;	public void setSecondworker_firstPlayerCoordinate(Coordinate secondworker_firstPlayerCoordinate) {
+<b class="nc"><i>120</i>&nbsp;		this.secondworker_firstPlayerCoordinate = secondworker_firstPlayerCoordinate;</b>
+<b class="nc"><i>121</i>&nbsp;	}</b>
+<i>122</i>&nbsp;
+<i>123</i>&nbsp;	public Coordinate getFirstworker_secondPlayerCoordinate() {
+<b class="nc"><i>124</i>&nbsp;		return firstworker_secondPlayerCoordinate;</b>
+<i>125</i>&nbsp;	}
+<i>126</i>&nbsp;
+<i>127</i>&nbsp;	public void setFirstworker_secondPlayerCoordinate(Coordinate firstworker_secondPlayerCoordinate) {
+<b class="nc"><i>128</i>&nbsp;		this.firstworker_secondPlayerCoordinate = firstworker_secondPlayerCoordinate;</b>
+<b class="nc"><i>129</i>&nbsp;	}</b>
+<i>130</i>&nbsp;
+<i>131</i>&nbsp;	public Coordinate getSecondworker_secondPlayerCoordinate() {
+<b class="nc"><i>132</i>&nbsp;		return secondworker_secondPlayerCoordinate;</b>
+<i>133</i>&nbsp;	}
+<i>134</i>&nbsp;
+<i>135</i>&nbsp;	public void setSecondworker_secondPlayerCoordinate(Coordinate secondworker_secondPlayerCoordinate) {
+<b class="nc"><i>136</i>&nbsp;		this.secondworker_secondPlayerCoordinate = secondworker_secondPlayerCoordinate;</b>
+<b class="nc"><i>137</i>&nbsp;	}</b>
+<i>138</i>&nbsp;
+<i>139</i>&nbsp;	public Coordinate getFirstworker_thirdPlayerCoordinate() {
+<b class="nc"><i>140</i>&nbsp;		return firstworker_thirdPlayerCoordinate;</b>
+<i>141</i>&nbsp;	}
+<i>142</i>&nbsp;
+<i>143</i>&nbsp;	public void setFirstworker_thirdPlayerCoordinate(Coordinate firstworker_thirdPlayerCoordinate) {
+<b class="nc"><i>144</i>&nbsp;		this.firstworker_thirdPlayerCoordinate = firstworker_thirdPlayerCoordinate;</b>
+<b class="nc"><i>145</i>&nbsp;	}</b>
+<i>146</i>&nbsp;
+<i>147</i>&nbsp;	public Coordinate getSecondworker_thirdPlayerCoordinate() {
+<b class="nc"><i>148</i>&nbsp;		return secondworker_thirdPlayerCoordinate;</b>
+<i>149</i>&nbsp;	}
+<i>150</i>&nbsp;
+<i>151</i>&nbsp;	public void setSecondworker_thirdPlayerCoordinate(Coordinate secondworker_thirdPlayerCoordinate) {
+<b class="nc"><i>152</i>&nbsp;		this.secondworker_thirdPlayerCoordinate = secondworker_thirdPlayerCoordinate;</b>
+<b class="nc"><i>153</i>&nbsp;	}</b>
+<i>154</i>&nbsp;
+<i>155</i>&nbsp;	public LightBoard getLightBoard() {
+<b class="nc"><i>156</i>&nbsp;		return lightBoard;</b>
+<i>157</i>&nbsp;	}
+<i>158</i>&nbsp;
+<i>159</i>&nbsp;	public void setLightBoard(LightBoard lightBoard) {
+<b class="nc"><i>160</i>&nbsp;		this.lightBoard = lightBoard;</b>
+<b class="nc"><i>161</i>&nbsp;	}</b>
+<i>162</i>&nbsp;
+<i>163</i>&nbsp;	public ArrayList&lt;WaitingConnectionClass&gt; getList() {
+<b class="nc"><i>164</i>&nbsp;		return list;</b>
+<i>165</i>&nbsp;	}
+<i>166</i>&nbsp;
+<i>167</i>&nbsp;	public ClientConnection getC1() {
+<b class="nc"><i>168</i>&nbsp;		return c1;</b>
+<i>169</i>&nbsp;	}
+<i>170</i>&nbsp;
+<i>171</i>&nbsp;	public ClientConnection getC2() {
+<b class="nc"><i>172</i>&nbsp;		return c2;</b>
+<i>173</i>&nbsp;	}
+<i>174</i>&nbsp;
+<i>175</i>&nbsp;	public ClientConnection getC3() {
+<b class="nc"><i>176</i>&nbsp;		return c3;</b>
+<i>177</i>&nbsp;	}
+<i>178</i>&nbsp;
+<i>179</i>&nbsp;	/**
+<i>180</i>&nbsp;	 * Updates the usage value.
+<i>181</i>&nbsp;	 *
+<i>182</i>&nbsp;	 */
+<i>183</i>&nbsp;	public void Updateusage(){
+<b class="nc"><i>184</i>&nbsp;		System.out.println(&quot;size list usage&quot; + list.size());</b>
+<b class="nc"><i>185</i>&nbsp;		if(list.size()==2 &amp;&amp; usage == 1){</b>
+<b class="nc"><i>186</i>&nbsp;			usage = 3;</b>
+<i>187</i>&nbsp;		}
+<i>188</i>&nbsp;		else{
+<b class="nc"><i>189</i>&nbsp;			usage++;</b>
+<i>190</i>&nbsp;		}
+<b class="nc"><i>191</i>&nbsp;	}</b>
+<i>192</i>&nbsp;
+<i>193</i>&nbsp;	public int getUsage() {
+<b class="nc"><i>194</i>&nbsp;		return usage;</b>
+<i>195</i>&nbsp;	}
+<i>196</i>&nbsp;
+<i>197</i>&nbsp;	public ArrayList&lt;GodName&gt; getListgodnotused() {
+<b class="nc"><i>198</i>&nbsp;		return listgodnotused;</b>
+<i>199</i>&nbsp;	}
+<i>200</i>&nbsp;
+<i>201</i>&nbsp;	public void setC1GodName(GodName godName) {
+<b class="nc"><i>202</i>&nbsp;		this.c1god = godName;</b>
+<b class="nc"><i>203</i>&nbsp;		listgodused.add(godName);</b>
+<b class="nc"><i>204</i>&nbsp;	}</b>
+<i>205</i>&nbsp;
+<i>206</i>&nbsp;	public void setC2GodName(GodName godName) {
+<b class="nc"><i>207</i>&nbsp;		this.c2god = godName;</b>
+<b class="nc"><i>208</i>&nbsp;		listgodused.add(godName);</b>
+<b class="nc"><i>209</i>&nbsp;	}</b>
+<i>210</i>&nbsp;
+<i>211</i>&nbsp;	public void setC3GodName(GodName godName) {
+<b class="nc"><i>212</i>&nbsp;		this.c3god = godName;</b>
+<b class="nc"><i>213</i>&nbsp;		listgodused.add(godName);</b>
+<b class="nc"><i>214</i>&nbsp;	}</b>
+<i>215</i>&nbsp;
+<i>216</i>&nbsp;	public GodName getC1god() {
+<b class="nc"><i>217</i>&nbsp;		return c1god;</b>
+<i>218</i>&nbsp;	}
+<i>219</i>&nbsp;
+<i>220</i>&nbsp;	public GodName getC2god() {
+<b class="nc"><i>221</i>&nbsp;		return c2god;</b>
+<i>222</i>&nbsp;	}
+<i>223</i>&nbsp;
+<i>224</i>&nbsp;	public GodName getC3god() {
+<b class="nc"><i>225</i>&nbsp;		return c3god;</b>
+<i>226</i>&nbsp;	}
+<i>227</i>&nbsp;
+<i>228</i>&nbsp;	public void removeGodName(GodName godName) {
+<b class="nc"><i>229</i>&nbsp;		listgodnotused.remove(godName);</b>
+<b class="nc"><i>230</i>&nbsp;	}</b>
+<i>231</i>&nbsp;
+<i>232</i>&nbsp;	public ArrayList&lt;GodName&gt; getListgodused() {
+<b class="nc"><i>233</i>&nbsp;		return listgodused;</b>
+<i>234</i>&nbsp;	}
+<i>235</i>&nbsp;
+<i>236</i>&nbsp;
+<i>237</i>&nbsp;	public void setListgodused(ArrayList&lt;GodName&gt; listgodused) {
+<b class="nc"><i>238</i>&nbsp;		this.listgodused = listgodused;</b>
+<b class="nc"><i>239</i>&nbsp;	}</b>
+<i>240</i>&nbsp;
+<i>241</i>&nbsp;	public void setListgodnotused(ArrayList&lt;GodName&gt; listgodnotused) {
+<b class="nc"><i>242</i>&nbsp;		this.listgodnotused = listgodnotused;</b>
+<b class="nc"><i>243</i>&nbsp;	}</b>
+<i>244</i>&nbsp;
+<i>245</i>&nbsp;	public ArrayList&lt;String&gt; getPlayersNames() {
+<b class="nc"><i>246</i>&nbsp;		return playersNames;</b>
+<i>247</i>&nbsp;	}
+<i>248</i>&nbsp;
+<i>249</i>&nbsp;	public void setPlayersNames(ArrayList&lt;String&gt; playersNames) {
+<b class="nc"><i>250</i>&nbsp;		this.playersNames = playersNames;</b>
+<b class="nc"><i>251</i>&nbsp;	}</b>
+<i>252</i>&nbsp;
+<i>253</i>&nbsp;	/**
+<i>254</i>&nbsp;	 * Sorts the divinities.
+<i>255</i>&nbsp;	 *
+<i>256</i>&nbsp;	 */
+<i>257</i>&nbsp;	public void sort(){
+<b class="nc"><i>258</i>&nbsp;		ArrayList&lt;GodName&gt; help1 = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>259</i>&nbsp;		if(listgodused.size()== 2){</b>
+<b class="nc"><i>260</i>&nbsp;			help1.add(listgodused.get(1));</b>
+<b class="nc"><i>261</i>&nbsp;			help1.add(listgodused.get(0));</b>
+<i>262</i>&nbsp;		}
+<i>263</i>&nbsp;		else{
+<b class="nc"><i>264</i>&nbsp;			help1.add(listgodused.get(2));</b>
+<b class="nc"><i>265</i>&nbsp;			help1.add(listgodused.get(0));</b>
+<b class="nc"><i>266</i>&nbsp;			help1.add(listgodused.get(1));</b>
+<i>267</i>&nbsp;		}
+<b class="nc"><i>268</i>&nbsp;		listgodused.clear();</b>
+<b class="nc"><i>269</i>&nbsp;		listgodused = help1;</b>
+<i>270</i>&nbsp;
+<b class="nc"><i>271</i>&nbsp;		ArrayList&lt;WaitingConnectionClass&gt; help2 = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>272</i>&nbsp;		if(list.size()== 2){</b>
+<b class="nc"><i>273</i>&nbsp;			help2.add(list.get(0));</b>
+<b class="nc"><i>274</i>&nbsp;			help2.add(list.get(1));</b>
+<i>275</i>&nbsp;		}
+<i>276</i>&nbsp;		else{
+<b class="nc"><i>277</i>&nbsp;			help2.add(list.get(0));</b>
+<b class="nc"><i>278</i>&nbsp;			help2.add(list.get(1));</b>
+<b class="nc"><i>279</i>&nbsp;			help2.add(list.get(2));</b>
+<i>280</i>&nbsp;		}
+<b class="nc"><i>281</i>&nbsp;		list.clear();</b>
+<b class="nc"><i>282</i>&nbsp;		list = help2;</b>
+<b class="nc"><i>283</i>&nbsp;	}</b>
+<i>284</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-07-03 18:11</div>
+</div>
+</body>
+</html>

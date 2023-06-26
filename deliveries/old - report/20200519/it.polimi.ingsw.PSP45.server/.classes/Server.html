@@ -1,0 +1,493 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Server</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.PSP45.server</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Server (it.polimi.ingsw.PSP45.server)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Server</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 196)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Server$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 197)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.PSP45.server;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import it.polimi.ingsw.PSP45.controller.Controller;
+<i>4</i>&nbsp;import it.polimi.ingsw.PSP45.controller.Rules;
+<i>5</i>&nbsp;import it.polimi.ingsw.PSP45.model.Board;
+<i>6</i>&nbsp;import it.polimi.ingsw.PSP45.model.Match;
+<i>7</i>&nbsp;import it.polimi.ingsw.PSP45.model.Player;
+<i>8</i>&nbsp;import it.polimi.ingsw.PSP45.utils.*;
+<i>9</i>&nbsp;import it.polimi.ingsw.PSP45.view.RemoteView;
+<i>10</i>&nbsp;import it.polimi.ingsw.PSP45.view.View;
+<i>11</i>&nbsp;import it.polimi.ingsw.PSP45.controller.*; //todo: after only gods
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;import java.io.IOException;
+<i>15</i>&nbsp;import java.net.ServerSocket;
+<i>16</i>&nbsp;import java.net.Socket;
+<i>17</i>&nbsp;import java.util.*;
+<i>18</i>&nbsp;import java.util.concurrent.ExecutorService;
+<i>19</i>&nbsp;import java.util.concurrent.Executors;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;/**
+<i>22</i>&nbsp; * @author Lorenzo Longaretti
+<i>23</i>&nbsp; */
+<i>24</i>&nbsp;public class Server {
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    private static final int PORT = 12345;
+<i>27</i>&nbsp;    private ServerSocket serverSocket;
+<b class="nc"><i>28</i>&nbsp;    private ExecutorService executor = Executors.newFixedThreadPool(128);</b>
+<b class="nc"><i>29</i>&nbsp;    private ArrayList&lt;WaitingConnectionClass&gt; waitingConnectionarray2= new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>30</i>&nbsp;    private ArrayList&lt;WaitingConnectionClass&gt; waitingConnectionarray3= new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>31</i>&nbsp;    private ArrayList&lt;WaitingConnectionClass&gt; waitingConnectionarraygod= new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>32</i>&nbsp;    private int contatore = 0;</b>
+<b class="nc"><i>33</i>&nbsp;    private ArrayList&lt;PlayerlistsonserverObject&gt; Playerlistonserver = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>34</i>&nbsp;    private ArrayList&lt;GodLobby_Class&gt; listforlobbygod = new ArrayList&lt;&gt;();</b>
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    /**
+<i>38</i>&nbsp;     * method that disconnect the player of a match and the opponents
+<i>39</i>&nbsp;     * @param c
+<i>40</i>&nbsp;     */
+<i>41</i>&nbsp;    public synchronized void deregisterConnection(ClientConnection c) {
+<b class="nc"><i>42</i>&nbsp;        Player playerhelper = new Player(&quot;default&quot;, 15, GodName.apollo, Color.ANSI_WHITE);</b>
+<b class="nc"><i>43</i>&nbsp;        Player playerhelper2 = new Player(&quot;default&quot;, 15,GodName.apollo,Color.ANSI_WHITE);</b>
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;
+<b class="nc"><i>46</i>&nbsp;        for(int i = 0; i &lt; Playerlistonserver.size(); i++)</b>
+<b class="nc"><i>47</i>&nbsp;            if (Playerlistonserver.get(i).getC() == c) {</b>
+<i>48</i>&nbsp;
+<b class="nc"><i>49</i>&nbsp;                playerhelper = Playerlistonserver.get(i).getP2();</b>
+<b class="nc"><i>50</i>&nbsp;                playerhelper2 = Playerlistonserver.get(i).getP3();//possibile null pointer exception perchè potrebbe essere null</b>
+<b class="nc"><i>51</i>&nbsp;                Playerlistonserver.remove(i);</b>
+<b class="nc"><i>52</i>&nbsp;                i--;</b>
+<i>53</i>&nbsp;            }
+<i>54</i>&nbsp;
+<b class="nc"><i>55</i>&nbsp;        if(Playerlistonserver.get(0).getNumberoplayer() == 2){</b>
+<i>56</i>&nbsp;
+<b class="nc"><i>57</i>&nbsp;            for(int i = 0; i &lt; Playerlistonserver.size(); i++){</b>
+<b class="nc"><i>58</i>&nbsp;                if(Playerlistonserver.get(i).getP1() == playerhelper)  {Playerlistonserver.get(i).getC().closeConnection();</b>
+<b class="nc"><i>59</i>&nbsp;                    Playerlistonserver.remove(i);</b>
+<b class="nc"><i>60</i>&nbsp;                    i--;}</b>
+<i>61</i>&nbsp;            }
+<i>62</i>&nbsp;        }
+<i>63</i>&nbsp;        else{
+<i>64</i>&nbsp;
+<b class="nc"><i>65</i>&nbsp;            for(int i = 0; i &lt; Playerlistonserver.size(); i++){</b>
+<b class="nc"><i>66</i>&nbsp;                if(Playerlistonserver.get(i).getP1() == playerhelper)  {Playerlistonserver.get(i).getC().closeConnection();</b>
+<b class="nc"><i>67</i>&nbsp;                    Playerlistonserver.remove(i);</b>
+<b class="nc"><i>68</i>&nbsp;                    i--;}</b>
+<i>69</i>&nbsp;            }
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;
+<b class="nc"><i>72</i>&nbsp;            for(int i = 0; i &lt; Playerlistonserver.size(); i++){</b>
+<b class="nc"><i>73</i>&nbsp;                if(Playerlistonserver.get(i).getP1() == playerhelper2)  {Playerlistonserver.get(i).getC().closeConnection();</b>
+<b class="nc"><i>74</i>&nbsp;                    Playerlistonserver.remove(i);}</b>
+<i>75</i>&nbsp;            }
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;        }
+<i>78</i>&nbsp;
+<i>79</i>&nbsp;
+<i>80</i>&nbsp;  /*      Iterator&lt;String&gt; iterator = waitingConnection.keySet().iterator();
+<i>81</i>&nbsp;        while(iterator.hasNext()){
+<i>82</i>&nbsp;            if(waitingConnection.get(iterator.next())==c){
+<i>83</i>&nbsp;                iterator.remove();
+<i>84</i>&nbsp;            }
+<i>85</i>&nbsp;        }   */
+<i>86</i>&nbsp;
+<i>87</i>&nbsp;    //TODO: deregister the object of listforlobbygod
+<b class="nc"><i>88</i>&nbsp;    }</b>
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;    public AbstractRule setGodRules(Rules rules,GodName godName){
+<b class="nc"><i>91</i>&nbsp;        switch (godName){</b>
+<b class="nc"><i>92</i>&nbsp;            case apollo: Apollo rulesApollo = new Apollo(rules); return rulesApollo;</b>
+<b class="nc"><i>93</i>&nbsp;            case minotaur: Minotaur rulesMinotaur = new Minotaur(rules); return rulesMinotaur;</b>
+<i>94</i>&nbsp;        }
+<i>95</i>&nbsp;
+<b class="nc"><i>96</i>&nbsp;        return null; //non penso che ci arriverà</b>
+<i>97</i>&nbsp;    }
+<i>98</i>&nbsp;    /**
+<i>99</i>&nbsp;     * @author Lorenzo Longaretti
+<i>100</i>&nbsp;     * method that create a match
+<i>101</i>&nbsp;     */
+<i>102</i>&nbsp;    public synchronized void handlelobby(GodLobby_Class godLobby_class){
+<b class="nc"><i>103</i>&nbsp;        ArrayList&lt;WaitingConnectionClass&gt; waitingConnectionClass_handleLobby = godLobby_class.getList();</b>
+<b class="nc"><i>104</i>&nbsp;        if (waitingConnectionClass_handleLobby.size() == 2) {</b>
+<i>105</i>&nbsp;
+<b class="nc"><i>106</i>&nbsp;            ClientConnection c1 = waitingConnectionClass_handleLobby.get(0).getC();</b>
+<b class="nc"><i>107</i>&nbsp;            ClientConnection c2 = waitingConnectionClass_handleLobby.get(1).getC();</b>
+<b class="nc"><i>108</i>&nbsp;            Player player1 = new Player(waitingConnectionClass_handleLobby.get(0).getPlayername(),15,godLobby_class.getC1god(),Color.ANSI_RED);</b>
+<b class="nc"><i>109</i>&nbsp;            Player player2 = new Player(waitingConnectionClass_handleLobby.get(1).getPlayername(), 16,godLobby_class.getC2god(),Color.ANSI_BLUE);</b>
+<b class="nc"><i>110</i>&nbsp;            View player1View = new RemoteView(player1, c1);</b>
+<b class="nc"><i>111</i>&nbsp;            View player2View = new RemoteView(player2, c2);</b>
+<b class="nc"><i>112</i>&nbsp;            Board board = new Board();</b>
+<b class="nc"><i>113</i>&nbsp;            ArrayList&lt;TurnObject&gt; turnobject = new ArrayList&lt;&gt;();</b>
+<i>114</i>&nbsp;
+<i>115</i>&nbsp;
+<b class="nc"><i>116</i>&nbsp;            Rules rules1 = new Rules(1,board,player1,player2,null);</b>
+<b class="nc"><i>117</i>&nbsp;            AbstractRule rules1real = setGodRules(rules1,godLobby_class.getC1god());</b>
+<b class="nc"><i>118</i>&nbsp;            TurnObject turnobject1 = new TurnObject(player1,rules1real);</b>
+<i>119</i>&nbsp;
+<b class="nc"><i>120</i>&nbsp;            Rules rules2 = new Rules(2,board,player2,player1,null);</b>
+<b class="nc"><i>121</i>&nbsp;            AbstractRule rules2real = setGodRules(rules2,godLobby_class.getC2god());</b>
+<b class="nc"><i>122</i>&nbsp;            TurnObject turnobject2 = new TurnObject(player2,rules2real);</b>
+<i>123</i>&nbsp;
+<b class="nc"><i>124</i>&nbsp;            turnobject.add(turnobject1);</b>
+<b class="nc"><i>125</i>&nbsp;            turnobject.add(turnobject2);</b>
+<i>126</i>&nbsp;
+<b class="nc"><i>127</i>&nbsp;            Match model = new Match(board,turnobject);</b>
+<i>128</i>&nbsp;
+<i>129</i>&nbsp;
+<i>130</i>&nbsp;            //qua devo metter il controller
+<b class="nc"><i>131</i>&nbsp;            Controller controller = new Controller(model);</b>
+<i>132</i>&nbsp;
+<b class="nc"><i>133</i>&nbsp;            rules1.addObserver(player1View);</b>
+<b class="nc"><i>134</i>&nbsp;            rules2.addObserver(player2View);</b>
+<i>135</i>&nbsp;
+<b class="nc"><i>136</i>&nbsp;            rules2.addObserver(player1View);</b>
+<b class="nc"><i>137</i>&nbsp;            rules1.addObserver(player2View);</b>
+<i>138</i>&nbsp;
+<b class="nc"><i>139</i>&nbsp;            player1View.addObserver(controller);</b>
+<b class="nc"><i>140</i>&nbsp;            player2View.addObserver(controller);</b>
+<i>141</i>&nbsp;
+<i>142</i>&nbsp;            //imposta tutto
+<b class="nc"><i>143</i>&nbsp;            PlayerlistsonserverObject player1tolist = new PlayerlistsonserverObject(player1,player2,null,waitingConnectionClass_handleLobby.get(0).getNumberofplayer(),c1);</b>
+<b class="nc"><i>144</i>&nbsp;            PlayerlistsonserverObject player2tolist = new PlayerlistsonserverObject(player2,player1, null,waitingConnectionClass_handleLobby.get(1).getNumberofplayer(),c2);</b>
+<b class="nc"><i>145</i>&nbsp;            Playerlistonserver.add(player1tolist);</b>
+<b class="nc"><i>146</i>&nbsp;            Playerlistonserver.add(player2tolist);</b>
+<i>147</i>&nbsp;
+<b class="nc"><i>148</i>&nbsp;            waitingConnectionClass_handleLobby.clear();  // rimuove tutti i parametri da waiting connection</b>
+<i>149</i>&nbsp;
+<b class="nc"><i>150</i>&nbsp;            Service start = new Service(StateNumber.nextTurn,&quot;Default&quot;, &quot;Default&quot;);</b>
+<i>151</i>&nbsp;
+<b class="nc"><i>152</i>&nbsp;            controller.getMatch().getTurnobject().get(0).getRules().turnHandler(start,null);</b>
+<i>153</i>&nbsp;           // listforlobbygod.remove(godLobby_class);
+<i>154</i>&nbsp;
+<b class="nc"><i>155</i>&nbsp;        }</b>
+<i>156</i>&nbsp;        else{
+<i>157</i>&nbsp;
+<b class="nc"><i>158</i>&nbsp;            ClientConnection c1 = waitingConnectionClass_handleLobby.get(0).getC();</b>
+<b class="nc"><i>159</i>&nbsp;            ClientConnection c2 = waitingConnectionClass_handleLobby.get(1).getC();</b>
+<b class="nc"><i>160</i>&nbsp;            ClientConnection c3 = waitingConnectionClass_handleLobby.get(2).getC();</b>
+<b class="nc"><i>161</i>&nbsp;            Player player1 = new Player(waitingConnectionClass_handleLobby.get(0).getPlayername(),15,godLobby_class.getC1god(),Color.ANSI_RED);</b>
+<b class="nc"><i>162</i>&nbsp;            Player player2 = new Player(waitingConnectionClass_handleLobby.get(1).getPlayername(), 16,godLobby_class.getC2god(),Color.ANSI_BLUE);</b>
+<b class="nc"><i>163</i>&nbsp;            Player player3 = new Player(waitingConnectionClass_handleLobby.get(2).getPlayername(), 17,godLobby_class.getC3god(),Color.ANSI_GREEN);</b>
+<b class="nc"><i>164</i>&nbsp;            View player1View = new RemoteView(player1, c1);</b>
+<b class="nc"><i>165</i>&nbsp;            View player2View = new RemoteView(player2, c2);</b>
+<b class="nc"><i>166</i>&nbsp;            View player3View = new RemoteView(player3, c3);</b>
+<i>167</i>&nbsp;
+<i>168</i>&nbsp;
+<b class="nc"><i>169</i>&nbsp;            Board board = new Board();</b>
+<b class="nc"><i>170</i>&nbsp;            ArrayList&lt;TurnObject&gt; turnobject = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>171</i>&nbsp;            Rules rules1 = new Rules(1,board,player1,player2,player3);</b>
+<b class="nc"><i>172</i>&nbsp;            AbstractRule rules1real = setGodRules(rules1,godLobby_class.getC1god());</b>
+<b class="nc"><i>173</i>&nbsp;            TurnObject turnobject1 = new TurnObject(player1,rules1real);</b>
+<i>174</i>&nbsp;
+<b class="nc"><i>175</i>&nbsp;            Rules rules2 = new Rules(2,board,player2,player3,player1);</b>
+<b class="nc"><i>176</i>&nbsp;            AbstractRule rules2real = setGodRules(rules2,godLobby_class.getC2god());</b>
+<b class="nc"><i>177</i>&nbsp;            TurnObject turnobject2 = new TurnObject(player2,rules2real);</b>
+<i>178</i>&nbsp;
+<b class="nc"><i>179</i>&nbsp;            Rules rules3 = new Rules(3,board,player3,player1,player2);</b>
+<b class="nc"><i>180</i>&nbsp;            AbstractRule rules3real = setGodRules(rules3,godLobby_class.getC3god());</b>
+<b class="nc"><i>181</i>&nbsp;            TurnObject turnobject3 = new TurnObject(player3,rules3real);</b>
+<i>182</i>&nbsp;
+<b class="nc"><i>183</i>&nbsp;            turnobject.add(turnobject1);</b>
+<b class="nc"><i>184</i>&nbsp;            turnobject.add(turnobject2);</b>
+<b class="nc"><i>185</i>&nbsp;            turnobject.add(turnobject3);</b>
+<i>186</i>&nbsp;
+<b class="nc"><i>187</i>&nbsp;            Match model = new Match(board,turnobject);</b>
+<i>188</i>&nbsp;            //qua devo metter il controller
+<b class="nc"><i>189</i>&nbsp;            Controller controller = new Controller(model);</b>
+<i>190</i>&nbsp;
+<b class="nc"><i>191</i>&nbsp;            rules1.addObserver(player1View);</b>
+<b class="nc"><i>192</i>&nbsp;            rules2.addObserver(player2View);</b>
+<b class="nc"><i>193</i>&nbsp;            rules3.addObserver(player3View);</b>
+<i>194</i>&nbsp;
+<b class="nc"><i>195</i>&nbsp;            rules1.addObserver(player2View);</b>
+<b class="nc"><i>196</i>&nbsp;            rules2.addObserver(player3View);</b>
+<b class="nc"><i>197</i>&nbsp;            rules3.addObserver(player1View);</b>
+<i>198</i>&nbsp;
+<b class="nc"><i>199</i>&nbsp;            rules1.addObserver(player3View);</b>
+<b class="nc"><i>200</i>&nbsp;            rules2.addObserver(player1View);</b>
+<b class="nc"><i>201</i>&nbsp;            rules3.addObserver(player2View);</b>
+<i>202</i>&nbsp;
+<i>203</i>&nbsp;
+<b class="nc"><i>204</i>&nbsp;            player1View.addObserver(controller);</b>
+<b class="nc"><i>205</i>&nbsp;            player2View.addObserver(controller);</b>
+<b class="nc"><i>206</i>&nbsp;            player3View.addObserver(controller);</b>
+<i>207</i>&nbsp;            //imposta tutto
+<i>208</i>&nbsp;
+<i>209</i>&nbsp;
+<b class="nc"><i>210</i>&nbsp;            PlayerlistsonserverObject player1tolist = new PlayerlistsonserverObject(player1,player2,player3,waitingConnectionClass_handleLobby.get(0).getNumberofplayer(),c1);</b>
+<b class="nc"><i>211</i>&nbsp;            PlayerlistsonserverObject player2tolist = new PlayerlistsonserverObject(player2,player1,player3,waitingConnectionClass_handleLobby.get(1).getNumberofplayer(),c2);</b>
+<b class="nc"><i>212</i>&nbsp;            PlayerlistsonserverObject player3tolist = new PlayerlistsonserverObject(player3,player1,player2,waitingConnectionClass_handleLobby.get(2).getNumberofplayer(),c3);</b>
+<b class="nc"><i>213</i>&nbsp;            Playerlistonserver.add(player1tolist);</b>
+<b class="nc"><i>214</i>&nbsp;            Playerlistonserver.add(player2tolist);</b>
+<b class="nc"><i>215</i>&nbsp;            Playerlistonserver.add(player3tolist);</b>
+<b class="nc"><i>216</i>&nbsp;            waitingConnectionClass_handleLobby.clear();  // rimuove tutti i parametri da waiting connection</b>
+<i>217</i>&nbsp;
+<b class="nc"><i>218</i>&nbsp;            Service start = new Service(StateNumber.active,&quot;Default&quot;, &quot;Default&quot;);</b>
+<b class="nc"><i>219</i>&nbsp;            controller.getMatch().getTurnobject().get(0).getRules().turnHandler(start,null);</b>
+<i>220</i>&nbsp;
+<i>221</i>&nbsp;      //      listforlobbygod.remove(godLobby_class);
+<i>222</i>&nbsp;        }
+<i>223</i>&nbsp;
+<b class="nc"><i>224</i>&nbsp;    }</b>
+<i>225</i>&nbsp;
+<i>226</i>&nbsp;
+<i>227</i>&nbsp;
+<i>228</i>&nbsp;
+<i>229</i>&nbsp;    //Wait for another player
+<i>230</i>&nbsp;
+<i>231</i>&nbsp;    /**
+<i>232</i>&nbsp;     * @author Lorenzo Longaretti
+<i>233</i>&nbsp;     * check if should create the lobby, or if shuld add the player in the waiting list
+<i>234</i>&nbsp;     * @param c
+<i>235</i>&nbsp;     * @param name
+<i>236</i>&nbsp;     * @param number
+<i>237</i>&nbsp;     */
+<i>238</i>&nbsp;    public synchronized void lobby(ClientConnection c, String name, int number){ // name è il nome del giocatore e c è di tipo SocketClientConnection
+<b class="nc"><i>239</i>&nbsp;        WaitingConnectionClass toadd = new WaitingConnectionClass(name,number,c);</b>
+<b class="nc"><i>240</i>&nbsp;        System.out.println(&quot;entra in server lobby&quot;);</b>
+<i>241</i>&nbsp;
+<b class="nc"><i>242</i>&nbsp;        if(number == 2 ) {waitingConnectionarray2.add(toadd);System.out.println(&quot;size 2 &quot;+ waitingConnectionarray2.size());System.out.println(&quot;size GOD 2 &quot;+ waitingConnectionarraygod.size());} else {waitingConnectionarray3.add(toadd);System.out.println(&quot;size 3 &quot;+ waitingConnectionarray3.size());}</b>
+<b class="nc"><i>243</i>&nbsp;        if(waitingConnectionarray2.size() &gt;= 2 /*&amp;&amp; contatore ==0   FORSE CONTROLLO CO NUMBER*/){</b>
+<i>244</i>&nbsp;
+<b class="nc"><i>245</i>&nbsp;            int contatore2 = 0;</b>
+<b class="nc"><i>246</i>&nbsp;            for (WaitingConnectionClass wait : waitingConnectionarray2){</b>
+<b class="nc"><i>247</i>&nbsp;               if(contatore2 ==0 || contatore2 ==1){waitingConnectionarraygod.add(wait.clone());contatore2++;}</b>
+<b class="nc"><i>248</i>&nbsp;            }</b>
+<b class="nc"><i>249</i>&nbsp;            contatore++;</b>
+<b class="nc"><i>250</i>&nbsp;            for(int j = 0; j&lt;2;j++){waitingConnectionarray2.remove(0);}</b>
+<i>251</i>&nbsp;            //todo: handle divinity
+<i>252</i>&nbsp;            // creare arraylist di (classeappoggio) dove ho  id, lista waitingconnectionarraygods, lista divinità disponibili
+<i>253</i>&nbsp;            // quindi mando in messaggio a client che sceglie le divinità, e richiama il metodo per settare nella sua (classe appoggio i dati) // tramite id del (classe appoggio)
+<i>254</i>&nbsp;            // se sono finite le persone chiamo handle lobby.......cosi posso anche gestire le coordinate
+<b class="nc"><i>255</i>&nbsp;            GodLobby_Class godLobby_class = new GodLobby_Class(waitingConnectionarraygod,waitingConnectionarraygod.get(0).getC(),waitingConnectionarraygod.get(1).getC(),null);</b>
+<b class="nc"><i>256</i>&nbsp;            listforlobbygod.add(godLobby_class);</b>
+<b class="nc"><i>257</i>&nbsp;            Service service = new Service(StateNumber.setgod,&quot;def&quot;,&quot;def&quot;);</b>
+<b class="nc"><i>258</i>&nbsp;            service.sendChooseGod(godLobby_class.getListgodnotused());</b>
+<b class="nc"><i>259</i>&nbsp;            waitingConnectionarraygod.clear();</b>
+<b class="nc"><i>260</i>&nbsp;            godLobby_class.getC1().asyncSend(service);</b>
+<i>261</i>&nbsp;
+<i>262</i>&nbsp;          //  handlelobby(); //todo: dopo lo devo togliere e chiamare solo handle good
+<i>263</i>&nbsp;
+<b class="nc"><i>264</i>&nbsp;        }else if(waitingConnectionarray3.size() &gt;= 3 /*&amp;&amp; contatore ==1*/){</b>
+<b class="nc"><i>265</i>&nbsp;            int contatore2 = 0;</b>
+<b class="nc"><i>266</i>&nbsp;            for (WaitingConnectionClass wait : waitingConnectionarray3){</b>
+<b class="nc"><i>267</i>&nbsp;                if(contatore2 ==0 || contatore2 ==1 || contatore2 ==2){waitingConnectionarraygod.add(wait.clone());contatore2++;}</b>
+<b class="nc"><i>268</i>&nbsp;            }</b>
+<b class="nc"><i>269</i>&nbsp;            contatore=0;</b>
+<b class="nc"><i>270</i>&nbsp;            for(int j = 0; j&lt;3;j++){waitingConnectionarray3.remove(0);}</b>
+<i>271</i>&nbsp;            //todo:handle divinity
+<b class="nc"><i>272</i>&nbsp;            listforlobbygod.add(new GodLobby_Class(waitingConnectionarraygod,waitingConnectionarraygod.get(0).getC(),waitingConnectionarraygod.get(1).getC(),waitingConnectionarraygod.get(2).getC()));</b>
+<b class="nc"><i>273</i>&nbsp;			System.out.println(&quot;passa a god&quot;);</b>
+<b class="nc"><i>274</i>&nbsp;			GodLobby_Class godLobby_class = new GodLobby_Class(waitingConnectionarraygod,waitingConnectionarraygod.get(0).getC(),waitingConnectionarraygod.get(1).getC(),waitingConnectionarraygod.get(2).getC());</b>
+<b class="nc"><i>275</i>&nbsp;            Service service = new Service(StateNumber.setgod,&quot;def&quot;,&quot;def&quot;);</b>
+<b class="nc"><i>276</i>&nbsp;			service.sendChooseGod(godLobby_class.getListgodnotused());</b>
+<b class="nc"><i>277</i>&nbsp;			waitingConnectionarraygod.get(0).getC().asyncSend(service);</b>
+<i>278</i>&nbsp;        //    handlelobby(); //todo: dopo lo devo togliere e chiamare solo ha handlegood
+<i>279</i>&nbsp;        }
+<i>280</i>&nbsp;
+<i>281</i>&nbsp;        /*
+<i>282</i>&nbsp;        if(waitingConnectionarray.size() == 2 ){ }
+<i>283</i>&nbsp;        else{
+<i>284</i>&nbsp;            if((waitingConnectionarray.size()==1 &amp;&amp; waitingConnectionarray.get(0).getNumberofplayer()==2)||(waitingConnectionarray.size()==2 &amp;&amp; waitingConnectionarray.get(0).getNumberofplayer()==3)){
+<i>285</i>&nbsp;                //se il secondo voleva giocare una partita da due
+<i>286</i>&nbsp;                //aggiungi e chiama metodo che inizializza
+<i>287</i>&nbsp;                toadd.setNumberofplayer(waitingConnectionarray.get(0).getNumberofplayer());
+<i>288</i>&nbsp;                waitingConnectionarray.add(toadd);
+<i>289</i>&nbsp;                handlelobby();
+<i>290</i>&nbsp;                //     waitingConnectionarray.clear();
+<i>291</i>&nbsp;            }
+<i>292</i>&nbsp;            else{
+<i>293</i>&nbsp;                toadd.setNumberofplayer(waitingConnectionarray.get(0).getNumberofplayer());
+<i>294</i>&nbsp;                waitingConnectionarray.add(toadd);
+<i>295</i>&nbsp;                //sendwait
+<i>296</i>&nbsp;
+<i>297</i>&nbsp;            }
+<i>298</i>&nbsp;        }
+<i>299</i>&nbsp;        */
+<i>300</i>&nbsp;
+<i>301</i>&nbsp;
+<b class="nc"><i>302</i>&nbsp;    }</b>
+<i>303</i>&nbsp;
+<i>304</i>&nbsp;    public synchronized void handlegodlobby(ClientConnection c, GodName godName){
+<b class="nc"><i>305</i>&nbsp;        for(GodLobby_Class godLobby_class : listforlobbygod){</b>
+<b class="nc"><i>306</i>&nbsp;            System.out.println(c);</b>
+<b class="nc"><i>307</i>&nbsp;            System.out.println(&quot;what check &quot;+godLobby_class.getC1() + godLobby_class.getC2() + godLobby_class.getC3());</b>
+<b class="nc"><i>308</i>&nbsp;            Boolean checkC3 = false;</b>
+<b class="nc"><i>309</i>&nbsp;            if(godLobby_class.getList().size()==3){</b>
+<b class="nc"><i>310</i>&nbsp;            	if(godLobby_class.getC3().equals(c)){</b>
+<b class="nc"><i>311</i>&nbsp;            		checkC3=true;</b>
+<i>312</i>&nbsp;				}
+<i>313</i>&nbsp;			}
+<b class="nc"><i>314</i>&nbsp;            if(godLobby_class.getC1().equals(c) ||godLobby_class.getC2().equals(c) ||checkC3){</b>
+<b class="nc"><i>315</i>&nbsp;                godLobby_class.Updateusage();</b>
+<b class="nc"><i>316</i>&nbsp;				System.out.println(&quot;dimensione usege&quot; + godLobby_class.getUsage());</b>
+<b class="nc"><i>317</i>&nbsp;                if(godLobby_class.getUsage() == 3){</b>
+<b class="nc"><i>318</i>&nbsp;                    if(godLobby_class.getC3()==null){</b>
+<b class="nc"><i>319</i>&nbsp;                        godLobby_class.setC2GodName(godName);</b>
+<b class="nc"><i>320</i>&nbsp;                        godLobby_class.removeGodName(godName);</b>
+<i>321</i>&nbsp;                        //todo;handlelobby and remove l&#39;attesa
+<b class="nc"><i>322</i>&nbsp;                        handlelobby(godLobby_class);</b>
+<i>323</i>&nbsp;                     //   listforlobbygod.remove(godLobby_class);
+<i>324</i>&nbsp;                    }
+<i>325</i>&nbsp;                    else{
+<b class="nc"><i>326</i>&nbsp;                        godLobby_class.setC3GodName(godName);</b>
+<b class="nc"><i>327</i>&nbsp;                        godLobby_class.removeGodName(godName);</b>
+<b class="nc"><i>328</i>&nbsp;                        Service service = new Service(StateNumber.setgod,&quot;def&quot;,&quot;def&quot;);</b>
+<i>329</i>&nbsp;                        //todo:handlelobby and remove l&#39;attesa
+<b class="nc"><i>330</i>&nbsp;                        handlelobby(godLobby_class);</b>
+<i>331</i>&nbsp;                   //     listforlobbygod.remove(godLobby_class);
+<b class="nc"><i>332</i>&nbsp;                    }</b>
+<i>333</i>&nbsp;                }
+<i>334</i>&nbsp;                else{
+<b class="nc"><i>335</i>&nbsp;                    if(c.equals(godLobby_class.getC1())){</b>
+<b class="nc"><i>336</i>&nbsp;                        godLobby_class.setC1GodName(godName);</b>
+<b class="nc"><i>337</i>&nbsp;                        godLobby_class.removeGodName(godName);</b>
+<b class="nc"><i>338</i>&nbsp;                        Service service = new Service(StateNumber.setgod,&quot;def&quot;,&quot;def&quot;);</b>
+<b class="nc"><i>339</i>&nbsp;                        service.sendChooseGod(godLobby_class.getListgodnotused());</b>
+<b class="nc"><i>340</i>&nbsp;                        godLobby_class.getC2().asyncSend(service);</b>
+<b class="nc"><i>341</i>&nbsp;                    }</b>
+<b class="nc"><i>342</i>&nbsp;                    else if(c.equals(godLobby_class.getC2())){</b>
+<b class="nc"><i>343</i>&nbsp;                        godLobby_class.setC2GodName(godName);</b>
+<b class="nc"><i>344</i>&nbsp;                        godLobby_class.removeGodName(godName);</b>
+<b class="nc"><i>345</i>&nbsp;                        Service service = new Service(StateNumber.setgod,&quot;def&quot;,&quot;def&quot;);</b>
+<b class="nc"><i>346</i>&nbsp;                        service.sendChooseGod(godLobby_class.getListgodnotused());</b>
+<b class="nc"><i>347</i>&nbsp;                        godLobby_class.getC3().asyncSend(service);</b>
+<b class="nc"><i>348</i>&nbsp;                    }</b>
+<b class="nc"><i>349</i>&nbsp;                    else if(c.equals(godLobby_class.getC3())){ //non dovrebbe mai entrare qui</b>
+<b class="nc"><i>350</i>&nbsp;                        godLobby_class.setC3GodName(godName);</b>
+<b class="nc"><i>351</i>&nbsp;                        godLobby_class.removeGodName(godName);</b>
+<b class="nc"><i>352</i>&nbsp;                        Service service = new Service(StateNumber.setgod,&quot;def&quot;,&quot;def&quot;);</b>
+<b class="nc"><i>353</i>&nbsp;                        service.sendChooseGod(godLobby_class.getListgodnotused());</b>
+<b class="nc"><i>354</i>&nbsp;                        System.err.println(&quot;non dovrebbe essere qui&quot;);</b>
+<i>355</i>&nbsp;                        //godLobby_class.getC3().asyncSend(service);
+<b class="nc"><i>356</i>&nbsp;                    }</b>
+<i>357</i>&nbsp;                }
+<i>358</i>&nbsp;
+<i>359</i>&nbsp;            }
+<i>360</i>&nbsp;            else{
+<b class="nc"><i>361</i>&nbsp;                System.out.println(&quot;NON L&#39;HA TROVATO&quot;);</b>
+<i>362</i>&nbsp;            }
+<b class="nc"><i>363</i>&nbsp;        }</b>
+<b class="nc"><i>364</i>&nbsp;    }</b>
+<i>365</i>&nbsp;
+<i>366</i>&nbsp;
+<i>367</i>&nbsp;
+<b class="nc"><i>368</i>&nbsp;    public Server() throws IOException {</b>
+<b class="nc"><i>369</i>&nbsp;        this.serverSocket = new ServerSocket(PORT);</b>
+<b class="nc"><i>370</i>&nbsp;    }</b>
+<i>371</i>&nbsp;
+<i>372</i>&nbsp;    public void run(){ //accetta connessioni
+<i>373</i>&nbsp;        while(true){
+<i>374</i>&nbsp;            try {
+<b class="nc"><i>375</i>&nbsp;                Socket newSocket = serverSocket.accept(); //da server socket che ci deve essere e accetta</b>
+<b class="nc"><i>376</i>&nbsp;                SocketClientConnection socketConnection = new SocketClientConnection(newSocket, this);</b>
+<b class="nc"><i>377</i>&nbsp;                executor.submit(socketConnection); //chiama il suo metodo run</b>
+<b class="nc"><i>378</i>&nbsp;            } catch (IOException e) {</b>
+<b class="nc"><i>379</i>&nbsp;                System.out.println(&quot;Connection Error!&quot;);</b>
+<b class="nc"><i>380</i>&nbsp;            }</b>
+<i>381</i>&nbsp;        }
+<i>382</i>&nbsp;    }
+<i>383</i>&nbsp;
+<i>384</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-19 14:03</div>
+</div>
+</body>
+</html>

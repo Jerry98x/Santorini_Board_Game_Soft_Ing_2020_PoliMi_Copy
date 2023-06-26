@@ -1,0 +1,147 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Controller</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.PSP45.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Controller (it.polimi.ingsw.PSP45.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Controller</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 31)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.PSP45.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;
+<i>4</i>&nbsp;import it.polimi.ingsw.PSP45.model.Coordinate;
+<i>5</i>&nbsp;import it.polimi.ingsw.PSP45.model.Match;
+<i>6</i>&nbsp;import it.polimi.ingsw.PSP45.observer.Observer;
+<i>7</i>&nbsp;import it.polimi.ingsw.PSP45.utils.fromviewtocontroll;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;public class Controller implements Observer&lt;fromviewtocontroll&gt; {
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;    Match match;
+<b class="nc"><i>12</i>&nbsp;    Coordinate coordinate = new Coordinate(0,0);</b>
+<i>13</i>&nbsp;
+<b class="nc"><i>14</i>&nbsp;    public Controller(Match match) {</b>
+<b class="nc"><i>15</i>&nbsp;        this.match = match;</b>
+<b class="nc"><i>16</i>&nbsp;        coordinate.setX(0); coordinate.setY(0);</b>
+<b class="nc"><i>17</i>&nbsp;        match.getTurnobject().get(0).getPlayer().getWorkers().get(0).setCoordinate(coordinate);</b>
+<b class="nc"><i>18</i>&nbsp;        match.getBoard().addWorker(coordinate,match.getTurnobject().get(0).getPlayer().getWorkers().get(0).getIdWorker(),match.getTurnobject().get(0).getPlayer().getWorkers().get(0).getColor());</b>
+<b class="nc"><i>19</i>&nbsp;        coordinate.setX(4);</b>
+<b class="nc"><i>20</i>&nbsp;        match.getTurnobject().get(0).getPlayer().getWorkers().get(1).setCoordinate(coordinate);</b>
+<b class="nc"><i>21</i>&nbsp;        match.getBoard().addWorker(coordinate,match.getTurnobject().get(0).getPlayer().getWorkers().get(1).getIdWorker(),match.getTurnobject().get(0).getPlayer().getWorkers().get(1).getColor());</b>
+<i>22</i>&nbsp;
+<b class="nc"><i>23</i>&nbsp;        coordinate.setY(4); coordinate.setX(0);</b>
+<b class="nc"><i>24</i>&nbsp;        match.getTurnobject().get(1).getPlayer().getWorkers().get(0).setCoordinate(coordinate);</b>
+<b class="nc"><i>25</i>&nbsp;        match.getBoard().addWorker(coordinate,match.getTurnobject().get(1).getPlayer().getWorkers().get(0).getIdWorker(),match.getTurnobject().get(1).getPlayer().getWorkers().get(0).getColor());</b>
+<b class="nc"><i>26</i>&nbsp;        coordinate.setX(4);</b>
+<b class="nc"><i>27</i>&nbsp;        match.getTurnobject().get(1).getPlayer().getWorkers().get(1).setCoordinate(coordinate);</b>
+<b class="nc"><i>28</i>&nbsp;        match.getBoard().addWorker(coordinate,match.getTurnobject().get(1).getPlayer().getWorkers().get(1).getIdWorker(),match.getTurnobject().get(1).getPlayer().getWorkers().get(1).getColor());</b>
+<i>29</i>&nbsp;
+<b class="nc"><i>30</i>&nbsp;        if(match.getTurnobject().size()==3){</b>
+<b class="nc"><i>31</i>&nbsp;            coordinate.setY(2); coordinate.setX(0);</b>
+<b class="nc"><i>32</i>&nbsp;            match.getTurnobject().get(2).getPlayer().getWorkers().get(0).setCoordinate(coordinate);</b>
+<b class="nc"><i>33</i>&nbsp;            match.getBoard().addWorker(coordinate,match.getTurnobject().get(2).getPlayer().getWorkers().get(0).getIdWorker(),match.getTurnobject().get(2).getPlayer().getWorkers().get(0).getColor());</b>
+<b class="nc"><i>34</i>&nbsp;            coordinate.setX(2);</b>
+<b class="nc"><i>35</i>&nbsp;            match.getTurnobject().get(2).getPlayer().getWorkers().get(1).setCoordinate(coordinate);</b>
+<b class="nc"><i>36</i>&nbsp;            match.getBoard().addWorker(coordinate,match.getTurnobject().get(2).getPlayer().getWorkers().get(1).getIdWorker(),match.getTurnobject().get(2).getPlayer().getWorkers().get(1).getColor());</b>
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;        }
+<i>39</i>&nbsp;
+<b class="nc"><i>40</i>&nbsp;    }</b>
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    /**
+<i>43</i>&nbsp;     * @author Lorenzo Longaretti
+<i>44</i>&nbsp;     * method that call the handlemove method from the player who is playing
+<i>45</i>&nbsp;      * @param message
+<i>46</i>&nbsp;     */
+<i>47</i>&nbsp;    @Override
+<i>48</i>&nbsp;    public void update(fromviewtocontroll message) {
+<b class="nc"><i>49</i>&nbsp;        System.out.println(&quot;controller: stampo da controller iltipo&quot; +message.getService().getType());</b>
+<b class="nc"><i>50</i>&nbsp;        for (int i = 0 ; i &lt; match.getTurnobject().size() ; i++)</b>
+<i>51</i>&nbsp;        {
+<b class="nc"><i>52</i>&nbsp;            if (match.getTurnobject().get(i).getPlayer() == message.getPlayer()) {</b>
+<b class="nc"><i>53</i>&nbsp;                System.out.println(&quot;entra dentro if&quot;);</b>
+<b class="nc"><i>54</i>&nbsp;                match.getTurnobject().get(i).getRules().turnHandler(message.getService(),null);</b>
+<i>55</i>&nbsp;            }
+<i>56</i>&nbsp;        }
+<i>57</i>&nbsp;
+<b class="nc"><i>58</i>&nbsp;        System.out.println(&quot;preleva il player, preleva il servizio e attiva handlemove  ---  ///&quot;+ message.getPlayer().getGod()+&quot;     &quot;+ message.getService().getType());</b>
+<b class="nc"><i>59</i>&nbsp;    }</b>
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;    public Match getMatch() {
+<b class="nc"><i>62</i>&nbsp;        return match;</b>
+<i>63</i>&nbsp;    }
+<i>64</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-05-19 14:03</div>
+</div>
+</body>
+</html>

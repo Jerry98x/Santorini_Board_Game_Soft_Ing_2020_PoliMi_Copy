@@ -1,0 +1,209 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: LightBlock</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">it.polimi.ingsw.PSP45.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: LightBlock (it.polimi.ingsw.PSP45.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LightBlock</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    91,7%
+  </span>
+  <span class="absValue">
+    (11/ 12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    92,6%
+  </span>
+  <span class="absValue">
+    (25/ 27)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package it.polimi.ingsw.PSP45.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;
+<i>4</i>&nbsp;import it.polimi.ingsw.PSP45.utils.Color;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import java.io.Serializable;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;/**
+<i>9</i>&nbsp; * @author  Andrea Gerosa
+<i>10</i>&nbsp; *
+<i>11</i>&nbsp; * Class which represent a reduced version of a board&#39;s block, with only its essential attributes and methods
+<i>12</i>&nbsp; *
+<i>13</i>&nbsp; */
+<i>14</i>&nbsp;public class LightBlock implements Serializable {
+<i>15</i>&nbsp;    private int level;
+<i>16</i>&nbsp;    private Coordinate c;
+<i>17</i>&nbsp;    private boolean occupied;
+<i>18</i>&nbsp;    private boolean isDome;
+<i>19</i>&nbsp;    private Color color;
+<i>20</i>&nbsp;    private int idworker;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    /**
+<i>24</i>&nbsp;     * @author Andrea Gerosa
+<i>25</i>&nbsp;     *
+<i>26</i>&nbsp;     * Class constructor
+<i>27</i>&nbsp;     *
+<i>28</i>&nbsp;     * @param c coordinate of the block
+<i>29</i>&nbsp;     */
+<b class="fc"><i>30</i>&nbsp;    public LightBlock(Coordinate c) {</b>
+<i>31</i>&nbsp;
+<b class="fc"><i>32</i>&nbsp;        this.c = new Coordinate(c.getX(), c.getY());</b>
+<b class="fc"><i>33</i>&nbsp;        this.level = 0;</b>
+<b class="fc"><i>34</i>&nbsp;        this.occupied = false;</b>
+<b class="fc"><i>35</i>&nbsp;        this.isDome = false;</b>
+<b class="fc"><i>36</i>&nbsp;    }</b>
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    /**
+<i>40</i>&nbsp;     * @author Andrea Gerosa
+<i>41</i>&nbsp;     *
+<i>42</i>&nbsp;     * Sets the LightBlock with the informations of the original Block.
+<i>43</i>&nbsp;     *
+<i>44</i>&nbsp;     * @param block
+<i>45</i>&nbsp;     */
+<i>46</i>&nbsp;    public void setLightBlock(Block block) {
+<b class="fc"><i>47</i>&nbsp;        this.level = block.getLevel();</b>
+<b class="fc"><i>48</i>&nbsp;        this.c = block.getCoordinate();</b>
+<b class="fc"><i>49</i>&nbsp;        this.occupied = block.getOccupied();</b>
+<b class="fc"><i>50</i>&nbsp;        this.isDome = block.getIsDome();</b>
+<b class="fc"><i>51</i>&nbsp;        this.color = block.getWorkerColor();</b>
+<b class="fc"><i>52</i>&nbsp;        this.idworker = block.getWorker();</b>
+<b class="fc"><i>53</i>&nbsp;    }</b>
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    /**
+<i>56</i>&nbsp;     * @return the Id of the worker occupying this block
+<i>57</i>&nbsp;     */
+<i>58</i>&nbsp;    public int getIdWorker() {
+<b class="fc"><i>59</i>&nbsp;        return idworker;</b>
+<i>60</i>&nbsp;    }
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    /**
+<i>63</i>&nbsp;     * @return color of the worker occupying this block
+<i>64</i>&nbsp;     */
+<i>65</i>&nbsp;    public Color getColor() {
+<b class="fc"><i>66</i>&nbsp;        return color;</b>
+<i>67</i>&nbsp;    }
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    public void setColor(Color color) {
+<b class="nc"><i>70</i>&nbsp;        this.color = color;</b>
+<b class="nc"><i>71</i>&nbsp;    }</b>
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;    /**
+<i>74</i>&nbsp;     * @return level of the block
+<i>75</i>&nbsp;     */
+<i>76</i>&nbsp;    public int getLevel() {
+<b class="fc"><i>77</i>&nbsp;        return level;</b>
+<i>78</i>&nbsp;    }
+<i>79</i>&nbsp;
+<i>80</i>&nbsp;    /**
+<i>81</i>&nbsp;     * @return coordinates of the block
+<i>82</i>&nbsp;     */
+<i>83</i>&nbsp;    public Coordinate getC() {
+<b class="fc"><i>84</i>&nbsp;        return c;</b>
+<i>85</i>&nbsp;    }
+<i>86</i>&nbsp;
+<i>87</i>&nbsp;    /**
+<i>88</i>&nbsp;     * @return boolean value of the occupied attribute
+<i>89</i>&nbsp;     */
+<i>90</i>&nbsp;    public boolean getOccupied() {
+<b class="fc"><i>91</i>&nbsp;        return occupied;</b>
+<i>92</i>&nbsp;    }
+<i>93</i>&nbsp;
+<i>94</i>&nbsp;    /**
+<i>95</i>&nbsp;     * @return boolean value of the isDome attribute
+<i>96</i>&nbsp;     */
+<i>97</i>&nbsp;    public boolean getIsDome() {
+<b class="fc"><i>98</i>&nbsp;        return isDome;</b>
+<i>99</i>&nbsp;    }
+<i>100</i>&nbsp;
+<i>101</i>&nbsp;    /**
+<i>102</i>&nbsp;     * method that returns a new lightBlock with the same attributes as the block given in input
+<i>103</i>&nbsp;     * @param b block of which we need a lightBloc version
+<i>104</i>&nbsp;     * @return lightBlock with the same attributes as b
+<i>105</i>&nbsp;     */
+<i>106</i>&nbsp;    public LightBlock getLightBlock(Block b){
+<b class="fc"><i>107</i>&nbsp;         LightBlock light = new LightBlock(b.getCoordinate());</b>
+<b class="fc"><i>108</i>&nbsp;         light.setLightBlock(b);</b>
+<b class="fc"><i>109</i>&nbsp;         return light;</b>
+<i>110</i>&nbsp;    }
+<i>111</i>&nbsp;
+<i>112</i>&nbsp;    /**
+<i>113</i>&nbsp;     * sets the Id of the worker occupying this block to the given one
+<i>114</i>&nbsp;     * @param idworker value that will be assigned to the Id of the worker occupying this block
+<i>115</i>&nbsp;     */
+<i>116</i>&nbsp;    public void setIdWorker(int idworker) {
+<b class="fc"><i>117</i>&nbsp;        this.idworker = idworker;</b>
+<b class="fc"><i>118</i>&nbsp;    }</b>
+<i>119</i>&nbsp;
+<i>120</i>&nbsp;    /**
+<i>121</i>&nbsp;     * sets the level of the block to the given value
+<i>122</i>&nbsp;     * @param level value that will be assigned to the level of this block
+<i>123</i>&nbsp;     */
+<b class="fc"><i>124</i>&nbsp;    public void setLevel(int level){this.level=level;}</b>
+<i>125</i>&nbsp;
+<i>126</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-07-03 18:11</div>
+</div>
+</body>
+</html>
